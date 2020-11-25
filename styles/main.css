@@ -2063,13 +2063,13 @@ body {
         margin: 0 auto;
       }
     body {
-      color: #343a40;
+      color: #212529;
     }
     .next-md-body {
-      color: #343a40;
+      color: #212529;
     }
     .next-md-body h1, .next-md-body h2 {
-      border-bottom-color: #343a40;
+      border-bottom-color: #212529;
     }
     .archive-timeline-box::after, .tag-timeline-wrapper::after {
       background: #868e96fe;
@@ -2159,16 +2159,16 @@ body {
       color: #fc6423;
       border-bottom-color: #fc6423;
     }.bg-color {
-      background-color: #f1f3f5fe;
+      background-color: #e9eceffe;
     }
     .site-meta {
-      background: #dee2e6 !important;
+      background: #495057 !important;
     }
     .head-top-line {
-      background: #dee2e6;
+      background: #495057;
     }
     .brand {
-      background: #dee2e6fe;
+      background: #343a40fe;
     }
     .main-title, .brand {
       color: #212529 !important;
