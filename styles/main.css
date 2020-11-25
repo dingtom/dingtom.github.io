@@ -2113,15 +2113,11 @@ body {
     }
     .nav-toggle .line {
       background-color:  !important;
-    }.nav-item a {
-        color: #212529;
-      }
-      .nav-item-active a {
-        color: #212529;
-        border-bottom: 1px solid #212529 !important;
+    }
+      .nav-item a {
+        color:  #212529;
       }.nav-item a:hover {
         color: #222;
-        border-bottom: 1px solid #222 !important;
       }.nav-item-active {
       background: #495057fe;
     }
