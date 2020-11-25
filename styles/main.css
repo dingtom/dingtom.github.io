@@ -2052,7 +2052,7 @@ p > code {
   }
 }
 body {
-      background-color: #495057;
+      background-color: #343a40;
     }.header {
         width: 80%;
         margin: 0 auto;
@@ -2162,19 +2162,19 @@ body {
       background-color: #dee2e6fe;
     }
     .site-meta {
-      background: #868e96 !important;
+      background: #212529 !important;
     }
     .head-top-line {
-      background: #868e96;
+      background: #212529;
     }
     .brand {
       background: #495057fe;
     }
     .main-title, .brand {
-      color: #FFF !important;
+      color: #dee2e6 !important;
     }
     .mist .site-title i {
-      background: #FFFFFFfe;
+      background: #dee2e6fe;
     }body {
       cursor: default;
     }a {
