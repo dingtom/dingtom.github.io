@@ -1,45 +1,550 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://dingtom.github.io/tomding1995.GitHub.io</id>
-    <title>Gridea</title>
-    <updated>2020-11-25T05:47:46.865Z</updated>
+    <id>https://dingtom.github.io</id>
+    <title>Tomding&apos;s Blog</title>
+    <updated>2020-11-25T07:03:11.017Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://dingtom.github.io/tomding1995.GitHub.io"/>
-    <link rel="self" href="https://dingtom.github.io/tomding1995.GitHub.io/atom.xml"/>
+    <link rel="alternate" href="https://dingtom.github.io"/>
+    <link rel="self" href="https://dingtom.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://dingtom.github.io/tomding1995.GitHub.io/images/avatar.png</logo>
-    <icon>https://dingtom.github.io/tomding1995.GitHub.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <logo>https://dingtom.github.io/images/avatar.png</logo>
+    <icon>https://dingtom.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2020, Tomding&apos;s Blog</rights>
     <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://dingtom.github.io/tomding1995.GitHub.io/post/hello-gridea/</id>
-        <link href="https://dingtom.github.io/tomding1995.GitHub.io/post/hello-gridea/">
+        <title type="html"><![CDATA[Linux命令]]></title>
+        <id>https://dingtom.github.io/post/linux-ming-ling/</id>
+        <link href="https://dingtom.github.io/post/linux-ming-ling/">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+        <updated>2020-11-25T05:55:41.000Z</updated>
+        <content type="html"><![CDATA[<p>[TOC]<br>
+Ctrl+d	键盘输入结束或退出终端<br>
+Ctrl+s	暂停当前程序，暂停后按下任意键恢复运行<br>
+Ctrl+z	将当前程序放到后台运行，恢复到前台为命令fg<br>
+Ctrl+a	将光标移至输入行头，相当于Home键<br>
+Ctrl+e	将光标移至输入行末，相当于End键<br>
+Ctrl+k	删除从光标所在位置到行末<br>
+Alt+Backspace	向前删除一个<strong>单词</strong><br>
+命令 --help  查看一些它的某个命令具体参数的作用<br>
+man 命令   显示系统手册页中的内容</p>
+<p>一行中运行多个命令。<br>
+; Command 1 ; Command 2 首先运行Command1，然后运行Command2<br>
+&amp;&amp; Command 1 &amp;&amp; Command 2 当Command1运行成功并结束，然后运行Command2<br>
+|| Command 1 || Command 2 当Command1运行失败时才运行Command2</p>
+<h1 id="文件">文件</h1>
+<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-be4aa0903719bf65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<blockquote>
+<p>bin (binaries)存放二进制可执行文件<br>
+sbin (super user binaries)存放二进制可执行文件，只有root才能访问<br>
+etc (etcetera)存放系统配置文件<br>
+usr (unix shared resources)用于存放共享的系统资源<br>
+home 存放用户文件的根目录<br>
+root 超级用户目录<br>
+dev (devices)用于存放设备文件<br>
+lib (library)存放跟文件系统中的程序运行所需要的共享库及内核模块<br>
+mnt (mount)系统管理员安装临时文件系统的安装点<br>
+boot 存放用于系统引导时使用的各种文件<br>
+tmp (temporary)用于存放各种临时文件<br>
+var (variable)用于存放运行时需要改变数据的文件</p>
+</blockquote>
+<h1 id="文件增删改查">文件增删改查</h1>
+<blockquote>
+<h4 id="mkdir">mkdir</h4>
+<p>创建目录和父目录a,b,c,d<br>
+<code>mkdir -p a/b/c/d</code><br>
+-p 建立多级目录<br>
+-m 在建立目录的时候给目录赋于权限值</p>
+</blockquote>
+<blockquote>
+<h4 id="rmdir">rmdir</h4>
+<p>删除空目录<br>
+-p 删除多级空目录</p>
+</blockquote>
+<blockquote>
+<h4 id="cp">cp</h4>
+<p>拷贝文件夹a到/tmp目录<br>
+<code>cp -rvf a/ /tmp/</code><br>
+-R 复制整个目录里的内容<br>
+-p 复制完后保持目录的权限值<br>
+-v 在复制文件的时候显示进度<br>
+-f 在复制的时候如果碰到目的文件名有重复就将原先的删除</p>
+</blockquote>
+<blockquote>
+<h4 id="mv">mv</h4>
+<p>重命名 <code>mv a.txt b.txt</code><br>
+移动文件a到/tmp目录，并重命名为b<br>
+<code>mv -vf a /tmp/b</code><br>
+-i 如果目的地有相同文件名时会出现提示<br>
+-v 在搬移文件时显示进度，在移动多文件时非常有用<br>
+-u 当移动时只有源文件比目的文件新的时候才会移动<br>
+-f 强制覆盖已有的文件</p>
+</blockquote>
+<blockquote>
+<h4 id="touch">touch</h4>
+<p>创建文件<br>
+<code>touch asd.txt</code><br>
+创建多个文件<br>
+<code>touch love_{1..10}_shiyanlou.txt</code></p>
+</blockquote>
+<blockquote>
+<h4 id="rm">rm</h4>
+<p>删除机器上的所有文件<br>
+rm -rvf /<br>
+-i 在删除文件之前需要手工确认<br>
+-v 在删除文件的时候显示信息<br>
+-r 删除目录<br>
+-f 忽略提示</p>
+</blockquote>
+<h4 id="ls">ls</h4>
+<blockquote>
+<p>-a 这个选项能显示.开头的隐藏文件<br>
+-l除文件名称外，亦将文件型态、权限、拥有者、文件大小等资讯详细列出<br>
+-t 将文件依建立时间之先后次序列出<br>
+-i 显示每个文件的inode号<br>
+-m 所有项目以逗号分隔，并填满整行行宽<br>
+-R 同时列出所有子目录层<br>
+-h 将列出文件的大小以人性化格式输出<br>
+--color=tty(2个-号)显示文件的时候以色彩提示<br>
+-full-time显示文件的详细访问时间<br>
+-lc查看文件状态修改时间</p>
+</blockquote>
+<blockquote>
+<h4 id="cat">cat</h4>
+<p>查看文本文件<br>
+如果文件很大的话，cat命令的输出结果会疯狂在终端上输出，可以多次按ctrl+c终止。<br>
+-b 显示文件内容的时候显示行数<br>
+-n 显示文件内容包括空行<br>
+-s 将多个空行合并成一个空行输出</p>
+</blockquote>
+<blockquote>
+<h4 id="tr">tr</h4>
+<p>删除、转换一段文本信息中的某些文字<br>
+-d	删除匹配的字符，注意不是全词匹配也不是按字符顺序匹配<br>
+-s	去除指定的在输入文本中连续并重复的字符<br>
+删除 &quot;hello shiyanlou&quot; 中所有的'o','l','h'<br>
+<code>echo 'hello shiyanlou' | tr -d 'olh'</code><br>
+将&quot;hello&quot; 中的ll,去重为一个l<br>
+<code>echo 'hello' | tr -s 'l'</code><br>
+将输入文本，全部转换为大写或小写输出<br>
+<code>echo 'input some text here' | tr '[:lower:]' '[:upper:]'</code><br>
+上面的'[:lower:]' '[:upper:]'你也可以简单的写作'[a-z]' '[A-Z]',当然反过来将大写变小写也是可以的</p>
+</blockquote>
+<blockquote>
+<h4 id="jion">jion</h4>
+<p>将两个文件中包含相同内容的那一行合并在一起。<br>
+-t	指定分隔符，默认为空格<br>
+-i	忽略大小写的差异<br>
+-1	指明第一个文件要用哪个字段来对比，默认对比第一个字段<br>
+-2	指明第二个文件要用哪个字段来对比，默认对比第一个字段<br>
+将/etc/passwd与/etc/group两个文件合并，指定以':'作为分隔符, 分别比对第4和第3个字段<br>
+<code>sudo join -t':' -1 4 /etc/passwd -2 3 /etc/group</code></p>
+</blockquote>
+<blockquote>
+<h4 id="paste">paste</h4>
+<p>在不对比数据的情况下，简单地将多个文件合并一起，以Tab隔开。<br>
+-d	指定合并的分隔符，默认为 Tab<br>
+-s	不合并到一行，每个文件为一行</p>
+</blockquote>
+<h4 id="less">less</h4>
+<p>针对比较大的文件，我们就可以使用less命令打开某个文件。</p>
+<p>按n(N)向下(上)查找。</p>
+<h4 id="more">more</h4>
+<p>查看文本文件命令</p>
+<p>用空格向下翻页，用b向上翻页</p>
+<blockquote>
+<p>+行数直接从给定的行数开始显示<br>
+-s 将多个空行压缩成一个空行<br>
+-p 清除屏幕后再显示</p>
+</blockquote>
+<h4 id="nano">nano</h4>
+<p>文本编辑器<br>
+命令格式：nano [选项] [行号] 文件名</p>
+<h4 id="head">head</h4>
+<p>查看文件头部</p>
+<blockquote>
+<p>-n &lt;行数&gt; 显示文件的最前指定的行<br>
+-c &lt;字节数&gt; 显示文件前N个字节数里的内容<br>
+-q 不输出文件头的内容<br>
+-v 输出文件头的内容</p>
+</blockquote>
+<h4 id="tail">tail</h4>
+<p>查看文件尾部</p>
+<blockquote>
+<p>-f 循环读取<br>
+-c &lt;字节数&gt; 显示文件前N个字节数里的内容<br>
+-q 不输出文件头的内容<br>
+-n &lt;行数&gt; 指定所显示的行数<br>
+-v 输出文件头的内容</p>
+</blockquote>
+<p><code>tail -f access.log</code></p>
+<h4 id="ln">ln</h4>
+<p>生成链接文件</p>
+<p>命令格式：ln [选项] 源文件 链接文件</p>
+<blockquote>
+<p>-f 删除已存在的目的文件<br>
+-i 如果碰到有重复名字的提示如何操作<br>
+-v 显示操作信息<br>
+-s 软链接选项</p>
+</blockquote>
+<h4 id="file">file</h4>
+<p>查看文件的类型</p>
+<h4 id="stat">stat</h4>
+<p>显示文件或文件系统状态</p>
+<p>命令格式：stat [选项] &lt;文件/目录&gt;</p>
+<blockquote>
+<p>-f:查看指定的文件系统</p>
+</blockquote>
+<p>stat可查看：<br>
+文件名 2. 文件尺寸 3. I节点号 4. 创建时间/访问时间/状态(属 主、组、权限)修改时间 5.权限 6.链接文件个数 7. 属主及属组等</p>
+<h4 id="whereis">whereis</h4>
+<p>whereis 只能查找2进制程序，文档和源码。</p>
+<h4 id="which">which</h4>
+<p>查找是否安装某个命令</p>
+<h4 id="find">find</h4>
+<p>最常用的命令，命令的路径是作为第一个参数的， 基本命令格式为 find [path][option] [action] 。<br>
+<code>sudo find /etc -name sources.list</code></p>
+<p>find -size n [c]<br>
+查找n值大小的文件,默认单位是块(1块=512字节)</p>
+<blockquote>
+<ol>
+<li>查找大于1500字节的文件<br>
+find ~ -size +1500c</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li>查找等于1500字节的文件<br>
+find ~ -size 1500c</li>
+<li>查找小于1500字节的文件<br>
+find ~ -size -1500c</li>
+<li>查找大于512k字节的文件<br>
+find ~ -size +512k</li>
+<li>查找等于1M字节的文件<br>
+find ~ -size 1M</li>
+<li>查找小于1G字节的文件<br>
+find ~ -size -1G</li>
+<li>查找大于10块的文件<br>
+find ~ -size +10</li>
+<li>查找等于10块的文件<br>
+find ~ -size -10</li>
+<li>查找大于10M小于20M的文件<br>
+find ./ -size +10M -size -20M</li>
+<li>查找小于10块的文件<br>
+find ~ -size -10</li>
+<li>查找文件/目录字节为0的文件(即空文件)<br>
+find / -empty</li>
+</ol>
+<h4 id="grep">grep</h4>
+<p>功能: 通过正则表达式查找文件中的关键字</p>
+<blockquote>
+<p>-i:忽略大小写<br>
+-c:打印匹配的行数<br>
+-C:打印出匹配的上下文(上N行,下N行)的多少行-l:列出匹配的文件名<br>
+-L:列出不匹配的文件名<br>
+-n：打印包含匹配项的行和行标<br>
+-w:仅匹配指定的单词而非关键字<br>
+-e:索引匹配字串<br>
+-r:递归查询<br>
+-v:不输出匹配的行<br>
+-A &lt;行号&gt;:显示所找的匹配字段，并显示下面指定的行数的信息<br>
+-B &lt;行号&gt;:显示所找的匹配字段，并显示上面指定的行数的信息</p>
+</blockquote>
+<p>查看nginx日志中的POST请求。<br>
+<code>grep -rn --color POST access.log</code><br>
+看某个异常前后相关的内容<br>
+<code>grep -rn --color Exception -A10 -B2 error.log</code></p>
+<h4 id="正则表达式表示方法">正则表达式表示方法:</h4>
+<blockquote>
+<p>\忽略正则表达式中特殊字符的原有含义<br>
+^ 匹配正则表达式的开始行<br>
+$ 匹配正则表达式的结束行<br>
+&lt; 从匹配正则表达式的行开始<br>
+到匹配正则表达式的行结束<br>
+[ ] 单个字符；如[A] 即A符合要求<br>
+[ n - m ] 范围 ；如[A-H]即包含A至H都符合要求<br>
+. 所有的单个字符<br>
+* 所有字符，长度可以为0</p>
+</blockquote>
+<h4 id="cut">cut</h4>
+<p>打印每一行的某一字段</p>
+<blockquote>
+<p>-d “n”:定义分界符,即点位<br>
+-f 取第几位的字符<br>
+-c:仅显示行中指定范围的字符</p>
+</blockquote>
+<p>打印/etc/passwd文件中以:为分隔符的第 1 个字段和第 6 个字段分别表示用户名和其家目录：<br>
+<code>cut /etc/passwd -d ':' -f 1,6</code><br>
+前五个（包含第五个）<br>
+<code>cut /etc/passwd -c -5</code><br>
+前五个之后的（包含第五个）<br>
+<code>cut /etc/passwd -c 5-</code></p>
+<h4 id="sort">sort</h4>
+<p>排序<br>
+-r反转<br>
+-t参数用于指定字段的分隔符<br>
+-k 字段号用于指定对哪一个字段进行排序<br>
+-n 按照数字排序,默认情况下是以字典序排序的<br>
+<code>cat /etc/passwd | sort -t':' -k 3 -n</code></p>
+<h4 id="wc">wc</h4>
+<p>计数工具<br>
+行数<br>
+<code>wc -l /etc/passwd</code><br>
+单词数<br>
+<code>wc -w /etc/passwd</code><br>
+字节数<br>
+<code>wc -c /etc/passwd</code><br>
+字符数<br>
+<code>wc -m /etc/passwd</code><br>
+最长行字节数，西文字符来说，一个字符就是一个字节，但对于中文字符一个汉字是大于 2 个字节的，具体数目是由字符编码决定的<br>
+<code>wc -L /etc/passwd</code></p>
+<h4 id="uniq">uniq</h4>
+<p>-c:在数据行前出现的次数<br>
+-d:只打印重复的行,重复的行只显示一次<br>
+-f:忽略行首的几个字段<br>
+-i:忽略大小写<br>
+-s:忽略行首的几个字母<br>
+-u:只打印唯一的行</p>
+<p>用于过滤或者输出重复行。<br>
+因为uniq命令只能去连续重复的行，不是全文去重，所以要达到预期效果，我们先排序：</p>
+<p><code>history | cut -c 8- | cut -d ' ' -f 1 | sort | uniq</code><br>
+使用频率前三的命令<br>
+<code>history |cut -c 8-|sort|uniq -dc|sort -rn -k1 |head -3</code></p>
+<h4 id="下载">下载</h4>
+<p><code>wget url</code></p>
+<p><code>sudo apt-get install axel</code></p>
+<p><code>axel -n 10 -o /tmp/ [http://testdownload.net/test.tar.gz](http://testdownload.net/test.tar.gz)</code><br>
+-n 指定线程数<br>
+-o 指定另存为目录<br>
+-s 指定每秒的最大比特数<br>
+-q 静默模式</p>
+<h1 id="系统">系统</h1>
+<p><code>who am i</code><br>
+查看用户<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-f5fab39403516fcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<p>输出的第一列表示打开当前伪终端的用户的用户名，第二列的 pts/0 中 pts 表示伪终端，所谓伪是相对于 /dev/tty 设备而言的，还记得上一节讲终端时的那七个使用 [Ctrl]+[Alt]+[F1]～[F7] 进行切换的 /dev/tty 设备么，这是“真终端”，伪终端就是当你在图形用户界面使用 /dev/tty7 时每打开一个终端就会产生一个伪终端，pts/0 后面那个数字就表示打开的伪终端序号，第三列则表示当前伪终端的启动时间。</p>
+<h4 id="用户">用户</h4>
+<p>sudo passwd lilei  设置用户lilei的密码<br>
+sudo adduser lilei 创建新用户lilei，默认为新用户在 /home 目录下创建一个工作目录<br>
+su -l lilei   切换到lilei用户<br>
+sudo deluser lilei --remove-home  删除用户</p>
+<h4 id="groups">groups</h4>
+<p>groups shiyanlou<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-190c8e54549c1881.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+其中冒号之前表示用户，后面表示该用户所属的用户组。这里可以看到 shiyanlou 用户属于 shiyanlou 用户组，每次新建用户如果不指定用户组的话，默认会自动创建一个与用户名相同的用户组<br>
+<code>cat /etc/group | grep -E &quot;shiyanlou&quot;</code><br>
+查看自己属于哪些用户组<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-51df186681c8e87f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+group_name:password:GID:user_list</p>
+<p><code>sudo usermod -G sudo lilei</code><br>
+将其它用户加入 sudo 用户组<br>
+以直接使用 root 用户为其它用户添加用户组，或者用其它已经在 sudo 用户组的用户使用 sudo 命令获取权限来执行该命令。</p>
+<h2 id="文件权限操作">文件权限操作</h2>
+<p><code>ls -l a.txt</code></p>
+<p>drwxr-xr-x  2 root root 4.0K  3月  23  2017  a.txt</p>
+<blockquote>
+<p>第1位：文件类型（d 目录，- 普通文件，l 链接文件）<br>
+r 可读权限，w可写权限，x可执行权限（也可以用二进制表示 111 110 100 --&gt; 764）<br>
+第2-4位：所属用户权限，用u（user）表示<br>
+第5-7位：所属组权限，用g（group）表示<br>
+第8-10位：其他用户权限，用o（other）表示<br>
+第2-10位：表示所有的权限，用a（all）表示</p>
+</blockquote>
+<p>2是纯数字 ，表示 文件链接个数<br>
+第一个“root” 表示文件的所有者<br>
+第二个“root” 表示为文件的所在群组<br>
+“4.0K”，表示为文件长度（大小）<br>
+“3月  23  2017”，表示文件最后更新（修改）时间<br>
+“etc” 表示文件的名称</p>
+<h4 id="chown">chown</h4>
+<p>改变文件的所属用户和所属组。</p>
+<blockquote>
+<p>-R 修改指定目录及其子目录</p>
+</blockquote>
+<p>修改a目录的用户和组为 xjj<br>
+<code>chown -R xjj:xjj a</code></p>
+<h4 id="chmod">chmod</h4>
+<p>改变文件的访问权限。</p>
+<blockquote>
+<p>u表示当前用户<br>
+g表示同组用户<br>
+o表示其他用户<br>
+a表示所有用户<br>
+r表示可读<br>
+w表示可写<br>
+x表示可执行<br>
+用数字来表示权限（r=4，w=2，x=1，-=0）,7：表示可读可写可执行，4+2+1,6：表示可读可写，4+2<br>
+-R 修改指定目录及其子目录</p>
+</blockquote>
+<p>给a.sh文件增加执行权限（这个太常用了)<br>
+<code>chmod a+x a.sh</code><br>
+g、o 还有 u 分别表示 group（用户组）、others（其他用户） 和 user（用户），+ 和 - 分别表示增加和去掉相应的权限。<br>
+<code>chmod go-rw t.txt</code></p>
+<p>####df(report file system disk space usage)<br>
+显示文件系统磁盘空间的使用情况</p>
+<blockquote>
+<p>-h 以人类可读的方式显示，KD，Mb，GB等</p>
+</blockquote>
+<h4 id="du-estimate-file-space-usage">du  (estimate file space usage)</h4>
+<p>显示指定的目录及其子目录已使用的磁盘空间的总和</p>
+<blockquote>
+<p>-s显示指定目录的总和<br>
+-a  显示目录中所有文件的大小。<br>
+-h以人类可读的方式显示，Kb，Mb，G8等<br>
+-d参数指定查看目录的深度 # 只查看1级目录的信息<br>
+-d 0 ~<br>
+查看文件大小<br>
+<code>du -h file</code></p>
+</blockquote>
+<h4 id="dd">dd</h4>
+<p>转换和复制文件,也可以用在备份硬件的引导扇区、获取一定数量的随机数据或者空数据等任务中。</p>
+<p>dd默认从标准输入中读取，并写入到标准输出中，但可以用选项if（input file，输入文件）和of（output file，输出文件）改变。</p>
+<p>bs（block size）用于指定块大小（缺省单位为 Byte，也可为其指定如'K'，'M'，'G'等单位），<br>
+count用于指定块数量。<br>
+conv=ucase  将输出的英文字符转换为大写再写入文件</p>
+<p>输出到test文件<br>
+<code>dd of=test bs=10 count=1</code><br>
+输出到标准输出<br>
+<code>dd if=/dev/stdin of=/dev/stdout bs=10 count=1</code></p>
+<h4 id="mount">mount</h4>
+<p>-o 操作选项<br>
+-t 文件系统类型<br>
+-w|--rw|--ro权限</p>
+<p>从/dev/zero设备创建一个容量为 256M 的空文件：<br>
+<code>dd if=/dev/zero of=virtual.img bs=1M count=256</code><br>
+格式化磁盘：<br>
+<code>sudo mkfs.ext4 virtual.img</code><br>
+挂载我们创建的虚拟磁盘镜像到/mnt目录：<br>
+<code>mount -o loop -t ext4 virtual.img /mnt</code></p>
+<p>卸载已挂载磁盘<br>
+<code>sudo umount /mnt</code></p>
+<h4 id="free">free</h4>
+<p>显示当前内存和交换空间的使用情况</p>
+<h4 id="date">date</h4>
+<p>显示系统当前时间</p>
+<h4 id="top">top</h4>
+<p>显示当前系统中耗费资源最多的进程<br>
+查看某个进程中的线程状态<br>
+<code>top -H -p pid</code></p>
+<h4 id="ps">ps</h4>
+<p>较少单独使用，配参数根据需求，ps ef或者ps-aux</p>
+<blockquote>
+<p>-e 显示所有选程，环境变量<br>
+-f 全格式显示<br>
+-a 显示所有用户的所有进程（包括其它用户）<br>
+-u 按用户名和启动时间的顺序来显示进程<br>
+-x 显示无控制终端的进程</p>
+</blockquote>
+<h4 id="kill">kill</h4>
+<blockquote>
+<p>-9 kill -9 pid强制杀死一个进程</p>
+</blockquote>
+<h4 id="ifconfig">ifconfig</h4>
+<p>网卡网络配置，常用于查看当前IP地址<br>
+ifconfig etho 192.168.12.22 修改系统IP（重品后失效）</p>
+<h4 id="ping">ping</h4>
+<p>ping baidu.com 测试网络的连通</p>
+<h4 id="hostname">hostname</h4>
+<p>查看主机名</p>
+<h4 id="关机">关机</h4>
+<blockquote>
+<p><code>sudo shutdown now</code><br>
+<code>sudo reboot now</code><br>
+<code>shutdown -c</code>取消关机   <br>
+<code>shutdown -p</code>立即关机，无提示、延时<br>
+<code>shutdown -s</code>关机<br>
+<code>shutdown -r</code>重启<br>
+<code>shutdown -f</code>强行关闭应用程序<br>
+<code>shutdown -l</code>注销当前用户<br>
+<code>shutdown -s -t</code> 设置关机倒计时<br>
+<code>shutdown -h</code>休眠</p>
+</blockquote>
+<h4 id="export">export</h4>
+<p>设定一些环境变量，env命令能看到当前系统中所有的环境变量。比如，下面设置的就是jdk的。<br>
+<code>export PATH=$PATH:/home/xjj/jdk/bin</code><br>
+<code>source</code>命令来让其立即生效<br>
+set	显示当前 Shell 所有变量，包括<strong>其内建环境变量，用户自定义变量及导出的环境变量。</strong><br>
+env	显示与当前用户相关的环境变量，还可以让命令在指定环境中运行。<br>
+export	显示从 Shell 中导出成环境变量的变量，也能通过它将自定义变量导出为环境变量。</p>
+<p>/etc/bashrc（有的 Linux 没有这个文件） 和 /etc/profile ，它们分别存放的是 shell 变量和环境变量。<br>
+<code>unset</code><br>
+命令删除一个环境变量</p>
+<h1 id="压-解缩">压、解缩</h1>
+<blockquote>
+<h4 id="gzip">gzip</h4>
+<p>压缩文件成者文件夹<br>
+-d解压缩文件</p>
+</blockquote>
+<blockquote>
+<h4 id="zip">zip</h4>
+<p>将目录 /home/shiyanlou/Desktop 打包成一个文件<br>
+<code>zip -r -9 -q -o -l shiyanlou.zip /home/shiyanlou/Desktop</code><br>
+-r 参数表示递归打包包含子目录的全部内容，9 压缩级别最大1 最小,<br>
+-q 参数表示为安静模式，即不向屏幕输出信息，<br>
+-o，表示输出文件,<br>
+-l 参数将 LF 转换为 CR+LF 来达到win/linux兼容。</p>
+<h4 id="unzip">unzip</h4>
+<p>将文件解压到指定目录：<br>
+<code>unzip -q shiyanlou.zip -d ziptest</code><br>
+-q 使用安静模式<br>
+-d指定路径<br>
+-l 不解压只想查看压缩包的内容<br>
+-O（英文字母，大写 o）参数指定编码类型：(win默认会采用 GBK , Linux 默认 UTF-8 )<br>
+unzip -O GBK 中文压缩文件.zip</p>
+</blockquote>
+<blockquote>
+<h4 id="tar">tar</h4>
+<p><code>tar -xzf shiyanlou.tar.gz -C tardir</code><br>
+压缩文件格式<code>-z/*.tar.gz</code>，<code>-J/*.tar.xz</code>	，<code>-j/*tar.bz2</code><br>
+-P 保留绝对路径符<br>
+-v压缩的过程中显示文件<br>
+-c 表示创建一个 tar 包文件<br>
+-f 用于指定创建的文件名，件名必须紧跟在 -f 参数之后<br>
+-p在其他主机还原时希望保留文件的属性<br>
+-h 备份链接指向的源文件而不是链接本身<br>
+-x解包一个文件<br>
+-C 指定保存路径<br>
+-t只查看不解包文件</p>
+</blockquote>
+<h1 id="vim">VIM</h1>
+<p><img src="https://upload-images.jianshu.io/upload_images/18339009-de0ac15d12403184.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+修改文本<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-b6f40fe5095da55e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+定位命令<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-40f8d2a91c245485?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image" loading="lazy"><br>
+替换和取消命令<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-3192c0b29770869f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+删除命令<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-52358b7bd810c2b8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+常用快捷键<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-c8dc68e3552b4958?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<h4 id="alias">alias</h4>
+<p><code>alias a='find . -size +10M -type f -print0 | xargs -0 ls -Ssh | sort -z'</code></p>
+<h4 id="关闭防火墙">关闭防火墙</h4>
+<p>systemctl stop firewalld.service</p>
+<h4 id="禁止防火墙开机启动">禁止防火墙开机启动</h4>
+<p>systemctl disable firewalld.service</p>
+<h4 id="关闭selinux">关闭SELinux</h4>
+<p>nano -w /etc/selinux/config<br>
+将SELINUX=enforcing改为SELINUX=disabled保存并退出:^x-&gt;y-&gt;回车</p>
+<h1 id="计划任务">计划任务</h1>
+<p>查看添加了哪些任务<code>crontab -l</code><br>
+添加一个计划任务<code>crontab -e</code><br>
+删除任务<code>crontab -r</code><br>
+<code>分 小时 天 月 星期 user-name command to be executed</code></p>
+<p>启动 rsyslog，以便我们可以通过日志中的信息来了解我们的任务是否真正的被执行了<br>
+<code>sudo apt-get install -y rsyslog</code><br>
+<code>sudo service rsyslog start</code>( Ubuntu 会默认自行启动不需要手动启动)<br>
+<code>sudo cron －f &amp;</code>(实验环境中 crontab 也是不被默认启动的，同时不能在后台由 upstart 来管理，所以需要我们来启动它)</p>
+<p>每分钟我们会在/home/shiyanlou 目录下创建一个以当前的年月日时分秒为名字的空白文件<br>
+<code>*/1 * * * * touch /home/shiyanlou/$(date +\%Y\%m\%d\%H\%M\%S)</code></p>
+<blockquote>
+<p>“ % ” 在 crontab 文件中，有结束命令行、换行、重定向的作用，前面加 ” \ ” 符号转义，否则，“ % ” 符号将执行其结束命令行或者换行的作用，并且其后的内容会被做为标准输入发送给前面的命令。</p>
+</blockquote>
+<p>查看到执行任务命令之后在日志中的信息反馈<br>
+<code>sudo tail -f /var/log/syslog</code></p>
+<h4 id="有选择的执行命令">有选择的执行命令</h4>
+<p><code>which cowsay&gt;/dev/null &amp;&amp; echo &quot;exist&quot; || echo &quot;not exist&quot;</code><br>
+<code>&amp;&amp;就是用来实现选择性执行的，它表示如果前面的命令执行结果（不是表示终端输出的内容，而是表示命令执行状态的结果）返回 0 则执行后面的，否则不执行，你可以从$?环境变量获取上一次命令的返回结果</code><br>
+<code>||在这里就是与&amp;&amp;相反的控制效果，当上一条命令执行结果为 ≠0($?≠0)时则执行它后面的命令</code><br>
+echo $?</p>
 ]]></content>
     </entry>
 </feed>
