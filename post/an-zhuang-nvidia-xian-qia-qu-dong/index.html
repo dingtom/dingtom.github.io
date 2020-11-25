@@ -1,0 +1,296 @@
+<!doctype html>
+<html amp lang="">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="查看显卡型号
+lsb_release -a
+更新PCI ID数据库
+update-pciids
+lspci | grep -i nvidia
+驱动安装
+wget https://us.download.nvidia.com/XFree86/..." />
+<link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
+<link rel="preconnect dns-prefetch" href="https://cdn.jsdelivr.net/" crossorigin>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+<title>安装nvidia显卡驱动 | Tomding&#39;s Blog</title>
+
+
+  
+
+    
+
+
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+<noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+<link rel="canonical" href="https://dingtom.github.io/post/an-zhuang-nvidia-xian-qia-qu-dong/" />
+<link rel="shortcut icon" href="https://dingtom.github.io/favicon.ico?v=1606289781183">
+
+<meta name="author" content="">
+
+<meta itemprop="name" content="安装nvidia显卡驱动 | Tomding&#39;s Blog">
+<meta itemprop="description" content="查看显卡型号
+lsb_release -a
+更新PCI ID数据库
+update-pciids
+lspci | grep -i nvidia
+驱动安装
+wget https://us.download.nvidia.com/XFree86/...">
+<meta itemprop="image" content="">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="安装nvidia显卡驱动 | Tomding&#39;s Blog">
+<meta name="twitter:description" content="查看显卡型号
+lsb_release -a
+更新PCI ID数据库
+update-pciids
+lspci | grep -i nvidia
+驱动安装
+wget https://us.download.nvidia.com/XFree86/...">
+<meta name="twitter:image" content="" />
+<meta name="twitter:image:alt" content="安装nvidia显卡驱动 | Tomding&#39;s Blog" />
+
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dingtom.github.io/post/an-zhuang-nvidia-xian-qia-qu-dong/">
+<meta property="og:title" content="安装nvidia显卡驱动 | Tomding&#39;s Blog">
+<meta property="og:description" content="查看显卡型号
+lsb_release -a
+更新PCI ID数据库
+update-pciids
+lspci | grep -i nvidia
+驱动安装
+wget https://us.download.nvidia.com/XFree86/...">
+<meta property="og:image" content="">
+<meta property="og:image:alt" content="安装nvidia显卡驱动 | Tomding&#39;s Blog" />
+<meta property="og:site_name" content="Tomding&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="tag" content="安装nvidia显卡驱动 | Tomding&#39;s Blog" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="alternate" type="application/atom+xml" title="安装nvidia显卡驱动 | Tomding&#39;s Blog - Atom Feed" href="https://dingtom.github.io/atom.xml">
+
+
+
+  
+
+
+
+  
+
+
+</head>
+
+<body>
+  <input type="checkbox" id="header-menu-button">
+  <header id="commonTop">
+  <div class="top-container">
+    <div class="title-menus-area">
+      <a class="blog-title" href="https://dingtom.github.io">Tomding&#39;s Blog</a>
+      <label for="header-menu-button" class="top-menus">
+        <nav class="menu-menu-1-container">
+          <ul id="menu-menu-1" class="menu">
+            
+            
+            <li>
+              <a href="/" aria-current="page">首页</a></li>
+            
+            
+            
+            <li>
+              <a href="/archives" aria-current="page">归档</a></li>
+            
+            
+            
+            <li>
+              <a href="/tags" aria-current="page">标签</a></li>
+            
+            
+            
+            <li>
+              <a href="/post/about" aria-current="page">关于</a></li>
+            
+            
+          </ul>
+        </nav>
+      </label>
+    </div>
+    
+  </div>
+</header>
+  <main>
+    <div class="main-container">
+
+      <div class="article-info">
+        
+          <div class="flex-box meta-category">
+            <a class="post-cate" href="https://dingtom.github.io/tag/eaRjuF2eR/">Linux</a></div>
+          
+        <h2 class="article-title">
+          <a href="https://dingtom.github.io/post/an-zhuang-nvidia-xian-qia-qu-dong/">安装nvidia显卡驱动</a>
+        </h2>
+        <div class="flex-box">
+          <div class="flex-box post-meta-box">
+            <a class="post-meta" href="https://dingtom.github.io"><span
+                class="iconfont icon-mr-postmeta"></span></a>
+            <span class="post-meta"><span class="iconfont icon-mr-postmeta"></span>2020 年 11	月 25日</span>
+            
+
+
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <p>查看显卡型号<br>
+<code>lsb_release -a</code></p>
+<p>更新PCI ID数据库<br>
+<code>update-pciids</code><br>
+<code>lspci | grep -i nvidia</code></p>
+<p>驱动安装<br>
+<code>wget https://us.download.nvidia.com/XFree86/Linux-x86_64/455.23.04/NVIDIA-Linux-x86_64-455.23.04.run</code><br>
+查看TMPDIR目录是否报错<br>
+<code>echo $TMPDIR</code></p>
+<p>安装驱动</p>
+<p><code>sudo bash NVIDIA-Linux-x86_64-455.23.04.run</code></p>
+<p>禁用nouveau<br>
+<code>lsmod | grep nouveau</code></p>
+<p><code>vim /etc/modprobe.d/blacklist.conf</code>添加<br>
+<code>blacklist nouveau</code></p>
+<p><code>sudo update-initramfs -u</code></p>
+<p><code>sudo reboot now</code></p>
+<p>查看显卡信息<br>
+<code>nvidia-smi</code></p>
+<h1 id="安装cuda">安装cuda</h1>
+<p><a href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal">download</a></p>
+<h6 id="查看cuda版本">查看cuda版本</h6>
+<p><code>nvcc -V</code><br>
+不显示</p>
+<blockquote>
+<p>首先，查看cuda的bin目录下是否有nvcc：<br>
+<code>ls /usr/local/cuda/bin</code><br>
+如果存在，直接将cuda路径加入系统路径即可：<br>
+<code>vim ~/.bashrc</code>进入配置文件；<br>
+添加以下两行：<br>
+<code>export PATH=/usr/local/cuda/bin:$PATH</code><br>
+<code>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</code><br>
+然后更新配置文件：<br>
+<code>source ~/.bashrc</code></p>
+</blockquote>
+<h1 id="安装cudnn">安装cudnn</h1>
+<p><a href="https://developer.nvidia.com/rdp/cudnn-archive">download</a><br>
+<code>tar -xvf cudnn-8.0-linux-x64-v5.1.tgz</code><br>
+安装cuDNN比较简单，解压后把相应的文件拷贝到对应的CUDA目录下即可</p>
+<p><code>sudo cp cuda/include/cudnn.h /usr/local/cuda/include/</code><br>
+<code>sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/</code><br>
+<code>sudo chmod a+r /usr/local/cuda/include/cudnn.h</code><br>
+<code>sudo chmod a+r /usr/local/cuda/lib64/libcudnn*</code></p>
+<h1 id="卸载显卡驱动重新安装">卸载显卡驱动重新安装</h1>
+<p>命令行界面<br>
+Ctrl+Alt+F1</p>
+<p><code>sudo apt-get --purge remove nvidia*</code></p>
+<p><code>sudo apt autoremove</code></p>
+<p>To remove CUDA Toolkit:<br>
+<code>sudo apt-get --purge remove &quot;*cublas*&quot; &quot;cuda*&quot;</code><br>
+To remove NVIDIA Drivers:<br>
+<code>sudo apt-get --purge remove &quot;*nvidia*&quot;</code></p>
+
+      </div>
+
+      
+      <nav class="post-nav">
+        
+        
+        <div class="nav-next">
+          <a class="post-nav-link-active" title="Ubuntu安装Samba分享文件夹" href="https://dingtom.github.io/post/ubuntu-an-zhuang-samba-fen-xiang-wen-jian-jia/">下一篇文章</a>
+          
+
+        </div>
+      </nav>
+      
+
+      
+      
+
+      <div class="post-tags">
+        
+        <a href="https://dingtom.github.io/tag/eaRjuF2eR/" rel="tag">Linux</a>        
+               
+      </div>
+
+
+        
+
+    </div>
+
+    <div class="sidebar">
+  <aside id="profile-2" class="widget widget_profile">
+    <div class="profile-box">
+      <div class="profile-avatar">
+        <amp-img src="https://dingtom.github.io/images/avatar.png?v=1606289781183" alt="avatar"
+          layout="fill"></amp-img>
+      </div>
+      <div class="profile-content">
+        <div class="amp-wp-681d4ff">
+          温故而知新
+        </div>
+
+      </div>
+    </div>
+  </aside>
+  
+    
+  
+     
+
+
+  <aside id="linkcat-2" class="widget widget_links">
+  <h4 class="widget-title">友链</h4>
+  <ul class="xoxo blogroll">
+    
+  </ul>
+</aside>
+
+
+</div>
+    <div class="scrolltop-wrap">
+  <span tabindex="0" role="button" class="go-top" on="tap:commonTop.scrollTo(duration=500, position=top)">
+    <span class="iconfont"></span>
+  </span>
+</div>
+  </main>
+  <footer>
+  <div class="footer-container">
+    <div class="footer-menus">
+    </div>
+    <div class="footer-copyright">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+      
+      
+
+    </div>
+  </div>
+</footer>
+
+
+  
+
+
+</body>
+
+</html>
