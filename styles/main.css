@@ -2052,7 +2052,7 @@ p > code {
   }
 }
 body {
-      background-color: #868e96;
+      background-color: #adb5bd;
     }.header {
         width: 960px;
         margin: 0 auto;
@@ -2074,19 +2074,19 @@ body {
     .archive-timeline-box::after, .tag-timeline-wrapper::after {
       background: #868e96fe;
     }h1, h2, h3, h4, h5, h6 {
-      color: #555;
+      color: #212529;
     }
     
     .archive-timeline-title::before {
-      background-color: #555;
+      background-color: #212529;
     }
     
     .post-title-link::before {
-      background-color: #555;
+      background-color: #212529;
     }
     
     .node-title::before {
-      background-color: #555;
+      background-color: #212529;
     }a {
       color: #555;
     }
