@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="温故而知新">
-<meta name="theme-color" content="#000">
+<meta name="theme-color" content="#868e96">
 <title>Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1606293841757">
+<link rel="shortcut icon" href="/favicon.ico?v=1606294324624">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -63,7 +63,7 @@
           
         </div>
         
-          <p class="subtitle">精于心，简于形</p>
+          <p class="subtitle">温故而知新</p>
         
       </div>
       <nav class="site-nav" id="site_nav">
@@ -179,6 +179,15 @@
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
     <p class="site-author-name">Tomding</p>
     
+    <div class="site-description right-motion">
+      
+      
+      
+        <p>小菜鸡一只</p>
+      
+      
+    </div>
+    
   </div>
   <div class="sidebar-item side-item-stat right-motion">
     <div class="sidebar-item-box">
@@ -203,10 +212,22 @@
   </div>
   
     
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://dingtom.github.io/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
   
   
 
 
+
+  <div style="width: 100%; position: relative;">
+    <canvas id="canvasDiyBlock" style="width:100%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+    <script src="/media/js/magic/clock.js"></script>
+  </div>
 
 </div>
 </div>
@@ -273,33 +294,6 @@
         
         
           
-            <!-- 没有手动摘要切开启了自动摘要,则根据配置筛除摘要内容 -->
-            
-            
-              
-              
-              
-            
-              
-              
-              
-            
-              
-              
-              
-            
-            
-              <p><p>查看显卡型号<br>
-<code>lsb_release -a</code></p>
-<p>更新PCI ID数据库<br>
-
-                
-                  <!-- 自动摘要出来的内容有<code则补上结尾,防止格式错误 -->
-                  </code></pre>
-                
-              <p>
-            
-          
         
         
         <div class="post-button text-center">
@@ -358,33 +352,6 @@
       <div class="post-body">
         
         
-          
-            <!-- 没有手动摘要切开启了自动摘要,则根据配置筛除摘要内容 -->
-            
-            
-              
-              
-              
-            
-              
-              
-              
-            
-              
-              
-              
-            
-            
-              <p><p>安装samba服务器。<br>
-<code>sudo apt-get install samba samba-common</code><br>
-创建一个用于分享的samba目录。<br>
-
-                
-                  <!-- 自动摘要出来的内容有<code则补上结尾,防止格式错误 -->
-                  </code></pre>
-                
-              <p>
-            
           
         
         
@@ -445,33 +412,6 @@
         
         
           
-            <!-- 没有手动摘要切开启了自动摘要,则根据配置筛除摘要内容 -->
-            
-            
-              
-              
-              
-            
-              
-              
-              
-            
-              
-              
-              
-            
-            
-              <p><p><code>#!/bin/bash</code> <br>
-######! 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种 Shell。 <code>chmod +x ./test.sh</code> #使脚本具有执行权限 <code>./test.sh</code> #执行脚本 注意，一定要写成 ./test.sh，而不是 <a href="http://test.sh/">test.sh</a>，运行其它二进制的程序也一样，直接写 <a href="http://test.sh/">test.sh</a>，linux 系统会去 PATH 里寻找有没有叫 <a href="http://test.sh/">test.sh</a> 的，而只有 /bin, /sbin, /usr/bin，/usr/sbin 等在 PATH 里，你的当前目录通常不在 PATH 里，所以写成 <a href="http://test.sh/">test.sh</a> 是会找不到命令的，要用 ./test.sh 告诉系统说，就在当前目录找。</p>
-<p><code>/bin/sh test.sh</code> # 这种方式运行的脚本，不需要在第一行指定解释器信息，写了也没用。</p>
-
-                
-                  <!-- 自动摘要出来的内容有<code则补上结尾,防止格式错误 -->
-                  </code></pre>
-                
-              <p>
-            
-          
         
         
         <div class="post-button text-center">
@@ -531,30 +471,6 @@
         
         
           
-            <!-- 没有手动摘要切开启了自动摘要,则根据配置筛除摘要内容 -->
-            
-            
-              
-              
-              
-            
-              
-              
-              
-            
-              
-              
-              
-            
-            
-              <p><p>[TOC]<br>
-Ctrl+d	键盘输入结束或退出终端<br>
-Ctrl+s	暂停当前程序，暂停后按下任意键恢复运行<br>
-
-                
-              <p>
-            
-          
         
         
         <div class="post-button text-center">
@@ -611,6 +527,48 @@ Ctrl+s	暂停当前程序，暂停后按下任意键恢复运行<br>
   </div>
   
   
+  
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <div class="aplayer" id="aplayer"></div>
+  <script>
+  let musics = JSON.parse('[]');
+  let mediaMusic = [];
+  for (let i = 0; i < musics.length; i++) {
+    let item = musics[i];
+    mediaMusic.push({
+      name: item.musicName,
+      artist: item.author,
+      url: item.musicLink,
+      lrc: item.lrc,
+      cover: item.cover
+    });
+  }
+
+  const ap = new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      lrcType: 3,
+      listFolded: false,
+      listMaxHeight: 90,
+      audio: mediaMusic
+  });
+  window.addEventListener('load', function() {
+    let postBody = document.querySelector('#post_body');
+    let hs = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+    postBody && hs.forEach(h => {
+      let helems = postBody.querySelectorAll(h);
+      if (helems.length > 0) {
+        helems.forEach(elem => {
+          elem.id = encodeURI(elem.id);
+        })
+      }
+    })
+  })
+  </script>
+
+
   
 </div>
 <script>
@@ -740,7 +698,7 @@ Ctrl+s	暂停当前程序，暂停后按下任意键恢复运行<br>
   }
 
   // 链接跳转
-  let newWindow = 'false'
+  let newWindow = 'true'
   if (newWindow === 'true') {
     let links = document.querySelectorAll('.post-body a')
     links.forEach(item => {
@@ -2054,16 +2012,22 @@ echo $?&lt;/p&gt;
 </script>
 <script src="/media/js/motion.js"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-<script>
-  var scroll = new SmoothScroll('a[href*="#"]', {
-    speed: 200
-  });
-</script>
+
+<script src="/media/js/mouse/peace.js"></script>
 
 
 
 
+  <div class="snow-container"></div>
+  <script src="/media/js/bg/canvas-nest.js"></script>
+  <script>
+  const config = {
+    color: '255,0,0',
+    count: 88,
+  };
+  // Using config rendering effect at 'element'.
+  const cn = new CanvasNest(document.querySelector('.snow-container'), config);
+  </script>
 
 
 </html>
