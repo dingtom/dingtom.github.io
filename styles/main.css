@@ -2162,13 +2162,13 @@ body {
       background-color: #dee2e6fe;
     }
     .site-meta {
-      background: #212529 !important;
+      background: #495057 !important;
     }
     .head-top-line {
-      background: #212529;
+      background: #495057;
     }
     .brand {
-      background: #495057fe;
+      background: #212529fe;
     }
     .main-title, .brand {
       color: #e9ecef !important;
