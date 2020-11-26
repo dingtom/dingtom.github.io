@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-11-26T00:39:07.236Z</updated>
+    <updated>2020-11-26T00:58:07.801Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -10,6 +10,228 @@
     <logo>https://dingtom.github.io/images/avatar.png</logo>
     <icon>https://dingtom.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Tomding&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[markdwon]]></title>
+        <id>https://dingtom.github.io/post/markdwon/</id>
+        <link href="https://dingtom.github.io/post/markdwon/">
+        </link>
+        <updated>2020-11-26T00:56:57.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="生成目录">生成目录</h1>
+<pre><code>[TOC]
+</code></pre>
+<p>[TOC]</p>
+<h1 id="to-do-list">To Do List</h1>
+<pre><code>- [x] 学习python基础 【减号+[+空格或x+]+空格】
+- [ ] 学习python网络编程
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-58fe77302ab071f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png" loading="lazy"></figure>
+<h1 id="横线">横线</h1>
+<pre><code>---
+</code></pre>
+<hr>
+<h1 id="删除线">删除线</h1>
+<pre><code>~~哈哈~~
+</code></pre>
+<p><s>哈哈</s></p>
+<h1 id="列表点号">列表点号</h1>
+<pre><code>- 
+</code></pre>
+<ul>
+<li></li>
+</ul>
+<h1 id="表格">表格</h1>
+<pre><code>|Theme name|Value|Directive|
+|:-:|:-:|:-:|
+|***Default***|default|`&lt;!-- $theme: default --&gt;`
+|**Gaia**|gaia|`&lt;!-- $theme: gaia --&gt;`
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Theme name</th>
+<th style="text-align:center">Value</th>
+<th style="text-align:left">Directive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em><strong>Default</strong></em></td>
+<td style="text-align:center">default</td>
+<td style="text-align:left"><code>&lt;!-- $theme: default --&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Gaia</strong></td>
+<td style="text-align:center">gaia</td>
+<td style="text-align:left"><code>&lt;!-- $theme: gaia --&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code>&lt;table&gt;
+    &lt;tr&gt;&lt;th rowspan=4&gt;会员登记表&lt;/th&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;th colspan=3&gt;个人信息&lt;/th&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;张三&lt;/td&gt;&lt;td&gt;男&lt;/td&gt;&lt;td&gt;25&lt;/td&gt;&lt;td&gt;未婚&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;李四&lt;/td&gt;&lt;td&gt;女&lt;/td&gt;&lt;td&gt;35&lt;/td&gt;&lt;td&gt;已婚&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;王五&lt;/td&gt;&lt;td&gt;男&lt;/td&gt;&lt;td&gt;45&lt;/td&gt;&lt;td&gt;离异&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<h1 id="标注颜色">标注颜色</h1>
+<pre><code>==word==
+</code></pre>
+<p><mark>word</mark></p>
+<h1 id="设置背景">设置背景</h1>
+<pre><code>![bg](http://img0.imgtn.bdimg.com/it/u=1377132983,1746819781&amp;fm=26&amp;gp=0.jpg)
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="http://img0.imgtn.bdimg.com/it/u=1377132983,1746819781&amp;fm=26&amp;gp=0.jpg" alt="bg" loading="lazy"></figure>
+<h1 id="设置文字背景">设置文字背景</h1>
+<pre><code>&lt;span style=&quot;background-color:yellow;&quot;&gt;yellow marker highlight&lt;/span&gt;
+</code></pre>
+<p><span style="background-color:yellow;">yellow marker highlight</span></p>
+<h1 id="区块引用">区块引用</h1>
+<pre><code>* python
+&gt; 一种编程语言
+
+&gt; 一级引用
+&gt;&gt; 二级引用
+&gt;&gt;&gt; 三级引用
+
+</code></pre>
+<ul>
+<li>python</li>
+</ul>
+<blockquote>
+<p>一种编程语言</p>
+</blockquote>
+<blockquote>
+<p>一级引用</p>
+<blockquote>
+<p>二级引用</p>
+<blockquote>
+<p>三级引用</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="链接">链接</h1>
+<pre><code>[Yuki Hattori](https://github.com/yhatt)
+</code></pre>
+<p><a href="https://github.com/yhatt">Yuki Hattori</a></p>
+<h1 id="锚点">锚点</h1>
+<p>跳转需要按住ctrl</p>
+<pre><code># titleA //这是个一级标题，锚点
+
+[titleA](#titleA) //这是锚点引用格式
+</code></pre>
+<p><a href="#%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95">生成目录</a> //这是锚点引用格式<br>
+#注脚</p>
+<pre><code>使用 Markdown[^1]可以效率的书写文档, 直接转换成 HTML[^2], 你可以使用 Leanote[^Le] 编辑器进行书写。
+[^1]:Markdown是一种纯文本标记语言
+[^2]:HyperText Markup Language 超文本标记语言
+[^Le]:开源笔记平台，支持Markdown和笔记直接发为博文
+</code></pre>
+<p>使用 Markdown<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>可以效率的书写文档, 直接转换成 HTML<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>, 你可以使用 Leanote<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup> 编辑器进行书写。</p>
+<h1 id="定义图片尺寸">定义图片尺寸</h1>
+<pre><code>&lt;img width = '150' height ='150' src =&quot;https://tse2-mm.cn.bing.net/th?id=OIP.rF3VYN1CRvtyWBPU0I7kyQDMEy&amp;p=0&amp;pid=1.1&quot;/&gt;
+</code></pre>
+<img width = '150' height ='150' src ="https://tse2-mm.cn.bing.net/th?id=OIP.rF3VYN1CRvtyWBPU0I7kyQDMEy&p=0&pid=1.1"/>
+<h1 id="图片居中">图片居中</h1>
+<pre><code>&lt;div align=center&gt;&lt;img width = '150' height ='150' src =&quot;https://tse2-mm.cn.bing.net/th?id=OIP.rF3VYN1CRvtyWBPU0I7kyQDMEy&amp;p=0&amp;pid=1.1&quot;/&gt;&lt;/div&gt;
+</code></pre>
+<div align=center><img width = '150' height ='150' src ="https://tse2-mm.cn.bing.net/th?id=OIP.rF3VYN1CRvtyWBPU0I7kyQDMEy&p=0&pid=1.1"/></div>
+# 插入视频
+```
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478901&auto=1&height=66"></iframe>
+```
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478901&auto=1&height=66"></iframe>
+# 插入音乐
+```
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ilg3gGewQ5U" frameborder="0" allowfullscreen></iframe>
+```
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ilg3gGewQ5U" frameborder="0" allowfullscreen></iframe>
+# 设置字体
+```
+<font face="黑体">我是黑体字</font>
+<font face="微软雅黑">我是微软雅黑</font>
+<font face="STCAIYUN">我是华文彩云</font》
+<font face="黑体" color=green size=5>我是黑体，绿色，尺寸为5</font>
+```
+<font face="黑体">我是黑体字</font>
+<font face="微软雅黑">我是微软雅黑</font>
+<font face="STCAIYUN">我是华文彩云</font》
+<font face="黑体" color=green size=5>我是黑体，绿色，尺寸为5</font>
+<h1 id="emoj表情">emoj表情</h1>
+<p>https://github.com/guodongxiaren/README/blob/master/emoji.md</p>
+<h1 id="首行缩进">首行缩进</h1>
+<pre><code>半方大的空白&amp;ensp;或&amp;#8194;
+全方大的空白&amp;emsp;或&amp;#8195;
+不断行的空白格&amp;nbsp;或&amp;#160;
+</code></pre>
+<p>flow<br>
+st=&gt;start: Start:&gt;https://www.zybuluo.com<br>
+io=&gt;inputoutput: verification<br>
+op=&gt;operation: Your Operation<br>
+cond=&gt;condition: Yes or No?<br>
+sub=&gt;subroutine: Your Subroutine<br>
+e=&gt;end<br>
+st-&gt;io-&gt;op-&gt;cond<br>
+cond(yes)-&gt;e<br>
+cond(no)-&gt;sub-&gt;io</p>
+<h1 id="绘图">绘图</h1>
+<p><a href="https://blog.csdn.net/qq_18150255/article/details/88043774">https://blog.csdn.net/qq_18150255/article/details/88043774</a><br>
+<a href="https://blog.csdn.net/weixin_30307267/article/details/99385290">https://blog.csdn.net/weixin_30307267/article/details/99385290</a></p>
+<h1 id="甘特图">甘特图</h1>
+<pre><code>gantt
+dateFormat YYYY-MM-DD
+title “所见”微信小程序-项目进度甘特图
+需求分析 :active, des2, 2019-04-10, 5d
+可行性分析 :active, des2, 2019-04-13, 4d
+项目开发计划 :active, des2, 2019-04-16, 5d
+系统设计 :active, des2, 2019-04-19, 7d
+开发实现 :active, des2, 2019-04-26, 14d
+UI设计 :active, des2, 2019-04-26, 7d
+数据库设计 :active, des2, 2019-05-05, 5d
+系统测试 :active, des2, 2019-05-10, 5d
+操作手册 :active, des2, 2019-05-15, 5d
+用户手册 :active, des2, 2019-05-15, 5d
+完善项目文档/准备答辩 : des3, after des2, 10d
+</code></pre>
+<h1 id="流程图">流程图</h1>
+<p>流程图代码分两块，上面一块是创建你的流程（创建元素），然后隔一行，创建流程的走向(连接元素)</p>
+<p>#####创建流程（元素）：tag=&gt;type: content:&gt;url<br>
+<strong>tag 是流程图中的标签</strong>，在第二段连接元素时会用到。名称可以任意，一般为流程的英文缩写和数字的组合。<br>
+<strong>type 用来确定标签的类型</strong>，=&gt;后面表示类型。由于标签的名称可以任意指定，所以要依赖type来确定标签的类型<br>
+标签有6种类型：start 、end 、operation 、subroutine 、condition 、inputoutput<br>
+<strong>content 是流程图文本框中的描述内容</strong>，: 后面表示内容，中英文均可。特别注意，冒号与文本之间一定要有个空格<br>
+<strong>url是一个连接</strong>，与框框中的文本相绑定，:&gt;后面就是对应的 url 链接，点击文本时可以通过链接跳转到 url 指定页面</p>
+<h5 id="指向流程连接元素标识类别-下一个标识">指向流程(连接元素)：标识（类别）-&gt;下一个标识</h5>
+<p>使用 -&gt; 来连接两个元素<br>
+对于<strong>condition类型</strong>，有yes和no两个分支，如示例中的cond(yes)和cond(no)<br>
+每个元素可以制定分支走向，默认向下，也可以用right指向右边，如示例中cond2(yes,right)。</p>
+<p>流程图元素</p>
+<pre><code class="language-flow">star1=&gt;start: 开始 
+end1=&gt;end: 登录 
+in1=&gt;inputoutput: 输入用户名密码 
+sub1=&gt;subroutine: 数据库查询子类 
+cond1=&gt;condition: 是否有此用户 
+cond2=&gt;condition: 密码是否正确 
+ope1=&gt;operation: 读入用户信息
+star1-&gt;in1-&gt;sub1-&gt;cond1 
+cond1(yes,right)-&gt;cond2 
+cond1(no)-&gt;in1(right) 
+cond2(yes,right)-&gt;ope1-&gt;end1
+cond2(no)-&gt;in1
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/18339009-04ebbcf73810a895.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png" loading="lazy"></figure>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Markdown是一种纯文本标记语言 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>HyperText Markup Language 超文本标记语言 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>开源笔记平台，支持Markdown和笔记直接发为博文 <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[mysql]]></title>
         <id>https://dingtom.github.io/post/mysql/</id>
