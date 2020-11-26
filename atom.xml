@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-11-26T00:58:07.801Z</updated>
+    <updated>2020-11-26T01:05:06.034Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -135,27 +135,24 @@
 <pre><code>&lt;div align=center&gt;&lt;img width = '150' height ='150' src =&quot;https://tse2-mm.cn.bing.net/th?id=OIP.rF3VYN1CRvtyWBPU0I7kyQDMEy&amp;p=0&amp;pid=1.1&quot;/&gt;&lt;/div&gt;
 </code></pre>
 <div align=center><img width = '150' height ='150' src ="https://tse2-mm.cn.bing.net/th?id=OIP.rF3VYN1CRvtyWBPU0I7kyQDMEy&p=0&pid=1.1"/></div>
-# 插入视频
-```
+<h1 id="插入视频">插入视频</h1>
+<pre><code>&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;//music.163.com/outchain/player?type=2&amp;id=528478901&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;
+</code></pre>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478901&auto=1&height=66"></iframe>
-```
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=528478901&auto=1&height=66"></iframe>
-# 插入音乐
-```
+<h1 id="插入音乐">插入音乐</h1>
+<pre><code>&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Ilg3gGewQ5U&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+</code></pre>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Ilg3gGewQ5U" frameborder="0" allowfullscreen></iframe>
-```
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Ilg3gGewQ5U" frameborder="0" allowfullscreen></iframe>
-# 设置字体
-```
-<font face="黑体">我是黑体字</font>
-<font face="微软雅黑">我是微软雅黑</font>
-<font face="STCAIYUN">我是华文彩云</font》
-<font face="黑体" color=green size=5>我是黑体，绿色，尺寸为5</font>
-```
-<font face="黑体">我是黑体字</font>
-<font face="微软雅黑">我是微软雅黑</font>
-<font face="STCAIYUN">我是华文彩云</font》
-<font face="黑体" color=green size=5>我是黑体，绿色，尺寸为5</font>
+<h1 id="设置字体">设置字体</h1>
+<pre><code>&lt;font face=&quot;黑体&quot;&gt;我是黑体字&lt;/font&gt;
+&lt;font face=&quot;微软雅黑&quot;&gt;我是微软雅黑&lt;/font&gt;
+&lt;font face=&quot;STCAIYUN&quot;&gt;我是华文彩云&lt;/font》
+&lt;font face=&quot;黑体&quot; color=green size=5&gt;我是黑体，绿色，尺寸为5&lt;/font&gt;
+</code></pre>
+<p><font face="黑体">我是黑体字</font><br>
+<font face="微软雅黑">我是微软雅黑</font><br>
+<font face="STCAIYUN">我是华文彩云&lt;/font》<br>
+<font face="黑体" color=green size=5>我是黑体，绿色，尺寸为5</font></p>
 <h1 id="emoj表情">emoj表情</h1>
 <p>https://github.com/guodongxiaren/README/blob/master/emoji.md</p>
 <h1 id="首行缩进">首行缩进</h1>
@@ -163,16 +160,9 @@
 全方大的空白&amp;emsp;或&amp;#8195;
 不断行的空白格&amp;nbsp;或&amp;#160;
 </code></pre>
-<p>flow<br>
-st=&gt;start: Start:&gt;https://www.zybuluo.com<br>
-io=&gt;inputoutput: verification<br>
-op=&gt;operation: Your Operation<br>
-cond=&gt;condition: Yes or No?<br>
-sub=&gt;subroutine: Your Subroutine<br>
-e=&gt;end<br>
-st-&gt;io-&gt;op-&gt;cond<br>
-cond(yes)-&gt;e<br>
-cond(no)-&gt;sub-&gt;io</p>
+<p>半方大的空白 或 <br>
+全方大的空白 或 <br>
+不断行的空白格 或 </p>
 <h1 id="绘图">绘图</h1>
 <p><a href="https://blog.csdn.net/qq_18150255/article/details/88043774">https://blog.csdn.net/qq_18150255/article/details/88043774</a><br>
 <a href="https://blog.csdn.net/weixin_30307267/article/details/99385290">https://blog.csdn.net/weixin_30307267/article/details/99385290</a></p>
@@ -205,7 +195,7 @@ UI设计 :active, des2, 2019-04-26, 7d
 对于<strong>condition类型</strong>，有yes和no两个分支，如示例中的cond(yes)和cond(no)<br>
 每个元素可以制定分支走向，默认向下，也可以用right指向右边，如示例中cond2(yes,right)。</p>
 <p>流程图元素</p>
-<pre><code class="language-flow">star1=&gt;start: 开始 
+<pre><code>star1=&gt;start: 开始 
 end1=&gt;end: 登录 
 in1=&gt;inputoutput: 输入用户名密码 
 sub1=&gt;subroutine: 数据库查询子类 
@@ -218,7 +208,6 @@ cond1(no)-&gt;in1(right)
 cond2(yes,right)-&gt;ope1-&gt;end1
 cond2(no)-&gt;in1
 </code></pre>
-<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/18339009-04ebbcf73810a895.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png" loading="lazy"></figure>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
