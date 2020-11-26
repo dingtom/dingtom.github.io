@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>Linux命令 | Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1606352731004">
+<link rel="shortcut icon" href="/favicon.ico?v=1606355495155">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -1960,13 +1960,13 @@ net start mysql
 &lt;pre&gt;&lt;code&gt;sudo apt-get install mysql-server
 #sudo apt-get install mysql-client
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;删除 mysql&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;删除 mysql&lt;/s&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;sudo apt-get autoremove --purge mysql-server
 sudo apt-get remove mysql-server
 sudo apt-get autoremove mysql-server
 sudo apt-get remove mysql-common
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;清理残留数据&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;清理残留数据&lt;/s&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;dpkg -l |grep ^rc|awk &#39;{print $2}&#39; |sudo xargs dpkg -P
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;进入mysql&lt;/p&gt;
@@ -2011,7 +2011,7 @@ tcp 0 0 localhost.localdomain:mysql &lt;em&gt;:&lt;/em&gt; LISTEN -&lt;br&gt;
   email varchar(64) NOT NULL DEFAULT &#39;default&#39; COMMENT &#39;邮箱&#39;
 ) COMMENT=&#39;用户表&#39;;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;SELECT  INTO根据已有的表创建新表&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;SELECT  INTO根据已有的表创建新表&lt;/s&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;SELECT * INTO new_表名 FROM 表名
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;删除-2&#34;&gt;删除：&lt;/h2&gt;
@@ -2040,10 +2040,10 @@ tcp 0 0 localhost.localdomain:mysql &lt;em&gt;:&lt;/em&gt; LISTEN -&lt;br&gt;
 &lt;pre&gt;&lt;code&gt;DESC user;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;管理数据&#34;&gt;管理数据:&lt;/h1&gt;
-&lt;h4 id=&#34;添加主键&#34;&gt;添加主键&lt;/h4&gt;
+&lt;h3 id=&#34;添加主键-add-primary-key&#34;&gt;添加主键 ADD PRIMARY KEY&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;ALTER TABLE user ADD PRIMARY KEY (id);
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;删除主键&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;删除主键&lt;/s&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;ALTER TABLE user DROP PRIMARY KEY;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;查询表的大小：&lt;/p&gt;
@@ -2052,22 +2052,22 @@ select data_length,index_length
 from tables 
 where table_schema=库 and table_name = 表 ;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;增加-2&#34;&gt;增加：&lt;/h2&gt;
+&lt;h2 id=&#34;添加数据&#34;&gt;添加数据：&lt;/h2&gt;
 &lt;p&gt;插入完整的行&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;INSERT INTO user VALUES (10, &#39;root&#39;, &#39;root&#39;, &#39;xxxx@163.com&#39;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;插入行的一部分&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;INSERT INTO user(username, password, email) VALUES (&#39;admin&#39;, &#39;admin&#39;, &#39;xxxx@163.com&#39;);
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;插入查询出来的数据&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;插入查询出来的数据&lt;/s&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;INSERT INTO user(字段) SELECT 字段 FROM account;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;删除-3&#34;&gt;删除：&lt;/h2&gt;
-&lt;h4 id=&#34;delete-from&#34;&gt;DELETE FROM&lt;/h4&gt;
-&lt;p&gt;1)可以&lt;strong&gt;带条件删除&lt;/strong&gt;2）只能删除表的数据，&lt;strong&gt;不能删除表的约束&lt;/strong&gt;3)删除的数据&lt;strong&gt;可以回滚（事务）&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;delete-from&#34;&gt;DELETE FROM&lt;/h3&gt;
+&lt;p&gt;1)可以&lt;s&gt;带条件删除&lt;/s&gt;2）只能删除表的数据，&lt;s&gt;不能删除表的约束&lt;/s&gt;3)删除的数据&lt;s&gt;可以回滚（事务）&lt;/s&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;DELETE FROM user WHERE username=&#39;robot&#39;;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;truncate&#34;&gt;truncate&lt;/h4&gt;
+&lt;h3 id=&#34;truncate&#34;&gt;truncate&lt;/h3&gt;
 &lt;p&gt;1）不能带条件删除 2）即可以删除表的数据，也可以删除表的约束 3）不能回滚&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;TRUNCATE TABLE user;
 &lt;/code&gt;&lt;/pre&gt;
@@ -2109,56 +2109,56 @@ FROM employees
 GROUP BY role,Wheater;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&#34;聚合函数&#34;&gt;聚合函数：&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;聚合函数要使bai用的话du,有一个前提，那就是是必zhi须要有结果集&lt;/strong&gt;&lt;br&gt;
-sum()、avg() 、 max()  、min() 、 count()&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;聚合函数要使用的话,有一个前提，那就是是必zhi须要有结果集&lt;/s&gt;&lt;br&gt;
+&lt;code&gt;sum()、avg() 、 max() 、min() 、 count()&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;count&#34;&gt;count()&lt;/h4&gt;
 &lt;p&gt;COUNT(常量) 和 COUNT(*)表示的是直接查询符合条件的数据库表的行数。而COUNT(列名)表示的是查询符合条件的列的值不为NULL的行数。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;SELECT SUM(servlet) AS &#39;servlet的总成绩&#39; FROM student;&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;SELECT COUNT(*) FROM student;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;substr(col,0,4)	字符串截取&lt;br&gt;
-LOCATE()查找某字符在长字符中的位置&lt;br&gt;
-LEFT()、RIGHT()左边或者右边的字符&lt;br&gt;
-LOWER()、UPPER()转换为小写或者大写&lt;br&gt;
-LTRIM()、RTIM()去除左边或者右边的空格&lt;br&gt;
-LENGTH()长度&lt;br&gt;
-SOUNDEX()转换为语音值&lt;br&gt;
+&lt;p&gt;&lt;code&gt;substr(col,0,4)&lt;/code&gt;	字符串截取&lt;br&gt;
+&lt;code&gt;LOCATE()&lt;/code&gt;查找某字符在长字符中的位置&lt;br&gt;
+&lt;code&gt;LEFT()、RIGHT()&lt;/code&gt;左边或者右边的字符&lt;br&gt;
+&lt;code&gt;LOWER()、UPPER()&lt;/code&gt;转换为小写或者大写&lt;br&gt;
+&lt;code&gt;LTRIM()、RTIM()&lt;/code&gt;去除左边或者右边的空格&lt;br&gt;
+&lt;code&gt;LENGTH()&lt;/code&gt;长度&lt;br&gt;
+&lt;code&gt;SOUNDEX()&lt;/code&gt;转换为语音值&lt;br&gt;
 其中， SOUNDEX() 可以将一个字符串转换为描述其语音表示的字母数字模式。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;SELECT *
 FROM mytable
 WHERE SOUNDEX(col1) = SOUNDEX(&#39;apple&#39;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;AddDate()增加一个日期（天、周等）&lt;br&gt;
-AddTime()增加一个时间（时、分等）&lt;br&gt;
-CurDate()返回当前日期&lt;br&gt;
-CurTime()返回当前时间&lt;br&gt;
-Date()返回日期时间的日期部分&lt;br&gt;
+&lt;p&gt;&lt;code&gt;AddDate()&lt;/code&gt;增加一个日期（天、周等）&lt;br&gt;
+&lt;code&gt;AddTime()&lt;/code&gt;增加一个时间（时、分等）&lt;br&gt;
+&lt;code&gt;CurDate()&lt;/code&gt;返回当前日期&lt;br&gt;
+&lt;code&gt;CurTime()&lt;/code&gt;返回当前时间&lt;br&gt;
+&lt;code&gt;Date()&lt;/code&gt;返回日期时间的日期部分&lt;br&gt;
 &lt;code&gt;date(paidTime).date_format(paidTime，%Y-%m-d%)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;DateDiff()计算两个日期之差&lt;br&gt;
-Date_Add()高度灵活的日期运算函数&lt;br&gt;
+&lt;p&gt;&lt;code&gt;DateDiff()&lt;/code&gt;计算两个日期之差&lt;br&gt;
+&lt;code&gt;Date_Add()&lt;/code&gt;高度灵活的日期运算函数&lt;br&gt;
 &lt;code&gt;t1.m=date_sub(t2.m, interval 1 month)&lt;/code&gt;&lt;br&gt;
-Date_Format()返回一个格式化的日期或时间串&lt;br&gt;
-Day()返回一个日期的天数部分&lt;br&gt;
-DayOfWeek()对于一个日期，返回对应的星期几&lt;br&gt;
-Hour()返回一个时间的小时部&lt;br&gt;
-Minute()返回一个时间的分钟部分&lt;br&gt;
-Month()返回一个日期的月份部分&lt;br&gt;
-Now()返回当前日期和时间&lt;br&gt;
-Second()返回一个时间的秒部分&lt;br&gt;
-Time()返回一个日期时间的时间部分&lt;br&gt;
-Year()返回一个日期的年份部分&lt;/p&gt;
-&lt;p&gt;SIN()正弦&lt;br&gt;
-COS()余弦&lt;br&gt;
-TAN()正切&lt;br&gt;
-ABS()绝对值&lt;br&gt;
-SQRT()平方根&lt;br&gt;
-MOD()余数&lt;br&gt;
-EXP()指数&lt;br&gt;
-PI()圆周率&lt;br&gt;
-RAND()随机数&lt;/p&gt;
+&lt;code&gt;Date_Format()&lt;/code&gt;返回一个格式化的日期或时间串&lt;br&gt;
+&lt;code&gt;Day()&lt;/code&gt;返回一个日期的天数部分&lt;br&gt;
+&lt;code&gt;DayOfWeek()&lt;/code&gt;对于一个日期，返回对应的星期几&lt;br&gt;
+&lt;code&gt;Hour()&lt;/code&gt;返回一个时间的小时部&lt;br&gt;
+&lt;code&gt;Minute()&lt;/code&gt;返回一个时间的分钟部分&lt;br&gt;
+&lt;code&gt;Month()&lt;/code&gt;返回一个日期的月份部分&lt;br&gt;
+&lt;code&gt;Now()&lt;/code&gt;返回当前日期和时间&lt;br&gt;
+&lt;code&gt;Second()&lt;/code&gt;返回一个时间的秒部分&lt;br&gt;
+&lt;code&gt;Time()&lt;/code&gt;返回一个日期时间的时间部分&lt;br&gt;
+&lt;code&gt;Year()&lt;/code&gt;返回一个日期的年份部分&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SIN()&lt;/code&gt;正弦&lt;br&gt;
+&lt;code&gt;COS()&lt;/code&gt;余弦&lt;br&gt;
+&lt;code&gt;TAN()&lt;/code&gt;正切&lt;br&gt;
+&lt;code&gt;ABS()&lt;/code&gt;绝对值&lt;br&gt;
+&lt;code&gt;SQRT()&lt;/code&gt;平方根&lt;br&gt;
+&lt;code&gt;MOD()&lt;/code&gt;余数&lt;br&gt;
+&lt;code&gt;EXP()&lt;/code&gt;指数&lt;br&gt;
+&lt;code&gt;PI()&lt;/code&gt;圆周率&lt;br&gt;
+&lt;code&gt;RAND()&lt;/code&gt;随机数&lt;/p&gt;
 &lt;h1 id=&#34;from-where-group含聚合-having-order-select&#34;&gt;from &amp;gt; where &amp;gt; group（含聚合）&amp;gt; having &amp;gt; order &amp;gt; select&lt;/h1&gt;
 &lt;h2 id=&#34;分组查询group-by&#34;&gt;分组查询：group by&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;group by 后可加聚合函数，where 后不能加聚合函数&lt;/strong&gt;&lt;br&gt;
-把统计函数和GROUP BY结合，那统计结果就是&lt;strong&gt;对分组内的数据统计&lt;/strong&gt;了.&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;group by 后可加聚合函数，where 后不能加聚合函数&lt;/s&gt;，&lt;s&gt;聚合函数要使用的话,有一个前提，那就是是必zhi须要有结果集&lt;/s&gt;&lt;/p&gt;
+&lt;p&gt;把统计函数和GROUP BY结合，那统计结果就是对分组内的数据统计了.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;SELECT building,count(*) 
 FROM employees
 WHERE building!=&#39;null&#39;
@@ -2186,37 +2186,55 @@ ORDER BY Director ASC,Year DESC
 LIMIT 10 OFFSET 0;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;连接查询多表查询join-on&#34;&gt;连接查询（多表查询）JOIN  ON&lt;/h1&gt;
-&lt;p&gt;主键是唯一标识一条数据的，不会重复复（想象你的身份证号码)。借助主键(primary key)（当然其他唯一性的属性也可以），我们可以把两个表中具有相同 主键ID的数据连接起来&lt;/p&gt;
-&lt;h2 id=&#34;内连接查询只保留id相等的row&#34;&gt;内连接查询：只保留id相等的row&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;t1 INNER JOIN t2 ON t1.id = t2.id&lt;/code&gt;&lt;br&gt;
-需求：存放班级名称的name列存储在classes表中，只有根据students表的class_id，找到classes表对应的行，再取出name列，就可以获得班级名称。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;SELECT s.id, s.name,c.name class_name
-FROM students s
-INNER JOIN classes c
-ON s.class_id = c.id;
+&lt;p&gt;把两个表中具有相同 主键ID的数据连接起来&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;单纯的select * from a,b是笛卡尔乘积&lt;/s&gt;。比如a表有5条数据，b表有3条数据，那么最后的结果有5*3=15条数据。但是如果对两个表进行关联:select * from a,b where a.id = b.id 意思就变了，此时就等价于：select * from a inner join b on a.id = b.id。即就是&lt;s&gt;内连接&lt;/s&gt;。&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-a79c08f891013866.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;内连接查询inner-join只保留两张表中完全匹配的结果集&#34;&gt;内连接查询INNER JOIN：只保留两张表中完全匹配的结果集&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;SELECT p.LastName, p.FirstName, o.OrderNo
+FROM Persons p
+INNER JOIN Orders o
+ON p.Id_P=o.Id_P and 1=1　　
+ORDER BY p.LastName
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;左连接查询保留t1的所有row如果某一行在另一个表不存在会用-null来填充结果数据&#34;&gt;左连接查询：保留t1的所有row,如果某一行在另一个表不存在，会用 NULL来填充结果数据。&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;t1 LEFT JOIN t2 ON t1.id = t2.id&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;SELECT d.deptName,e.empName
-FROM dept d
-          LEFT OUTER JOIN employee e
-ON d.id=e.deptId;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-798cff79aafdee78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;左连接查询left-join返回左表所有的行即使在右表中没有匹配的记录&#34;&gt;左连接查询LEFT JOIN：返回左表所有的行，即使在右表中没有匹配的记录。&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;SELECT p.LastName, p.FirstName, o.OrderNo
+FROM Persons p
+LEFT JOIN Orders o
+ON p.Id_P=o.Id_P
+ORDER BY p.LastName
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;######右连接查询：t1 RIGHT JOIN t2 ON t1.id = t2.id	保留t2的所有row&lt;/p&gt;
-&lt;h6 id=&#34;全连接查询full-join-不管有没有匹配上同时保留a和b里的所有行&#34;&gt;全连接查询：FULL JOIN 不管有没有匹配上，同时保留A和B里的所有行&lt;/h6&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-7951f83402cc6026.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;右连接right-join返回右表所有的行即使在左表中没有匹配的记录&#34;&gt;右连接RIGHT JOIN：返回右表所有的行，即使在左表中没有匹配的记录。&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;SELECT p.LastName, p.FirstName, o.OrderNo
+FROM Persons p
+RIGHT JOIN Orders o
+ON p.Id_P=o.Id_P
+ORDER BY p.LastName
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-fd7eaa8cc12522ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;全连接查询full-join-返回左表和右表中所有的行&#34;&gt;全连接查询：FULL JOIN ,返回左表和右表中所有的行。&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;SELECT p.LastName, p.FirstName, o.OrderNo
+FROM Persons p
+FULL JOIN Orders o
+ON p.Id_P=o.Id_P
+ORDER BY p.LastName
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-e11d28c6df0d7187.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;h1 id=&#34;union&#34;&gt;UNION&lt;/h1&gt;
-&lt;p&gt;将两个或更多查询的结果组合起来，并生成一个结果集&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;所有查询的列数和列顺序必须相同。&lt;br&gt;
-每个查询中涉及表的列的数据类型必须相同或兼容。&lt;br&gt;
-通常返回的列名取自第一个查询。&lt;br&gt;
-默认会去除相同行，如果需要保留相同行，使用 UNION ALL。&lt;br&gt;
-只能包含一个 ORDER BY 子句，并且必须位于语句的最后。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;应用场景&lt;br&gt;
-在一个查询中从不同的表返回结构数据。&lt;br&gt;
-对一个表执行多个查询，按一个查询返回数据。&lt;br&gt;
-组合查询&lt;/p&gt;
+&lt;p&gt;将两个或更多查询的结果组合起来，并生成一个结果集&lt;br&gt;
+所有查询的&lt;s&gt;列数和列顺序&lt;/s&gt;必须相同。&lt;br&gt;
+每个查询中涉及表的&lt;s&gt;列的数据类型&lt;/s&gt;必须相同或兼容。&lt;br&gt;
+通常&lt;s&gt;返回的列名取自第一个查询。&lt;/s&gt;&lt;br&gt;
+&lt;s&gt;默认会去除相同行&lt;/s&gt;，如果需要保留相同行，使用 UNION ALL。&lt;br&gt;
+&lt;s&gt;只能包含一个 ORDER BY 子句，并且必须位于语句的最后。&lt;/s&gt;&lt;/p&gt;
+&lt;h2 id=&#34;join-vs-union&#34;&gt;JOIN vs UNION&lt;/h2&gt;
+&lt;p&gt;JOIN 中连接表的列可能不同，但在 UNION 中，&lt;s&gt;所有查询的列数和列顺序必须相同。&lt;/s&gt;&lt;br&gt;
+&lt;s&gt;UNION 将查询之后的行放在一起（垂直放置），但 JOIN 将查询之后的列放在一起（水平放置），&lt;/s&gt;&lt;/p&gt;
+&lt;h2 id=&#34;应用场景&#34;&gt;应用场景&lt;/h2&gt;
+&lt;p&gt;&lt;s&gt;在一个查询中从不同的表返回结构数据。&lt;/s&gt;&lt;br&gt;
+&lt;s&gt;对一个表执行多个查询，按一个查询返回数据。&lt;br&gt;
+组合查询&lt;/s&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;SELECT cust_name, cust_contact, cust_email
 FROM customers
 WHERE cust_state IN (&#39;IL&#39;, &#39;IN&#39;, &#39;MI&#39;)
@@ -2225,9 +2243,88 @@ SELECT cust_name, cust_contact, cust_email
 FROM customers
 WHERE cust_name = &#39;Fun4All&#39;;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;JOIN vs UNION&lt;br&gt;
-JOIN 中连接表的列可能不同，但在 UNION 中，&lt;strong&gt;所有查询的列数和列顺序必须相同。&lt;/strong&gt;&lt;br&gt;
-**UNION 将查询之后的行放在一起（垂直放置），但 JOIN 将查询之后的列放在一起（水平放置），**即它构成一个笛卡尔积。&lt;/p&gt;
+&lt;h1 id=&#34;远程连接&#34;&gt;远程连接&lt;/h1&gt;
+&lt;h2 id=&#34;查看当前的用户&#34;&gt;查看当前的用户&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;USE mysql;&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;SELECT * FROM user;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;修改密码&#34;&gt;修改密码&lt;/h2&gt;
+&lt;p&gt;@前用户名@后地址（ % 代表可以任意ip访问）&lt;br&gt;
+&lt;code&gt;LTER USER &amp;quot;root&amp;quot;@&amp;quot;localhost&amp;quot; IDENTIFIED BY &amp;quot;root&amp;quot;;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;创建新用户&#34;&gt;创建新用户&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;CREATE USER &#39;new_user&#39;@&#39;%&#39; IDENTIFIED BY &#39;passwd&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;给用户赋权限&#34;&gt;给用户赋权限&lt;/h2&gt;
+&lt;p&gt;这里我赋的是全部的权限，&lt;em&gt;.&lt;/em&gt; 表示数据库库的所有库和表，对应权限存储在mysql.user表中&lt;br&gt;
+&lt;code&gt;GRANT ALL ON *.* TO &#39;new_user&#39;@&#39;%&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GRANT SELECT, UPDATE ON day16.employee TO &#39;eric&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;123456&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;刷新权限&#34;&gt;刷新权限&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;flush privileges;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;取消远程控制&#34;&gt;取消远程控制&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;update user set host=&#39;localhost&#39; where user=&#39;用户名&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;删除用户&#34;&gt;删除用户&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;delete from user where user=&amp;quot;用户名&amp;quot; and host=&#39;host权限（localhost/%）&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;--开放3306端口--&lt;br&gt;
+1.控制面板—系统和安全—windows防火墙—攻击设置—入栈规则&lt;br&gt;
+2.新建规则—选择端口&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-e649fed7e43e6b95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+3.指定开放的端口&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-a40b2644f02b64a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+4.允许连接，一直点下一步即可&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-4610a319e4a4f648.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;pymysql模块&#34;&gt;PyMySQL模块&lt;/h1&gt;
+&lt;p&gt;是默认开启MySQL的事务功能的，&lt;br&gt;
+因此，进行 &amp;quot;增&amp;quot;、 &amp;quot;删&amp;quot;、&amp;quot;改&amp;quot;的时候，一定要使用db.commit()提交事务&lt;br&gt;
+一定要使用try…except…语句，因为万一没插入成功，其余代码都无法执行。当语句执行不成功，&lt;br&gt;
+我们就db.rollback()回滚到操作之前的状态；当语句执行成功，我们就db.commit()提交事务。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import pymysql 
+# 使用pymysql连接上mysql数据库服务器，创建了一个数据库对象；
+db=pymysql.connect(host=&#39;localhost&#39;,user=&#39;root&#39;, password=&#39;&#39;,
+                   port=3306, db=&#39;test&#39;, charset=&#39;utf8&#39;)
+# 开启mysql的游标功能，创建一个游标对象；
+cursor = db.cursor()
+
+# 建表语句；
+sql = &amp;quot;&amp;quot;&amp;quot;create table person(
+        id int auto_increment primary key not null,
+        name varchar(10) not null,
+        age int not null) charset=utf8&amp;quot;&amp;quot;&amp;quot;
+# 执行sql语句；
+cursor.execute(sql)
+
+# 一次性插入一条数据；
+name = &amp;quot;猪八戒&amp;quot;
+age = 8000
+sql = &amp;quot;&amp;quot;&amp;quot;
+insert into person(name,age) values (&amp;quot;猪八戒&amp;quot;,8000)
+&amp;quot;&amp;quot;&amp;quot;
+try:
+    cursor.execute(sql)
+    db.commit()
+    print(&amp;quot;插入成功&amp;quot;)
+except:
+    print(&amp;quot;插入失败&amp;quot;)
+    db.rollback()
+
+# 要执行的SQL语句；
+sql = &amp;quot;select * from person&amp;quot;
+# execute(query, args)：执行单条sql语句，接收的参数为sql语句本身和使用的参数列表，返回值为受影响的行数；
+# executemany(query, args)：执行单条sql语句，但是重复执行参数列表里的参数，返回值为受影响的行数；
+cursor.execute(sql)
+# fetchone()：返回一条结果行；
+# fetchmany(size)：接收size条返回结果行。如果size的值大于返回的结果行的数量，则会返回cursor.arraysize条数据；
+# fetchall()：接收全部的返回结果行；
+data = cursor.fetchone()
+print(data)
+db.close()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;使用pandas&#34;&gt;使用pandas&lt;/h1&gt;
+&lt;p&gt;中的read_sql()方法，将提取到的数据直接转化为DataFrame，进行操作&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;df1 = pd.read_sql(&amp;quot;select * from student where ssex=&#39;男&#39;&amp;quot;,db)
+display(df1)
+df2 = pd.read_sql(&amp;quot;select * from student where ssex=&#39;女&#39;&amp;quot;,db)
+display(df2)
+&lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;数据约束表约束&#34;&gt;数据约束（表约束）&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;默认值： default 默认值
 非空：   not null
@@ -2332,89 +2429,6 @@ SELECT @NAME;
 &lt;pre&gt;&lt;code&gt;CREATE TRIGGER tri_empDel AFTER DELETE ON employee FOR EACH ROW    -- 当往员工表删除一条记录时
      INSERT INTO test_log(content) VALUES(&#39;员工表删除了一条记录&#39;);
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&#34;远程连接&#34;&gt;远程连接&lt;/h1&gt;
-&lt;h2 id=&#34;查看当前的用户&#34;&gt;查看当前的用户&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;USE mysql;&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;SELECT * FROM user;&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;修改密码&#34;&gt;修改密码&lt;/h2&gt;
-&lt;p&gt;@前用户名@后地址（ % 代表可以任意ip访问）&lt;br&gt;
-&lt;code&gt;LTER USER &amp;quot;root&amp;quot;@&amp;quot;localhost&amp;quot; IDENTIFIED BY &amp;quot;root&amp;quot;;&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;创建新用户&#34;&gt;创建新用户&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;CREATE USER &#39;new_user&#39;@&#39;%&#39; IDENTIFIED BY &#39;passwd&#39;;&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;给用户赋权限&#34;&gt;给用户赋权限&lt;/h2&gt;
-&lt;p&gt;这里我赋的是全部的权限，&lt;em&gt;.&lt;/em&gt; 表示数据库库的所有库和表，对应权限存储在mysql.user表中&lt;br&gt;
-&lt;code&gt;GRANT ALL ON *.* TO &#39;new_user&#39;@&#39;%&#39;;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;GRANT SELECT, UPDATE ON day16.employee TO &#39;eric&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;123456&#39;;&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;刷新权限&#34;&gt;刷新权限&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;flush privileges;&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;取消远程控制&#34;&gt;取消远程控制&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;update user set host=&#39;localhost&#39; where user=&#39;用户名&#39;;&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;删除用户&#34;&gt;删除用户&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;delete from user where user=&amp;quot;用户名&amp;quot; and host=&#39;host权限（localhost/%）&#39;;&lt;/code&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;开放3306端口&lt;/strong&gt;&lt;br&gt;
-1.控制面板—系统和安全—windows防火墙—攻击设置—入栈规则&lt;br&gt;
-2.新建规则—选择端口&lt;br&gt;
-&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-e649fed7e43e6b95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
-3.指定开放的端口&lt;br&gt;
-&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-a40b2644f02b64a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
-4.允许连接，一直点下一步即可&lt;br&gt;
-&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-4610a319e4a4f648.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&#34;pymysql模块&#34;&gt;PyMySQL模块&lt;/h1&gt;
-&lt;p&gt;是默认开启MySQL的事务功能的，&lt;br&gt;
-因此，进行 &amp;quot;增&amp;quot;、 &amp;quot;删&amp;quot;、&amp;quot;改&amp;quot;的时候，一定要使用db.commit()提交事务&lt;br&gt;
-一定要使用try…except…语句，因为万一没插入成功，其余代码都无法执行。当语句执行不成功，&lt;br&gt;
-我们就db.rollback()回滚到操作之前的状态；当语句执行成功，我们就db.commit()提交事务。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import pymysql 
-# 使用pymysql连接上mysql数据库服务器，创建了一个数据库对象；
-db=pymysql.connect(host=&#39;localhost&#39;,user=&#39;root&#39;, password=&#39;&#39;,
-                   port=3306, db=&#39;test&#39;, charset=&#39;utf8&#39;)
-# 开启mysql的游标功能，创建一个游标对象；
-cursor = db.cursor()
-
-# 建表语句；
-sql = &amp;quot;&amp;quot;&amp;quot;create table person(
-        id int auto_increment primary key not null,
-        name varchar(10) not null,
-        age int not null) charset=utf8&amp;quot;&amp;quot;&amp;quot;
-# 执行sql语句；
-cursor.execute(sql)
-
-# 一次性插入一条数据；
-name = &amp;quot;猪八戒&amp;quot;
-age = 8000
-sql = &amp;quot;&amp;quot;&amp;quot;
-insert into person(name,age) values (&amp;quot;猪八戒&amp;quot;,8000)
-&amp;quot;&amp;quot;&amp;quot;
-try:
-    cursor.execute(sql)
-    db.commit()
-    print(&amp;quot;插入成功&amp;quot;)
-except:
-    print(&amp;quot;插入失败&amp;quot;)
-    db.rollback()
-
-# 要执行的SQL语句；
-sql = &amp;quot;select * from person&amp;quot;
-# execute(query, args)：执行单条sql语句，接收的参数为sql语句本身和使用的参数列表，返回值为受影响的行数；
-# executemany(query, args)：执行单条sql语句，但是重复执行参数列表里的参数，返回值为受影响的行数；
-cursor.execute(sql)
-# fetchone()：返回一条结果行；
-# fetchmany(size)：接收size条返回结果行。如果size的值大于返回的结果行的数量，则会返回cursor.arraysize条数据；
-# fetchall()：接收全部的返回结果行；
-data = cursor.fetchone()
-print(data)
-db.close()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&#34;使用pandas&#34;&gt;使用pandas&lt;/h1&gt;
-&lt;p&gt;中的read_sql()方法，将提取到的数据直接转化为DataFrame，进行操作&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;df1 = pd.read_sql(&amp;quot;select * from student where ssex=&#39;男&#39;&amp;quot;,db)
-display(df1)
-df2 = pd.read_sql(&amp;quot;select * from student where ssex=&#39;女&#39;&amp;quot;,db)
-display(df2)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;!-- more --&gt;
 ">mysql</a>
       </div>
       
