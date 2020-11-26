@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-11-26T01:05:06.034Z</updated>
+    <updated>2020-11-26T01:05:34.742Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -119,8 +119,8 @@
 
 [titleA](#titleA) //这是锚点引用格式
 </code></pre>
-<p><a href="#%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95">生成目录</a> //这是锚点引用格式<br>
-#注脚</p>
+<p><a href="#%E7%94%9F%E6%88%90%E7%9B%AE%E5%BD%95">生成目录</a> //这是锚点引用格式</p>
+<h1 id="注脚">注脚</h1>
 <pre><code>使用 Markdown[^1]可以效率的书写文档, 直接转换成 HTML[^2], 你可以使用 Leanote[^Le] 编辑器进行书写。
 [^1]:Markdown是一种纯文本标记语言
 [^2]:HyperText Markup Language 超文本标记语言
