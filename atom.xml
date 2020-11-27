@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-11-27T01:09:42.108Z</updated>
+    <updated>2020-11-27T09:10:55.691Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -10,6 +10,261 @@
     <logo>https://dingtom.github.io/images/avatar.png</logo>
     <icon>https://dingtom.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Tomding&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[集中趋势分析、离散程度分析]]></title>
+        <id>https://dingtom.github.io/post/ji-zhong-qu-shi-fen-xi-chi-san-cheng-du-fen-xi/</id>
+        <link href="https://dingtom.github.io/post/ji-zhong-qu-shi-fen-xi-chi-san-cheng-du-fen-xi/">
+        </link>
+        <updated>2020-11-27T09:10:13.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb">https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb</a></p>
+<pre><code>import numpy as np 
+import pandas as pd 
+import matplotlib as mpl 
+import matplotlib.pyplot as plt 
+import seaborn as sns 
+import warnings 
+from sklearn.datasets import load_iris
+from scipy import stats  
+sns.set(style=&quot;darkgrid&quot;) 
+mpl.rcParams[&quot;font.family&quot;] = &quot;SimHei&quot; 
+mpl.rcParams[&quot;axes.unicode_minus&quot;] = False 
+warnings.filterwarnings(&quot;ignore&quot;)
+</code></pre>
+<pre><code>iris = load_iris()
+# feature_names是每一列数据的特征名。target_names是鸢尾花的属种名
+print(iris['data'].shape,iris['target'].shape,iris['feature_names'],iris['target_names'])
+</code></pre>
+<p>(150, 4) (150,) ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)'] ['setosa' 'versicolor' 'virginica']</p>
+<pre><code># reshape(-1,1)表示将原始数组变为1列，但是行数这里我写一个-1，表示系统
+# 会根据我指定的列数，自动去计算出行数。reshape(1,-1)含义同理
+dt = np.concatenate([iris.data,iris.target.reshape(-1,1)],axis=1)
+print(dt.shape)  # (150, 5)
+df = pd.DataFrame(dt,columns=iris.feature_names + [&quot;types&quot;])
+print(df.sample(5))
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-170eeb6b355d4684.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<h4 id="频数与频率">频数与频率</h4>
+<ul>
+<li>预数，指一组数据中类别变量的每个不同取值出现的次数。</li>
+<li>频率，指每个类别变量的频数与总次数的比值，通常采用百分数表示。</li>
+</ul>
+<pre><code># 计算鸢尾花数据集中每个类别出现的频数
+frequency = df[&quot;types&quot;].value_counts() / len(df)
+print(frequency.shape)
+print(frequency)
+plt.bar([1, 2, 3], frequency)
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/18339009-e6622ef2938a600b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<h4 id="集中趋势分析">集中趋势分析</h4>
+<ul>
+<li>均值</li>
+<li>中位数</li>
+<li>众数</li>
+</ul>
+<blockquote>
+<p>”数值变量”通常使用均值与中值表示集中趋势。<br>
+“类别变量”通常使用众数表示集中趋势。<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-6c6a67d920539438.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+记忆方法：哪边的尾巴长，就叫做 “X偏”。左边的尾巴长，就叫做“左偏”；右边的尾巴长，就叫做“右偏”。并且均值离着尾巴最近，中位数总是在最中间，众数离着尾巴最远。</p>
+</blockquote>
+<ul>
+<li>分位数，将数据从小到大排列，通过n-1个分位数将数据分为n个区间，使得每个区间的数值的个数相等(近似相等)。</li>
+</ul>
+<pre><code>mean = df[&quot;sepal length (cm)&quot;].mean()  
+median = df[&quot;sepal length (cm)&quot;].median() 
+print('mean, median',mean, median)  
+# 由于series中没有专门计算众数的函数， # scipy的stats模块中，可以计算众数  
+from scipy import stats  
+t = stats.mode(df[&quot;sepal length (cm)&quot;])  
+# 注意：t展示的类字典格式的数据类型，mode展示众数，count用于展示众数出现的次数   
+print(t.mode, t.count)  
+</code></pre>
+<p>mean, median 5.843333333333335 5.8<br>
+[5.] [10]</p>
+<pre><code>sns.distplot(df[&quot;sepal length (cm)&quot;])  
+plt.axvline(mean,ls=&quot;-&quot;,color=&quot;r&quot;,label=&quot;均值&quot;) 
+plt.axvline(median,ls=&quot;-&quot;,color=&quot;g&quot;,label=&quot;中值&quot;)
+plt.axvline(t.mode,ls=&quot;-&quot;,color=&quot;indigo&quot;,label=&quot;众数&quot;) 
+plt.legend(loc=&quot;best&quot;)
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/18339009-8112dca9a0d8c36f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<pre><code># 分位数
+x = np.arange(10,20) 
+q = np.quantile(x,[0.25,0.5,0.75])
+plt.figure(figsize=(15,4))
+plt.xticks(x)
+plt.plot(x,np.zeros(len(x)),ls=&quot;&quot;,marker=&quot;D&quot;,ms=15,label=&quot;元素值&quot;)
+plt.plot(q,np.zeros(len(q)),ls=&quot;&quot;,marker=&quot;X&quot;,ms=15,label=&quot;四分位值&quot;)
+for v in q:     
+    plt.text(v,0.01,v,fontsize=15)
+plt.legend()
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://upload-images.jianshu.io/upload_images/18339009-3e9ebd3e4b3a505e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<h4 id="离散程度分析">离散程度分析</h4>
+<ul>
+<li>
+<p>极差，极差指一组数据中，最大值与最小值之差。</p>
+</li>
+<li>
+<p>方差，方差体现的是一组数据中，每个元素与均值偏离的大小。</p>
+</li>
+<li>
+<p>标准差，标准差标准差为方差的开方。</p>
+</li>
+</ul>
+<pre><code>sub = df[&quot;sepal length (cm)&quot;].max()  - df[&quot;sepal length (cm)&quot;].min() 
+var = df[&quot;sepal length (cm)&quot;].var()
+std = df[&quot;sepal length (cm)&quot;].std()
+print(sub, var, std)
+</code></pre>
+<p>3.6000000000000005 0.6856935123042505 0.8280661279778629</p>
+<pre><code>plt.figure(figsize=(15,4))
+plt.ylim(-0.5,1.5)
+plt.plot(df[&quot;sepal length (cm)&quot;],np.zeros(len(df)),ls=&quot;&quot;,marker=&quot;o&quot;,ms=10,color=&quot;g&quot;,label=&quot;花瓣长度&quot;)
+plt.plot(df[&quot;sepal width (cm)&quot;],np.ones(len(df)),ls=&quot;&quot;,marker=&quot;o&quot;,ms=10,color=&quot;b&quot;,label=&quot;花瓣宽度&quot;)
+         
+plt.axvline(df[&quot;sepal length (cm)&quot;].mean(),ls=&quot;--&quot;,color=&quot;g&quot;,label=&quot;花瓣长度均值&quot;)
+plt.axvline(df[&quot;sepal width (cm)&quot;].mean(),ls=&quot;-&quot;,color=&quot;b&quot;,label=&quot;花瓣宽度均值&quot;)
+
+plt.legend()
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://upload-images.jianshu.io/upload_images/18339009-1e63ba109f5053ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<h1 id="分布形状">分布形状</h1>
+<ul>
+<li>偏度，偏度是统计数据分布偏斜方向和程度的度量，是统计数据分布非对称程度的数字特征。<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-1d29f1c0af7f7546.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></li>
+</ul>
+<h2 id="偏度skewness">偏度（Skewness）</h2>
+<p>Definition:是描述数据分布形态的统计量，其描述的是某总体取值分布的对称性，<strong>简单来说就是数据的不对称程度。</strong><br>
+偏度是三阶中心距计算出来的。<br>
+（1）Skewness = 0 ，分布形态与正态分布偏度相同。<br>
+（2）Skewness &gt; 0 ，正偏差数值较大，为正偏或右偏。长尾巴拖在右边，数据右端有较多的极端值。<br>
+（3）Skewness &lt; 0 ，负偏差数值较大，为负偏或左偏。长尾巴拖在左边，数据左端有较多的极端值。<br>
+（4）数值的绝对值越大，表明数据分布越不对称，偏斜程度大。<br>
+计算公式：<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>k</mi><mi>e</mi><mi>w</mi><mi>n</mi><mi>e</mi><mi>s</mi><mi>s</mi><mo>=</mo><mi>E</mi><mo>[</mo><mo>(</mo><mo>(</mo><mi>x</mi><mo>−</mo><mi>E</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>)</mo><mi mathvariant="normal">/</mi><mo>(</mo><msqrt><mrow><mi>D</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow></msqrt><mo>)</mo><msup><mo>)</mo><mn>3</mn></msup><mo>]</mo></mrow><annotation encoding="application/x-tex">Skewness=E[((x-E(x))/(\sqrt{D(x)}))^3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">n</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.30499999999999994em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span><span class="mord">/</span><span class="mopen">(</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span><span style="top:-2.8950000000000005em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width='400em' height='1.28em' viewBox='0 0 400000 1296' preserveAspectRatio='xMinYMin slice'><path d='M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
+158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120c340,-704.7,510.7,-1060.3,512,-1067
+c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
+175,-136,283c-52,108,-89.167,185.3,-111.5,232c-22.3,46.7,-33.8,70.3,-34.5,71
+c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
+-252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
+s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.30499999999999994em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span><br>
+| Skewness| 越大，分布形态偏移程度越大。</p>
+<h2 id="峰度kurtosis">峰度（Kurtosis）</h2>
+<p>Definition:偏度是描述某变量所有取值分布形态陡缓程度的统计量，<strong>简单来说就是数据分布顶的尖锐程度。</strong><br>
+峰度是四阶标准矩计算出来的。<br>
+（1）Kurtosis=0 与正态分布的陡缓程度相同。<br>
+（2）Kurtosis&gt;0 比正态分布的高峰更加陡峭——尖顶峰<br>
+（3）Kurtosis&lt;0 比正态分布的高峰来得平台——平顶峰<br>
+计算公式：<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>K</mi><mi>u</mi><mi>r</mi><mi>t</mi><mi>o</mi><mi>s</mi><mi>i</mi><mi>s</mi><mo>=</mo><mi>E</mi><mo>[</mo><mo>(</mo><mo>(</mo><mi>x</mi><mo>−</mo><mi>E</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>)</mo><mi mathvariant="normal">/</mi><mo>(</mo><msqrt><mo>(</mo></msqrt><mi>D</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>)</mo><mo>)</mo><msup><mo>)</mo><mn>4</mn></msup><mo>]</mo><mo>−</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">Kurtosis=E[ ( (x-E(x))/ (\sqrt(D(x))) )^4 ]-3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mopen">[</span><span class="mopen">(</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.30499999999999994em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span><span class="mord">/</span><span class="mopen">(</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mopen" style="padding-left:1em;">(</span></span><span style="top:-2.8950000000000005em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width='400em' height='1.28em' viewBox='0 0 400000 1296' preserveAspectRatio='xMinYMin slice'><path d='M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
+158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120c340,-704.7,510.7,-1060.3,512,-1067
+c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
+175,-136,283c-52,108,-89.167,185.3,-111.5,232c-22.3,46.7,-33.8,70.3,-34.5,71
+c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
+-252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
+s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.30499999999999994em;"><span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></p>
+<ul>
+<li>峰度， 峰度是描述总体中所有取值分布形态陡缓程度的统计量，可以讲峰度理解为数据分布的高矮程度，峰度的比较是相对于标准正态分布的。</li>
+</ul>
+<blockquote>
+<p>对于标准正态分布，峰度为0。<br>
+如果峰度大于0，说明数据在分布上比标准正态分布密集，方差(标准差)较小。<br>
+如果峰度小于0，说明数据在分布上比标准正态分布分散，方差(标准差)较大。<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-9828218e64b397ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+</blockquote>
+<p><a href="https://www.cnblogs.com/feffery/p/11128113.html">参考</a></p>
+<pre><code>t1 = np.random.randint(1,11,100)
+t2 = np.random.randint(11,21,500)
+t3 = np.concatenate([t1,t2])
+print(t3.shape)
+left_skew = pd.Series(t3)
+
+t1 = np.random.randint(1,11,500)
+t2 = np.random.randint(11,21,100)
+t3 = np.concatenate([t1,t2])
+right_skew = pd.Series(t3)
+print(left_skew.skew(),right_skew.skew())
+
+sns.kdeplot(standard_normal,label=&quot;标准正态分布&quot;)
+sns.kdeplot(df[&quot;sepal length (cm)&quot;],label=&quot;花萼长度&quot;)
+sns.kdeplot(df[&quot;sepal width (cm)&quot;],label=&quot;花萼宽度&quot;)
+
+sns.kdeplot(left_skew,shade=True,label=&quot;左偏&quot;) 
+sns.kdeplot(right_skew,shade=True,label=&quot;右偏&quot;) 
+plt.legend()
+
+print(&quot;Kurtosis: %f&quot; % Train_data['price'].kurt())
+sns.distplot(Train_data.kurt(),color='orange',axlabel ='Kurtness')
+
+# fig, axes=plt.subplots(nrows=2, ncols=1, figsize=(14,6)) 
+# axes[0].hist(left_skew,label=&quot;左偏&quot;)
+# axes[1].hist(right_skew,label=&quot;右偏&quot;)
+plt.legend()
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://upload-images.jianshu.io/upload_images/18339009-668cc417ccd32acc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[AB测试]]></title>
+        <id>https://dingtom.github.io/post/ab-ce-shi/</id>
+        <link href="https://dingtom.github.io/post/ab-ce-shi/">
+        </link>
+        <updated>2020-11-27T07:23:37.000Z</updated>
+        <content type="html"><![CDATA[<p>将Web或App界面或流程的两个或多个版本，<s>在同一时间维度</s>，分别让两个或多个属性或组成成分<s>相同（相似）<s>的访客群组访同，收集各群组的</s>用户体验数据和业务数据</s>，最后分析评估出<s>最好版本正式采用</s>。</p>
+<h2 id="主要应用场景">主要应用场景：</h2>
+<p><s>界面设计、算法优化</s>。</p>
+<h2 id="流程">流程：</h2>
+<p>1、分析实际业务场景，明确<s>改进关键点。</s><br>
+2、与项目经理<s>确定优化目标，设计优化方案。</s><br>
+3、根据优化目标及方案搭建<s>数据分析指标体系，明确数据口径。</s><br>
+4、由UI设计师或算法工程师根据方案<s>完成样例开发，并设定数据埋点。</s><br>
+5、调整流量池，在<s>同一时间内对目标用户开始测试</s>。<br>
+6、根据时间进度及时收集数据，并根据数据情况<s>调整流量池或重新进行测试</s><br>
+7、经过多次试验取得成功后，确定新版本功能，<s>正式发布。</s></p>
+<h2 id="注意事项">注意事项：</h2>
+<ul>
+<li>
+<p>忽略个别异常<br>
+AB测试要分析<s>参与测试用户的整体分布情况</s>，而不仅仅是个别用户的情况。<s>如出现了个别异常值，重点是需要保证整体分布没有大的异常即可继续进行AB测试</s>，对于异常值，可以重直关注其产生的根本原因，可能是其他可优化直。</p>
+</li>
+<li>
+<p>数据有效性<br>
+正常情况下，在推进AB测试时，<s>前三天的数据波动会比教大，不建议直接使用</s>，测试需要大约7-14天为周期进行推进，切不可心急。对不同行业应用的产品，也要根据用户使用周期进行调整，~~一定要完整覆盖整个户周期。~~如电商平台在进行AB测试时，就需要注意工作日与节假日的影响不同，需要将测试周期定在一周以上。</p>
+</li>
+<li>
+<p>用户反馈反方向发展<br>
+在这种情况下，<s>先缩小测试用的流量池</s>，减少测试的用户数量；另一方面，分析目前的用户反馈情况，跟进反馈背后<s>问题的真实原因，优化调整AB测试方案</s>。千万<s>不要着急直接停止AB测试</s>，认真分析问题产生的根源，待情况明确，新方案制定后继续进行AB测试。</p>
+</li>
+</ul>
+<h2 id="灰度测试">灰度测试：</h2>
+<p>由于调整版本对企业影响极大，设定目标中的两个版本可能都不是有效版本，故不能将所有用户直接一分为二全部进行AB测试，对此可以采用灰度发布的方式，即<s>只选择其中极小部分用户进行AB測试，并逐步推广到所有用户。</s></p>
+<h2 id="abn测试">ABN测试：</h2>
+<p>在AB测试设计初期，可能提出了多种优化版本，对此并不一定只能要求其中一种版本进行AB测试，可<s>同时选择类型相同的版本同时进行AB测试，此类方法称为ABN试。</s><br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-e43f7922afc4d4ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<h2 id="anb-测试">ANB  测试：</h2>
+<p>在进AB测试过程中，可能会有个别特因素对测试结果有异常明确的影响，如遇到有特殊用户刷量等。为了免此类情况的发生对AB测试产生影响，可以考虑进行ANB测试（AA测试的加强版），<s>避免偶然因素对目标产生误差。</s><br>
+具体原理如下图：<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-e99a4516ae78c68a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<h2 id="多维测试">多维测试</h2>
+<p>可以在多个维度内同时推进AB测试，但是<s>一定要保任意两个维度内互不影响</s><br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-e6099c32a5954649.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<h2 id="数据分析师需要扮演的角色">数据分析师需要扮演的角色：</h2>
+<p>1、针对业务场景，<s>制定专题分析，明确分析目标</s><br>
+2、AB测试初期，分析业务场景，<s>提出优化方向</s><br>
+3、与产品经理沟通设计解决方案，<s>制定数据分析体系，明确数据口径</s><br>
+4、与测试人员<s>明确流量分配情况</s>，确保流量分配方式有效。<br>
+5、及时<s>收集数据</s>，分析并对测试过程<s>不断优化</s>。<br>
+6、跟进试过程，<s>了解测试用户的反馈情况</s>，分析其他优化点。<br>
+7、完成测试后，<s>撰写专題报告</s>，整理测试方案、测试数据、测试报告等完成<s>文件归档。</s></p>
+<h1 id="例子"><a href="https://github.com/dingtom/python/blob/master/ABtest.ipynb">例子</a></h1>
+<p><a href="https://alltodata.cowtransfer.com/s/b6eddb13746642">数据</a><br>
+给网站投放广告的时候，一开始给大家看到的落地页是访问课程资料，现在我们又推出了开始免费试学这个落地页，然后想着以后换上新的落地页，这时候就要检测两个落地页的转化效果了，下面是测试的24天，目的是确定使用新落地页，还是使用旧落地页，或是延长测试时<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-2ad2fdd698f4b6f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-ef1626d4bbd41bbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<p>结论：由于z_score=1.31小于norm.ppf(1-0.05)=1.64，落在95%的置信区间中，所以无法拒绝原假设，建议延长测试时间，继续观测情况。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[面试3（计算机基础）]]></title>
         <id>https://dingtom.github.io/post/mian-shi-3ji-suan-ji-ji-chu/</id>

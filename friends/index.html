@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1606399544155">
+<link rel="shortcut icon" href="/favicon.ico?v=1606468230194">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -193,7 +193,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">7</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -524,6 +524,255 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/ji-zhong-qu-shi-fen-xi-chi-san-cheng-du-fen-xi/"" data-c="
+          &lt;p&gt;&lt;a href=&#34;https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb&#34;&gt;https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import numpy as np 
+import pandas as pd 
+import matplotlib as mpl 
+import matplotlib.pyplot as plt 
+import seaborn as sns 
+import warnings 
+from sklearn.datasets import load_iris
+from scipy import stats  
+sns.set(style=&amp;quot;darkgrid&amp;quot;) 
+mpl.rcParams[&amp;quot;font.family&amp;quot;] = &amp;quot;SimHei&amp;quot; 
+mpl.rcParams[&amp;quot;axes.unicode_minus&amp;quot;] = False 
+warnings.filterwarnings(&amp;quot;ignore&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;iris = load_iris()
+# feature_names是每一列数据的特征名。target_names是鸢尾花的属种名
+print(iris[&#39;data&#39;].shape,iris[&#39;target&#39;].shape,iris[&#39;feature_names&#39;],iris[&#39;target_names&#39;])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(150, 4) (150,) [&#39;sepal length (cm)&#39;, &#39;sepal width (cm)&#39;, &#39;petal length (cm)&#39;, &#39;petal width (cm)&#39;] [&#39;setosa&#39; &#39;versicolor&#39; &#39;virginica&#39;]&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# reshape(-1,1)表示将原始数组变为1列，但是行数这里我写一个-1，表示系统
+# 会根据我指定的列数，自动去计算出行数。reshape(1,-1)含义同理
+dt = np.concatenate([iris.data,iris.target.reshape(-1,1)],axis=1)
+print(dt.shape)  # (150, 5)
+df = pd.DataFrame(dt,columns=iris.feature_names + [&amp;quot;types&amp;quot;])
+print(df.sample(5))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-170eeb6b355d4684.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;频数与频率&#34;&gt;频数与频率&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;预数，指一组数据中类别变量的每个不同取值出现的次数。&lt;/li&gt;
+&lt;li&gt;频率，指每个类别变量的频数与总次数的比值，通常采用百分数表示。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;# 计算鸢尾花数据集中每个类别出现的频数
+frequency = df[&amp;quot;types&amp;quot;].value_counts() / len(df)
+print(frequency.shape)
+print(frequency)
+plt.bar([1, 2, 3], frequency)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-e6622ef2938a600b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;集中趋势分析&#34;&gt;集中趋势分析&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;均值&lt;/li&gt;
+&lt;li&gt;中位数&lt;/li&gt;
+&lt;li&gt;众数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;”数值变量”通常使用均值与中值表示集中趋势。&lt;br&gt;
+“类别变量”通常使用众数表示集中趋势。&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-6c6a67d920539438.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+记忆方法：哪边的尾巴长，就叫做 “X偏”。左边的尾巴长，就叫做“左偏”；右边的尾巴长，就叫做“右偏”。并且均值离着尾巴最近，中位数总是在最中间，众数离着尾巴最远。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;分位数，将数据从小到大排列，通过n-1个分位数将数据分为n个区间，使得每个区间的数值的个数相等(近似相等)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;mean = df[&amp;quot;sepal length (cm)&amp;quot;].mean()  
+median = df[&amp;quot;sepal length (cm)&amp;quot;].median() 
+print(&#39;mean, median&#39;,mean, median)  
+# 由于series中没有专门计算众数的函数， # scipy的stats模块中，可以计算众数  
+from scipy import stats  
+t = stats.mode(df[&amp;quot;sepal length (cm)&amp;quot;])  
+# 注意：t展示的类字典格式的数据类型，mode展示众数，count用于展示众数出现的次数   
+print(t.mode, t.count)  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;mean, median 5.843333333333335 5.8&lt;br&gt;
+[5.] [10]&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sns.distplot(df[&amp;quot;sepal length (cm)&amp;quot;])  
+plt.axvline(mean,ls=&amp;quot;-&amp;quot;,color=&amp;quot;r&amp;quot;,label=&amp;quot;均值&amp;quot;) 
+plt.axvline(median,ls=&amp;quot;-&amp;quot;,color=&amp;quot;g&amp;quot;,label=&amp;quot;中值&amp;quot;)
+plt.axvline(t.mode,ls=&amp;quot;-&amp;quot;,color=&amp;quot;indigo&amp;quot;,label=&amp;quot;众数&amp;quot;) 
+plt.legend(loc=&amp;quot;best&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-8112dca9a0d8c36f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code&gt;# 分位数
+x = np.arange(10,20) 
+q = np.quantile(x,[0.25,0.5,0.75])
+plt.figure(figsize=(15,4))
+plt.xticks(x)
+plt.plot(x,np.zeros(len(x)),ls=&amp;quot;&amp;quot;,marker=&amp;quot;D&amp;quot;,ms=15,label=&amp;quot;元素值&amp;quot;)
+plt.plot(q,np.zeros(len(q)),ls=&amp;quot;&amp;quot;,marker=&amp;quot;X&amp;quot;,ms=15,label=&amp;quot;四分位值&amp;quot;)
+for v in q:     
+    plt.text(v,0.01,v,fontsize=15)
+plt.legend()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-3e9ebd3e4b3a505e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;离散程度分析&#34;&gt;离散程度分析&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;极差，极差指一组数据中，最大值与最小值之差。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;方差，方差体现的是一组数据中，每个元素与均值偏离的大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;标准差，标准差标准差为方差的开方。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;sub = df[&amp;quot;sepal length (cm)&amp;quot;].max()  - df[&amp;quot;sepal length (cm)&amp;quot;].min() 
+var = df[&amp;quot;sepal length (cm)&amp;quot;].var()
+std = df[&amp;quot;sepal length (cm)&amp;quot;].std()
+print(sub, var, std)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;3.6000000000000005 0.6856935123042505 0.8280661279778629&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;plt.figure(figsize=(15,4))
+plt.ylim(-0.5,1.5)
+plt.plot(df[&amp;quot;sepal length (cm)&amp;quot;],np.zeros(len(df)),ls=&amp;quot;&amp;quot;,marker=&amp;quot;o&amp;quot;,ms=10,color=&amp;quot;g&amp;quot;,label=&amp;quot;花瓣长度&amp;quot;)
+plt.plot(df[&amp;quot;sepal width (cm)&amp;quot;],np.ones(len(df)),ls=&amp;quot;&amp;quot;,marker=&amp;quot;o&amp;quot;,ms=10,color=&amp;quot;b&amp;quot;,label=&amp;quot;花瓣宽度&amp;quot;)
+         
+plt.axvline(df[&amp;quot;sepal length (cm)&amp;quot;].mean(),ls=&amp;quot;--&amp;quot;,color=&amp;quot;g&amp;quot;,label=&amp;quot;花瓣长度均值&amp;quot;)
+plt.axvline(df[&amp;quot;sepal width (cm)&amp;quot;].mean(),ls=&amp;quot;-&amp;quot;,color=&amp;quot;b&amp;quot;,label=&amp;quot;花瓣宽度均值&amp;quot;)
+
+plt.legend()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-1e63ba109f5053ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;分布形状&#34;&gt;分布形状&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;偏度，偏度是统计数据分布偏斜方向和程度的度量，是统计数据分布非对称程度的数字特征。&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-1d29f1c0af7f7546.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;偏度skewness&#34;&gt;偏度（Skewness）&lt;/h2&gt;
+&lt;p&gt;Definition:是描述数据分布形态的统计量，其描述的是某总体取值分布的对称性，&lt;strong&gt;简单来说就是数据的不对称程度。&lt;/strong&gt;&lt;br&gt;
+偏度是三阶中心距计算出来的。&lt;br&gt;
+（1）Skewness = 0 ，分布形态与正态分布偏度相同。&lt;br&gt;
+（2）Skewness &amp;gt; 0 ，正偏差数值较大，为正偏或右偏。长尾巴拖在右边，数据右端有较多的极端值。&lt;br&gt;
+（3）Skewness &amp;lt; 0 ，负偏差数值较大，为负偏或左偏。长尾巴拖在左边，数据左端有较多的极端值。&lt;br&gt;
+（4）数值的绝对值越大，表明数据分布越不对称，偏斜程度大。&lt;br&gt;
+计算公式：&lt;br&gt;
+&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;S&lt;/mi&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;E&lt;/mi&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mi&gt;E&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;/&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;msqrt&gt;&lt;mrow&gt;&lt;mi&gt;D&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;/msqrt&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;msup&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;Skewness=E[((x-E(x))/(\sqrt{D(x)}))^3]&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.69444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.05764em;&#34;&gt;S&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.03148em;&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02691em;&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.05764em;&#34;&gt;E&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.24em;vertical-align:-0.30499999999999994em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.05764em;&#34;&gt;E&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord sqrt&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.935em;&#34;&gt;&lt;span class=&#34;svg-align&#34; style=&#34;top:-3.2em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3.2em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34; style=&#34;padding-left:1em;&#34;&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;D&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-2.8950000000000005em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3.2em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;hide-tail&#34; style=&#34;min-width:1.02em;height:1.28em;&#34;&gt;&lt;svg width=&#39;400em&#39; height=&#39;1.28em&#39; viewBox=&#39;0 0 400000 1296&#39; preserveAspectRatio=&#39;xMinYMin slice&#39;&gt;&lt;path d=&#39;M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
+158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120c340,-704.7,510.7,-1060.3,512,-1067
+c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
+175,-136,283c-52,108,-89.167,185.3,-111.5,232c-22.3,46.7,-33.8,70.3,-34.5,71
+c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
+-252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
+s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z&#39;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.30499999999999994em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;
+| Skewness| 越大，分布形态偏移程度越大。&lt;/p&gt;
+&lt;h2 id=&#34;峰度kurtosis&#34;&gt;峰度（Kurtosis）&lt;/h2&gt;
+&lt;p&gt;Definition:偏度是描述某变量所有取值分布形态陡缓程度的统计量，&lt;strong&gt;简单来说就是数据分布顶的尖锐程度。&lt;/strong&gt;&lt;br&gt;
+峰度是四阶标准矩计算出来的。&lt;br&gt;
+（1）Kurtosis=0 与正态分布的陡缓程度相同。&lt;br&gt;
+（2）Kurtosis&amp;gt;0 比正态分布的高峰更加陡峭——尖顶峰&lt;br&gt;
+（3）Kurtosis&amp;lt;0 比正态分布的高峰来得平台——平顶峰&lt;br&gt;
+计算公式：&lt;br&gt;
+&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;K&lt;/mi&gt;&lt;mi&gt;u&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;E&lt;/mi&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mi&gt;E&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;/&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;msqrt&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;/msqrt&gt;&lt;mi&gt;D&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;msup&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mn&gt;4&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;Kurtosis=E[ ( (x-E(x))/ (\sqrt(D(x))) )^4 ]-3&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.68333em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.07153em;&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;u&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.05764em;&#34;&gt;E&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.24em;vertical-align:-0.30499999999999994em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.05764em;&#34;&gt;E&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord sqrt&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.935em;&#34;&gt;&lt;span class=&#34;svg-align&#34; style=&#34;top:-3.2em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3.2em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34; style=&#34;padding-left:1em;&#34;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-2.8950000000000005em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3.2em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;hide-tail&#34; style=&#34;min-width:1.02em;height:1.28em;&#34;&gt;&lt;svg width=&#39;400em&#39; height=&#39;1.28em&#39; viewBox=&#39;0 0 400000 1296&#39; preserveAspectRatio=&#39;xMinYMin slice&#39;&gt;&lt;path d=&#39;M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
+158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120c340,-704.7,510.7,-1060.3,512,-1067
+c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
+175,-136,283c-52,108,-89.167,185.3,-111.5,232c-22.3,46.7,-33.8,70.3,-34.5,71
+c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
+-252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
+s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z&#39;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.30499999999999994em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;D&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;4&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;峰度， 峰度是描述总体中所有取值分布形态陡缓程度的统计量，可以讲峰度理解为数据分布的高矮程度，峰度的比较是相对于标准正态分布的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于标准正态分布，峰度为0。&lt;br&gt;
+如果峰度大于0，说明数据在分布上比标准正态分布密集，方差(标准差)较小。&lt;br&gt;
+如果峰度小于0，说明数据在分布上比标准正态分布分散，方差(标准差)较大。&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-9828218e64b397ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/feffery/p/11128113.html&#34;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;t1 = np.random.randint(1,11,100)
+t2 = np.random.randint(11,21,500)
+t3 = np.concatenate([t1,t2])
+print(t3.shape)
+left_skew = pd.Series(t3)
+
+t1 = np.random.randint(1,11,500)
+t2 = np.random.randint(11,21,100)
+t3 = np.concatenate([t1,t2])
+right_skew = pd.Series(t3)
+print(left_skew.skew(),right_skew.skew())
+
+sns.kdeplot(standard_normal,label=&amp;quot;标准正态分布&amp;quot;)
+sns.kdeplot(df[&amp;quot;sepal length (cm)&amp;quot;],label=&amp;quot;花萼长度&amp;quot;)
+sns.kdeplot(df[&amp;quot;sepal width (cm)&amp;quot;],label=&amp;quot;花萼宽度&amp;quot;)
+
+sns.kdeplot(left_skew,shade=True,label=&amp;quot;左偏&amp;quot;) 
+sns.kdeplot(right_skew,shade=True,label=&amp;quot;右偏&amp;quot;) 
+plt.legend()
+
+print(&amp;quot;Kurtosis: %f&amp;quot; % Train_data[&#39;price&#39;].kurt())
+sns.distplot(Train_data.kurt(),color=&#39;orange&#39;,axlabel =&#39;Kurtness&#39;)
+
+# fig, axes=plt.subplots(nrows=2, ncols=1, figsize=(14,6)) 
+# axes[0].hist(left_skew,label=&amp;quot;左偏&amp;quot;)
+# axes[1].hist(right_skew,label=&amp;quot;右偏&amp;quot;)
+plt.legend()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-668cc417ccd32acc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">集中趋势分析、离散程度分析</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/ab-ce-shi/"" data-c="
+          &lt;p&gt;将Web或App界面或流程的两个或多个版本，&lt;s&gt;在同一时间维度&lt;/s&gt;，分别让两个或多个属性或组成成分&lt;s&gt;相同（相似）&lt;s&gt;的访客群组访同，收集各群组的&lt;/s&gt;用户体验数据和业务数据&lt;/s&gt;，最后分析评估出&lt;s&gt;最好版本正式采用&lt;/s&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;主要应用场景&#34;&gt;主要应用场景：&lt;/h2&gt;
+&lt;p&gt;&lt;s&gt;界面设计、算法优化&lt;/s&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;流程&#34;&gt;流程：&lt;/h2&gt;
+&lt;p&gt;1、分析实际业务场景，明确&lt;s&gt;改进关键点。&lt;/s&gt;&lt;br&gt;
+2、与项目经理&lt;s&gt;确定优化目标，设计优化方案。&lt;/s&gt;&lt;br&gt;
+3、根据优化目标及方案搭建&lt;s&gt;数据分析指标体系，明确数据口径。&lt;/s&gt;&lt;br&gt;
+4、由UI设计师或算法工程师根据方案&lt;s&gt;完成样例开发，并设定数据埋点。&lt;/s&gt;&lt;br&gt;
+5、调整流量池，在&lt;s&gt;同一时间内对目标用户开始测试&lt;/s&gt;。&lt;br&gt;
+6、根据时间进度及时收集数据，并根据数据情况&lt;s&gt;调整流量池或重新进行测试&lt;/s&gt;&lt;br&gt;
+7、经过多次试验取得成功后，确定新版本功能，&lt;s&gt;正式发布。&lt;/s&gt;&lt;/p&gt;
+&lt;h2 id=&#34;注意事项&#34;&gt;注意事项：&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;忽略个别异常&lt;br&gt;
+AB测试要分析&lt;s&gt;参与测试用户的整体分布情况&lt;/s&gt;，而不仅仅是个别用户的情况。&lt;s&gt;如出现了个别异常值，重点是需要保证整体分布没有大的异常即可继续进行AB测试&lt;/s&gt;，对于异常值，可以重直关注其产生的根本原因，可能是其他可优化直。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据有效性&lt;br&gt;
+正常情况下，在推进AB测试时，&lt;s&gt;前三天的数据波动会比教大，不建议直接使用&lt;/s&gt;，测试需要大约7-14天为周期进行推进，切不可心急。对不同行业应用的产品，也要根据用户使用周期进行调整，~~一定要完整覆盖整个户周期。~~如电商平台在进行AB测试时，就需要注意工作日与节假日的影响不同，需要将测试周期定在一周以上。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用户反馈反方向发展&lt;br&gt;
+在这种情况下，&lt;s&gt;先缩小测试用的流量池&lt;/s&gt;，减少测试的用户数量；另一方面，分析目前的用户反馈情况，跟进反馈背后&lt;s&gt;问题的真实原因，优化调整AB测试方案&lt;/s&gt;。千万&lt;s&gt;不要着急直接停止AB测试&lt;/s&gt;，认真分析问题产生的根源，待情况明确，新方案制定后继续进行AB测试。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;灰度测试&#34;&gt;灰度测试：&lt;/h2&gt;
+&lt;p&gt;由于调整版本对企业影响极大，设定目标中的两个版本可能都不是有效版本，故不能将所有用户直接一分为二全部进行AB测试，对此可以采用灰度发布的方式，即&lt;s&gt;只选择其中极小部分用户进行AB測试，并逐步推广到所有用户。&lt;/s&gt;&lt;/p&gt;
+&lt;h2 id=&#34;abn测试&#34;&gt;ABN测试：&lt;/h2&gt;
+&lt;p&gt;在AB测试设计初期，可能提出了多种优化版本，对此并不一定只能要求其中一种版本进行AB测试，可&lt;s&gt;同时选择类型相同的版本同时进行AB测试，此类方法称为ABN试。&lt;/s&gt;&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-e43f7922afc4d4ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;anb-测试&#34;&gt;ANB  测试：&lt;/h2&gt;
+&lt;p&gt;在进AB测试过程中，可能会有个别特因素对测试结果有异常明确的影响，如遇到有特殊用户刷量等。为了免此类情况的发生对AB测试产生影响，可以考虑进行ANB测试（AA测试的加强版），&lt;s&gt;避免偶然因素对目标产生误差。&lt;/s&gt;&lt;br&gt;
+具体原理如下图：&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-e99a4516ae78c68a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;多维测试&#34;&gt;多维测试&lt;/h2&gt;
+&lt;p&gt;可以在多个维度内同时推进AB测试，但是&lt;s&gt;一定要保任意两个维度内互不影响&lt;/s&gt;&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-e6099c32a5954649.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;数据分析师需要扮演的角色&#34;&gt;数据分析师需要扮演的角色：&lt;/h2&gt;
+&lt;p&gt;1、针对业务场景，&lt;s&gt;制定专题分析，明确分析目标&lt;/s&gt;&lt;br&gt;
+2、AB测试初期，分析业务场景，&lt;s&gt;提出优化方向&lt;/s&gt;&lt;br&gt;
+3、与产品经理沟通设计解决方案，&lt;s&gt;制定数据分析体系，明确数据口径&lt;/s&gt;&lt;br&gt;
+4、与测试人员&lt;s&gt;明确流量分配情况&lt;/s&gt;，确保流量分配方式有效。&lt;br&gt;
+5、及时&lt;s&gt;收集数据&lt;/s&gt;，分析并对测试过程&lt;s&gt;不断优化&lt;/s&gt;。&lt;br&gt;
+6、跟进试过程，&lt;s&gt;了解测试用户的反馈情况&lt;/s&gt;，分析其他优化点。&lt;br&gt;
+7、完成测试后，&lt;s&gt;撰写专題报告&lt;/s&gt;，整理测试方案、测试数据、测试报告等完成&lt;s&gt;文件归档。&lt;/s&gt;&lt;/p&gt;
+&lt;h1 id=&#34;例子&#34;&gt;&lt;a href=&#34;https://github.com/dingtom/python/blob/master/ABtest.ipynb&#34;&gt;例子&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://alltodata.cowtransfer.com/s/b6eddb13746642&#34;&gt;数据&lt;/a&gt;&lt;br&gt;
+给网站投放广告的时候，一开始给大家看到的落地页是访问课程资料，现在我们又推出了开始免费试学这个落地页，然后想着以后换上新的落地页，这时候就要检测两个落地页的转化效果了，下面是测试的24天，目的是确定使用新落地页，还是使用旧落地页，或是延长测试时&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-2ad2fdd698f4b6f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-ef1626d4bbd41bbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;结论：由于z_score=1.31小于norm.ppf(1-0.05)=1.64，落在95%的置信区间中，所以无法拒绝原假设，建议延长测试时间，继续观测情况。&lt;/p&gt;
+">AB测试</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/mian-shi-3ji-suan-ji-ji-chu/"" data-c="
