@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-11-27T09:10:55.691Z</updated>
+    <updated>2020-11-28T14:10:35.527Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -11,39 +11,573 @@
     <icon>https://dingtom.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Tomding&apos;s Blog</rights>
     <entry>
-        <title type="html"><![CDATA[集中趋势分析、离散程度分析]]></title>
+        <title type="html"><![CDATA[Docker]]></title>
+        <id>https://dingtom.github.io/post/docker/</id>
+        <link href="https://dingtom.github.io/post/docker/">
+        </link>
+        <updated>2020-11-28T14:10:09.000Z</updated>
+        <summary type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-a16ddde40bfc6f50.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<p>ubuntu安装 Docker 的时候需在管理员的账号下操作。<br>
+<code>wget -qO- https://get.docker.com/ | sh</code><br>
+安装完成之后，以 sudo 启动 Docker 服务。<br>
+<code>sudo service docker start</code></p>
+<h3 id="容器生命周期管理">容器生命周期管理</h3>
+<h4 id="创建一个新的容器并运行一个命令run"><a href="https://www.runoob.com/docker/docker-run-command.html">创建一个新的容器并运行一个命令：run</a></h4>
+<p><code>docker run -d(后台运行不阻塞shell） -p 80:80（指定容器端口映射，内部：外部） nginx</code></p>
+<blockquote>
+<p>-d：后台运行容器<br>
+-h: 指定容器的hostname；<br>
+-p：主机端口号:容器端口号```容器内外端口映射<br>
+--name name：指定容器名称<br>
+-v &lt;外部 dir&gt;:&lt; 内部 dir&gt;：目录映射<br>
+<mirror name>:<version>：指定映像版本<br>
+-it：容器的 Shell 映射到当前的 Shell，然后你在本机窗口输入的命令，就会传入容器。<br>
+--link：将另一个容器映射到本容器，进行通信</p>
+</blockquote>
+<h4 id="启动停止重启容器startstoprestart"><a href="https://www.runoob.com/docker/docker-start-stop-restart-command.html">启动/停止/重启容器：start/stop/restart</a></h4>
+<h4 id="杀掉容器kill"><a href="https://www.runoob.com/docker/docker-kill-command.html">杀掉容器：kill</a></h4>
+<h4 id="删除容器rm"><a href="https://www.runoob.com/docker/docker-rm-command.html">删除容器：rm</a></h4>
+<p><code>docker rm -f &lt;container id&gt;</code></p>
+<h4 id="暂停恢复容器中进程pauseunpause"><a href="https://www.runoob.com/docker/docker-pause-unpause-command.html">暂停/恢复容器中进程：pause/unpause</a></h4>
+<h4 id="创建容器create"><a href="https://www.runoob.com/docker/docker-create-command.html">创建容器：create</a></h4>
+<h4 id="进入容器exec"><a href="https://www.runoob.com/docker/docker-exec-command.html">进入容器：exec</a></h4>
+<p><code>docker exec -it &lt;container id&gt; bash</code></p>
+<h3 id="容器操作">容器操作</h3>
+<h4 id="查看正在运行的容器ps"><a href="https://www.runoob.com/docker/docker-ps-command.html">查看正在运行的容器：ps</a></h4>
+<p><code>docker ps</code></p>
+<h4 id="inspect"><a href="https://www.runoob.com/docker/docker-inspect-command.html">inspect</a></h4>
+<h4 id="top"><a href="https://www.runoob.com/docker/docker-top-command.html">top</a></h4>
+<h4 id="attach"><a href="https://www.runoob.com/docker/docker-attach-command.html">attach</a></h4>
+<h4 id="events"><a href="https://www.runoob.com/docker/docker-events-command.html">events</a></h4>
+<h4 id="logs"><a href="https://www.runoob.com/docker/docker-logs-command.html">logs</a></h4>
+<h4 id="wait"><a href="https://www.runoob.com/docker/docker-wait-command.html">wait</a></h4>
+<h4 id="export"><a href="https://www.runoob.com/docker/docker-export-command.html">export</a></h4>
+<h4 id="port"><a href="https://www.runoob.com/docker/docker-port-command.html">port</a></h4>
+<h3 id="容器rootfs命令">容器rootfs命令</h3>
+<h4 id="从容器创建一个新的镜像commit"><a href="https://www.runoob.com/docker/docker-commit-command.html">从容器创建一个新的镜像：commit</a></h4>
+<p><code>docker commit &lt;container id&gt; &lt;mirror name&gt;</code>我们修改过后的容器保存成镜像，重新运行，它可以保持这个变化</p>
+<blockquote>
+<p>-a :提交的镜像作者；<br>
+-c :使用Dockerfile指令来创建镜像；<br>
+-m :提交时的说明文字；<br>
+-p :在commit时，将容器暂停。</p>
+</blockquote>
+<h4 id="cp"><a href="https://www.runoob.com/docker/docker-cp-command.html">cp</a></h4>
+<h4 id="diff"><a href="https://www.runoob.com/docker/docker-diff-command.html">diff</a></h4>
+<h3 id="镜像仓库">镜像仓库</h3>
+<h4 id="login"><a href="https://www.runoob.com/docker/docker-login-command.html">login</a></h4>
+<h4 id="拉取或者更新镜像pull"><a href="https://www.runoob.com/docker/docker-pull-command.html">拉取或者更新镜像：pull</a></h4>
+<p><code>docker pull nginx（等效于nginx:latest）</code></p>
+<h4 id="push"><a href="https://www.runoob.com/docker/docker-push-command.html">push</a></h4>
+<h4 id="search"><a href="https://www.runoob.com/docker/docker-search-command.html">search</a></h4>
+<h3 id="本地镜像管理">本地镜像管理</h3>
+<h4 id="查看镜像列表images"><a href="https://www.runoob.com/docker/docker-images-command.html">查看镜像列表：images</a></h4>
+<p><code>docker images</code></p>
+<h4 id="删除镜像rmi"><a href="https://www.runoob.com/docker/docker-rmi-command.html">删除镜像：rmi</a></h4>
+<p><code>docker rmi &lt;mirror name&gt;</code></p>
+<h4 id="tag"><a href="https://www.runoob.com/docker/docker-tag-command.html">tag</a></h4>
+<h4 id="使用dockerfile构建镜像build"><a href="https://www.runoob.com/docker/docker-build-command.html">使用Dockerfile构建镜像：build</a></h4>
+<p><code>docker build -t &lt;mirror name&gt; &lt;存放Dockerfile的文件夹&gt;</code></p>
+<h4 id="history"><a href="https://www.runoob.com/docker/docker-history-command.html">history</a></h4>
+<h4 id="镜像保存为tarsave"><a href="https://www.runoob.com/docker/docker-save-command.html">镜像保存为tar：save</a></h4>
+<p><code>docker save &lt;mirror name&gt; &gt; &lt;tar name&gt;</code></p>
+<h4 id="从tar加载镜像load"><a href="https://www.runoob.com/docker/docker-load-command.html">从tar加载镜像：load</a></h4>
+<p><code>docker load &lt; &lt;tar name&gt;</code></p>
+<h4 id="import"><a href="https://www.runoob.com/docker/docker-import-command.html">import</a></h4>
+<h3 id="infoversion">info|version</h3>
+<h4 id="info"><a href="https://www.runoob.com/docker/docker-info-command.html">info</a></h4>
+<h4 id="version"><a href="https://www.runoob.com/docker/docker-version-command.html">version</a></h4>
+]]></summary>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-a16ddde40bfc6f50.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<p>ubuntu安装 Docker 的时候需在管理员的账号下操作。<br>
+<code>wget -qO- https://get.docker.com/ | sh</code><br>
+安装完成之后，以 sudo 启动 Docker 服务。<br>
+<code>sudo service docker start</code></p>
+<h3 id="容器生命周期管理">容器生命周期管理</h3>
+<h4 id="创建一个新的容器并运行一个命令run"><a href="https://www.runoob.com/docker/docker-run-command.html">创建一个新的容器并运行一个命令：run</a></h4>
+<p><code>docker run -d(后台运行不阻塞shell） -p 80:80（指定容器端口映射，内部：外部） nginx</code></p>
+<blockquote>
+<p>-d：后台运行容器<br>
+-h: 指定容器的hostname；<br>
+-p：主机端口号:容器端口号```容器内外端口映射<br>
+--name name：指定容器名称<br>
+-v &lt;外部 dir&gt;:&lt; 内部 dir&gt;：目录映射<br>
+<mirror name>:<version>：指定映像版本<br>
+-it：容器的 Shell 映射到当前的 Shell，然后你在本机窗口输入的命令，就会传入容器。<br>
+--link：将另一个容器映射到本容器，进行通信</p>
+</blockquote>
+<h4 id="启动停止重启容器startstoprestart"><a href="https://www.runoob.com/docker/docker-start-stop-restart-command.html">启动/停止/重启容器：start/stop/restart</a></h4>
+<h4 id="杀掉容器kill"><a href="https://www.runoob.com/docker/docker-kill-command.html">杀掉容器：kill</a></h4>
+<h4 id="删除容器rm"><a href="https://www.runoob.com/docker/docker-rm-command.html">删除容器：rm</a></h4>
+<p><code>docker rm -f &lt;container id&gt;</code></p>
+<h4 id="暂停恢复容器中进程pauseunpause"><a href="https://www.runoob.com/docker/docker-pause-unpause-command.html">暂停/恢复容器中进程：pause/unpause</a></h4>
+<h4 id="创建容器create"><a href="https://www.runoob.com/docker/docker-create-command.html">创建容器：create</a></h4>
+<h4 id="进入容器exec"><a href="https://www.runoob.com/docker/docker-exec-command.html">进入容器：exec</a></h4>
+<p><code>docker exec -it &lt;container id&gt; bash</code></p>
+<h3 id="容器操作">容器操作</h3>
+<h4 id="查看正在运行的容器ps"><a href="https://www.runoob.com/docker/docker-ps-command.html">查看正在运行的容器：ps</a></h4>
+<p><code>docker ps</code></p>
+<h4 id="inspect"><a href="https://www.runoob.com/docker/docker-inspect-command.html">inspect</a></h4>
+<h4 id="top"><a href="https://www.runoob.com/docker/docker-top-command.html">top</a></h4>
+<h4 id="attach"><a href="https://www.runoob.com/docker/docker-attach-command.html">attach</a></h4>
+<h4 id="events"><a href="https://www.runoob.com/docker/docker-events-command.html">events</a></h4>
+<h4 id="logs"><a href="https://www.runoob.com/docker/docker-logs-command.html">logs</a></h4>
+<h4 id="wait"><a href="https://www.runoob.com/docker/docker-wait-command.html">wait</a></h4>
+<h4 id="export"><a href="https://www.runoob.com/docker/docker-export-command.html">export</a></h4>
+<h4 id="port"><a href="https://www.runoob.com/docker/docker-port-command.html">port</a></h4>
+<h3 id="容器rootfs命令">容器rootfs命令</h3>
+<h4 id="从容器创建一个新的镜像commit"><a href="https://www.runoob.com/docker/docker-commit-command.html">从容器创建一个新的镜像：commit</a></h4>
+<p><code>docker commit &lt;container id&gt; &lt;mirror name&gt;</code>我们修改过后的容器保存成镜像，重新运行，它可以保持这个变化</p>
+<blockquote>
+<p>-a :提交的镜像作者；<br>
+-c :使用Dockerfile指令来创建镜像；<br>
+-m :提交时的说明文字；<br>
+-p :在commit时，将容器暂停。</p>
+</blockquote>
+<h4 id="cp"><a href="https://www.runoob.com/docker/docker-cp-command.html">cp</a></h4>
+<h4 id="diff"><a href="https://www.runoob.com/docker/docker-diff-command.html">diff</a></h4>
+<h3 id="镜像仓库">镜像仓库</h3>
+<h4 id="login"><a href="https://www.runoob.com/docker/docker-login-command.html">login</a></h4>
+<h4 id="拉取或者更新镜像pull"><a href="https://www.runoob.com/docker/docker-pull-command.html">拉取或者更新镜像：pull</a></h4>
+<p><code>docker pull nginx（等效于nginx:latest）</code></p>
+<h4 id="push"><a href="https://www.runoob.com/docker/docker-push-command.html">push</a></h4>
+<h4 id="search"><a href="https://www.runoob.com/docker/docker-search-command.html">search</a></h4>
+<h3 id="本地镜像管理">本地镜像管理</h3>
+<h4 id="查看镜像列表images"><a href="https://www.runoob.com/docker/docker-images-command.html">查看镜像列表：images</a></h4>
+<p><code>docker images</code></p>
+<h4 id="删除镜像rmi"><a href="https://www.runoob.com/docker/docker-rmi-command.html">删除镜像：rmi</a></h4>
+<p><code>docker rmi &lt;mirror name&gt;</code></p>
+<h4 id="tag"><a href="https://www.runoob.com/docker/docker-tag-command.html">tag</a></h4>
+<h4 id="使用dockerfile构建镜像build"><a href="https://www.runoob.com/docker/docker-build-command.html">使用Dockerfile构建镜像：build</a></h4>
+<p><code>docker build -t &lt;mirror name&gt; &lt;存放Dockerfile的文件夹&gt;</code></p>
+<h4 id="history"><a href="https://www.runoob.com/docker/docker-history-command.html">history</a></h4>
+<h4 id="镜像保存为tarsave"><a href="https://www.runoob.com/docker/docker-save-command.html">镜像保存为tar：save</a></h4>
+<p><code>docker save &lt;mirror name&gt; &gt; &lt;tar name&gt;</code></p>
+<h4 id="从tar加载镜像load"><a href="https://www.runoob.com/docker/docker-load-command.html">从tar加载镜像：load</a></h4>
+<p><code>docker load &lt; &lt;tar name&gt;</code></p>
+<h4 id="import"><a href="https://www.runoob.com/docker/docker-import-command.html">import</a></h4>
+<h3 id="infoversion">info|version</h3>
+<h4 id="info"><a href="https://www.runoob.com/docker/docker-info-command.html">info</a></h4>
+<h4 id="version"><a href="https://www.runoob.com/docker/docker-version-command.html">version</a></h4>
+<!-- more -->
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Docker安装Hadoop]]></title>
+        <id>https://dingtom.github.io/post/docker-an-zhuang-hadoop/</id>
+        <link href="https://dingtom.github.io/post/docker-an-zhuang-hadoop/">
+        </link>
+        <updated>2020-11-28T13:53:36.000Z</updated>
+        <content type="html"><![CDATA[<p>Docker、Java、Scala、Hadoop、 Hbase、Spark。<br>
+集群共有5台机器，主机名分别为 h01、h02、h03、h04、h05。其中 h01 为 master，其他的为 slave。<br>
+JDK 1.8、Scala 2.11.6、Hadoop 3.2.1、Hbase 2.1.3、Spark 2.4.0</p>
+<h1 id="ubuntu-安装-docker">Ubuntu 安装 Docker</h1>
+<h2 id="在-ubuntu-下安装-docker-的时候需在管理员的账号下操作">在 Ubuntu 下安装 Docker 的时候需在管理员的账号下操作。</h2>
+<p><code>wget -qO- https://get.docker.com/ | sh</code></p>
+<h2 id="以-sudo-启动-docker-服务">以 sudo 启动 Docker 服务。</h2>
+<p><code>sudo service docker start</code></p>
+<h2 id="显示-docker-中所有正在运行的容器">显示 Docker 中所有正在运行的容器</h2>
+<p><code>sudo docker ps</code><br>
+现在的 Docker 网络能够提供 DNS 解析功能，使用如下命令为接下来的 Hadoop 集群单独构建一个虚拟的网络。<br>
+<code>sudo docker network create --driver=bridge hadoop</code><br>
+以上命令创建了一个名为 Hadoop 的虚拟桥接网络，该虚拟网络内部提供了自动的DNS解析服务。## 查看 Docker 中的网络<br>
+<code>sudo docker network ls</code><br>
+可以看到刚刚创建的名为 hadoop 的虚拟桥接网络。</p>
+<h2 id="查找-ubuntu-容器">查找 ubuntu 容器</h2>
+<p><code>sudo docker search ubuntu</code></p>
+<h2 id="下载-ubuntu-1604-版本的镜像文件">下载 ubuntu 16.04 版本的镜像文件</h2>
+<p><code>sudo docker pull ubuntu:16.04</code></p>
+<h2 id="根据镜像启动一个容器">根据镜像启动一个容器</h2>
+<p><code>sudo docker run -it ubuntu:16.04 /bin/bash</code><br>
+可以看出 shell 已经是容器的 shell 了</p>
+<h2 id="退出容器">退出容器</h2>
+<p><code>exit</code></p>
+<h2 id="查看本机上所有的容器">查看本机上所有的容器</h2>
+<p><code>sudo docker ps -a</code></p>
+<h2 id="启动容器">启动容器</h2>
+<p><code>sudo docker start fab4da838c2f</code></p>
+<h2 id="关闭容器">关闭容器</h2>
+<p><code>sudo docker stop fab4da838c2f</code></p>
+<h1 id="安装-java-与-scala">安装 Java 与 Scala</h1>
+<p>在当前容器中将配置配好，导入出为镜像。以此镜像为基础创建五个容器，并赋予 hostname<br>
+进入 h01 容器，启动 Hadoop。</p>
+<h2 id="进入-ubuntu-容器">进入 Ubuntu 容器</h2>
+<p><code>sudo docker exec -it fab4da838c2f /bin/bash</code></p>
+<h2 id="修改-apt-源">修改 apt 源</h2>
+<p>备份源<br>
+<code>cp /etc/apt/sources.list /etc/apt/sources_init.list</code><br>
+先删除旧源文件<br>
+<code>rm /etc/apt/sources.list</code><br>
+这个时候没有 vim 工具，使用 echo 命令将源写入新文件</p>
+<pre><code>echo &quot;deb http://mirrors.aliyun.com/ubuntu/ xenial main
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial main
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main
+deb http://mirrors.aliyun.com/ubuntu/ xenial universe
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security universe
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security universe&quot;
+&gt; /etc/apt/sources.list
+</code></pre>
+<h2 id="更新源">更新源</h2>
+<p><code>apt update</code></p>
+<h2 id="安装-jdk-18">安装 jdk 1.8</h2>
+<p>​<code>apt install openjdk-8-jdk</code><br>
+测试<br>
+​<code>java -version</code></p>
+<h2 id="安装-scala">安装 Scala</h2>
+<p>​<code>apt install scala</code><br>
+测试<br>
+​<code>scala</code></p>
+<h2 id="安装-vim-与-网络工具包">安装 Vim 与 网络工具包</h2>
+<p>安装 vim，用来编辑文件<br>
+​<code>apt install vim</code><br>
+安装 net-tools<br>
+​<code>apt install net-tools</code></p>
+<h2 id="安装-ssh">安装 SSH</h2>
+<p>安装 SSH，并配置免密登录，由于后面的容器之间是由一个镜像启动的，所以在当前容器里配置 SSH 自身免密登录就 OK 了。</p>
+<p>安装 SSH<br>
+​<code>apt-get install openssh-server</code><br>
+安装 SSH 的客户端<br>
+​<code>apt-get install openssh-client</code><br>
+进入当前用户的用户根目录<br>
+​<code>cd ~</code><br>
+生成密钥，一直回车就行<br>
+​<code>ssh-keygen -t rsa -P &quot;&quot;</code><br>
+生成的密钥在当前用户根目录下的 .ssh 文件夹中以 . 开头的文件与文件夹 ls 是看不懂的，需要<code>ls -al</code> 才能查看。</p>
+<p>将公钥追加到 authorized_keys 文件中<br>
+​<code>cat .ssh/id_rsa.pub &gt;&gt; .ssh/authorized_keys</code><br>
+启动 SSH 服务<br>
+​<code>service ssh start</code><br>
+免密登录自己<br>
+​<code>ssh 127.0.0.1</code><br>
+修改 .bashrc 文件，启动 shell 的时候，自动启动 SSH 服务<br>
+​<code>vim ~/.bashrc</code><br>
+添加一行<br>
+​<code>service ssh start</code></p>
+<h1 id="安装-hadoop">安装 Hadoop</h1>
+<h2 id="下载-hadoop">下载 Hadoop</h2>
+<p>​<code>wget http://mirrors.hust.edu.cn/apache/hadoop/common/hadoop-3.2.1/hadoop-3.2.1.tar.gz</code></p>
+<h2 id="解压">解压</h2>
+<p>到 /usr/local 目录下面并重命名文件夹<br>
+​<code>tar -zxvf hadoop-3.2.1.tar.gz -C /usr/local/</code><br>
+​<code>cd /usr/local/</code><br>
+​<code>mv hadoop-3.2.1 hadoop</code></p>
+<h2 id="添加环境变量">添加环境变量</h2>
+<p><code>vim /etc/profile</code><br>
+追加以下内容，JAVA_HOME 为 JDK 安装路径，使用 apt 安装就是这个，用 <code>update-alternatives --config java</code>可查看</p>
+<pre><code>#java
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export JRE_HOME=${JAVA_HOME}/jre    
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib    
+export PATH=${JAVA_HOME}/bin:$PATH
+#hadoop
+export HADOOP_HOME=/usr/local/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+export HADOOP_COMMON_HOME=$HADOOP_HOME 
+export HADOOP_HDFS_HOME=$HADOOP_HOME 
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_YARN_HOME=$HADOOP_HOME 
+export HADOOP_INSTALL=$HADOOP_HOME 
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native 
+export HADOOP_CONF_DIR=$HADOOP_HOME 
+export HADOOP_LIBEXEC_DIR=$HADOOP_HOME/libexec 
+export JAVA_LIBRARY_PATH=$HADOOP_HOME/lib/native:$JAVA_LIBRARY_PATH
+export HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop
+export HDFS_DATANODE_USER=root
+export HDFS_DATANODE_SECURE_USER=root
+export HDFS_SECONDARYNAMENODE_USER=root
+export HDFS_NAMENODE_USER=root
+export YARN_RESOURCEMANAGER_USER=root
+export YARN_NODEMANAGER_USER=root
+</code></pre>
+<p>使环境变量生效<br>
+​<code>source /etc/profile</code></p>
+<h2 id="修改配置文件">修改配置文件</h2>
+<p>在目录 /usr/local/hadoop/etc/hadoop 下，修改 hadoop-env.sh 文件，在文件末尾添加以下信息<br>
+​<code>cd /usr/local/hadoop/etc/hadoop</code><br>
+​<code>vim hadoop-env.sh</code></p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export HDFS_NAMENODE_USER=root
+export HDFS_DATANODE_USER=root
+export HDFS_SECONDARYNAMENODE_USER=root
+export YARN_RESOURCEMANAGER_USER=root
+export YARN_NODEMANAGER_USER=root
+</code></pre>
+<p>修改 core-site.xml，修改为<br>
+​<code>vim core-site.xml</code></p>
+<pre><code>&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;fs.default.name&lt;/name&gt;
+        &lt;value&gt;hdfs://h01:9000&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+        &lt;value&gt;/home/hadoop3/hadoop/tmp&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>修改 hdfs-site.xml，修改为<br>
+​<code>vim hdfs-site.xml</code></p>
+<pre><code>&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;/name&gt;
+        &lt;value&gt;2&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+        &lt;value&gt;/home/hadoop3/hadoop/hdfs/name&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.data.dir&lt;/name&gt;
+        &lt;value&gt;/home/hadoop3/hadoop/hdfs/data&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>修改 mapred-site.xml，修改为<br>
+​<code>vim mapred-site.xml</code></p>
+<pre><code>&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.application.classpath&lt;/name&gt;
+        &lt;value&gt;
+            /usr/local/hadoop/etc/hadoop,
+            /usr/local/hadoop/share/hadoop/common/*,
+            /usr/local/hadoop/share/hadoop/common/lib/*,
+            /usr/local/hadoop/share/hadoop/hdfs/*,
+            /usr/local/hadoop/share/hadoop/hdfs/lib/*,
+            /usr/local/hadoop/share/hadoop/mapreduce/*,
+            /usr/local/hadoop/share/hadoop/mapreduce/lib/*,
+            /usr/local/hadoop/share/hadoop/yarn/*,
+            /usr/local/hadoop/share/hadoop/yarn/lib/*
+        &lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>修改 yarn-site.xml，修改为<br>
+​<code>vim yarn-site.xml</code></p>
+<pre><code>&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+        &lt;value&gt;h01&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>修改 worker 为<br>
+​<code>vim workers</code></p>
+<pre><code>h01
+h02
+h03
+h04
+h05
+</code></pre>
+<p>此时，hadoop已经配置好了</p>
+<h2 id="在-docker-中启动集群">在 Docker 中启动集群</h2>
+<h3 id="将当前容器导出为镜像">将当前容器导出为镜像</h3>
+<p>​<code>exit</code><br>
+​<code>sudo docker commit -m &quot;hadoop&quot; -a &quot;tomding&quot; fab4da838c2f newuhadoop</code><br>
+查看镜像<br>
+​<code>sudo docker images</code></p>
+<h3 id="启动-5-个终端">启动 5 个终端</h3>
+<p>启动 h01 做 master 节点，所以暴露了端口，以供访问 web 页面，--network hadoop 参数是将当前容器加入到名为 hadoop 的虚拟桥接网络中，此网站提供自动的 DNS 解析功能<br>
+​<code>sudo docker run -it --network hadoop -h &quot;h01&quot; --name &quot;h01&quot; -p 9870:9870 -p 8088:8088 newuhadoop /bin/bash</code><br>
+<code>sudo docker run -it --network hadoop -h &quot;h02&quot; --name &quot;h02&quot; newuhadoop /bin/bash</code><br>
+​<code>sudo docker run -it --network hadoop -h &quot;h03&quot; --name &quot;h03&quot; newuhadoop /bin/bash</code><br>
+​<code>sudo docker run -it --network hadoop -h &quot;h04&quot; --name &quot;h04&quot; newuhadoop /bin/bash</code><br>
+​<code>sudo docker run -it --network hadoop -h &quot;h05&quot; --name &quot;h05&quot; newuhadoop /bin/bash</code></p>
+<h3 id="在-h01-主机中启动-haddop-集群">在 h01 主机中，启动 Haddop 集群</h3>
+<p>先进行格式化操作，不格式化操作，hdfs会起不来<br>
+​<code>cd /usr/local/hadoop/bin</code><br>
+​<code>./hadoop namenode -format</code><br>
+进入 hadoop 的 sbin 目录<br>
+​<code>cd /usr/local/hadoop/sbin/</code><br>
+启动<br>
+​<code>./start-all.sh</code><br>
+查看分布式文件系统的状态<br>
+​<code>cd /usr/local/hadoop/bin</code><br>
+​<code>./hadoop dfsadmin -report</code></p>
+<h2 id="运行内置wordcount例子">运行内置WordCount例子</h2>
+<p>把license作为需要统计的文件<br>
+<code>cd /usr/local/hadoop</code><br>
+<code>cat LICENSE.txt &gt; file1.txt</code><br>
+在 HDFS 中创建 input 文件夹<br>
+​<code>cd /usr/local/hadoop/bin</code><br>
+<code>./hadoop fs -mkdir /input</code><br>
+上传 file1.txt 文件到 HDFS 中<br>
+<code>./hadoop fs -put ../file1.txt /input</code><br>
+查看 HDFS 中 input 文件夹里的内容<br>
+<code>./hadoop fs -ls /input</code><br>
+运作 wordcount 例子程序<br>
+<code>./hadoop jar ../share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar wordcount /input /output</code><br>
+查看 HDFS 中的 /output 文件夹的内容<br>
+<code>./hadoop fs -ls /output</code><br>
+查看 part-r-00000 文件的内容<br>
+<code>./hadoop fs -cat /output/part-r-00000</code><br>
+Hadoop 部分结束了</p>
+<h1 id="安装-hbase">安装 Hbase</h1>
+<p>在 Hadoop 集群的基础上安装 Hbase</p>
+<h2 id="下载-hbase-213">下载 Hbase 2.1.3</h2>
+<p>root@h01:~# <code>wget http://archive.apache.org/dist/hbase/2.1.3/hbase-2.1.3-bin.tar.gz</code></p>
+<h2 id="解压-2">解压</h2>
+<p>到 /usr/local 目录下面<br>
+​<code>tar -zxvf hbase-2.1.3-bin.tar.gz -C /usr/local/</code></p>
+<h2 id="修改环境变量文件">修改环境变量文件</h2>
+<p>​<code>vim /etc/profile</code></p>
+<pre><code>export HBASE_HOME=/usr/local/hbase-2.1.3
+export PATH=$PATH:$HBASE_HOME/bin
+</code></pre>
+<p>​<code>source /etc/profile</code><br>
+使用 ssh h02/3/4/5 进入其他四个容器，依次在 /etc/profile 文件后追加那两行环境变量</p>
+<p>在目录 /usr/local/hbase-2.1.3/conf 修改配置<br>
+​<code>cd /usr/local/hbase-2.1.3/conf</code><br>
+修改 hbase-env.sh，追加<br>
+​<code>vim hbase-env.sh</code></p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export HBASE_MANAGES_ZK=true
+</code></pre>
+<h2 id="修改配置文件-2">修改配置文件</h2>
+<p>修改 hbase-site.xml 为<br>
+​<code>vim hbase-site.xml</code></p>
+<pre><code>&lt;configuration&gt;
+        &lt;property&gt;
+                &lt;name&gt;hbase.rootdir&lt;/name&gt;
+                &lt;value&gt;hdfs://h01:9000/hbase&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;
+                &lt;value&gt;true&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;hbase.master&lt;/name&gt;
+                &lt;value&gt;h01:60000&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;
+                &lt;value&gt;h01,h02,h03,h04,h05&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;
+                &lt;value&gt;/home/hadoop/zoodata&lt;/value&gt;
+        &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>修改 regionservers 文件为<br>
+​<code>vim regionservers</code></p>
+<pre><code>h01
+h02
+h03
+h04
+h05
+</code></pre>
+<p>使用 scp 命令将配置好的 Hbase 复制到其他 4 个容器中<br>
+<code>scp -r /usr/local/hbase-2.1.3 root@h02:/usr/local/</code><br>
+<code>scp -r /usr/local/hbase-2.1.3 root@h03:/usr/local/</code><br>
+<code>scp -r /usr/local/hbase-2.1.3 root@h04:/usr/local/</code><br>
+<code>scp -r /usr/local/hbase-2.1.3 root@h05:/usr/local/</code></p>
+<h2 id="启动-hbase">启动 Hbase</h2>
+<p><code>cd /usr/local/hbase-2.1.3/bin</code><br>
+<code>./start-hbase.sh</code><br>
+打开 Hbase 的 shell<br>
+<code>hbase shell</code></p>
+<h1 id="安装-spark">安装 Spark</h1>
+<p>在 Hadoop 的基础上安装 Spark</p>
+<h2 id="下载-spark-240">下载 Spark 2.4.0</h2>
+<p>​<code>wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz</code></p>
+<h2 id="解压-3">解压</h2>
+<p>到 /usr/local 目录下面<br>
+<code>tar -zxvf spark-2.4.0-bin-hadoop2.7.tgz -C /usr/local/</code><br>
+修改文件夹的名字<br>
+<code>cd /usr/local/</code><br>
+<code>mv spark-2.4.0-bin-hadoop2.7 spark-2.4.0</code></p>
+<h2 id="修改-环境变量">修改 环境变量</h2>
+<p>​<code>vim /etc/profile</code></p>
+<pre><code>export SPARK_HOME=/usr/local/spark-2.4.0
+export PATH=$PATH:$SPARK_HOME/bin
+</code></pre>
+<p><code>source /etc/profile</code></p>
+<p>使用 ssh h02 可进入其他四个容器，依次在 /etc/profile 文件后追加那两行环境变量<br>
+在目录 /usr/local/spark-2.4.0/conf 修改配置<br>
+​<code>cd /usr/local/spark-2.4.0/conf</code><br>
+修改文件名<br>
+​<code>mv spark-env.sh.template spark-env.sh</code><br>
+修改 spark-env.sh，追加<br>
+​<code>vim spark-env.sh</code></p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export HADOOP_HOME=/usr/local/hadoop
+export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
+export SCALA_HOME=/usr/share/scala
+
+export SPARK_MASTER_HOST=h01
+export SPARK_MASTER_IP=h01
+export SPARK_WORKER_MEMORY=4g
+</code></pre>
+<p>修改文件名<br>
+​<code>mv slaves.template slaves</code><br>
+修改 slaves 如下</p>
+<pre><code>h01
+h02
+h03
+h04
+h05
+</code></pre>
+<p>使用 scp 命令将配置好的 Hbase 复制到其他 4 个容器中</p>
+<pre><code>root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h02:/usr/local/
+root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h03:/usr/local/
+root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h04:/usr/local/
+root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h05:/usr/local/
+</code></pre>
+<h2 id="启动-spark">启动 Spark</h2>
+<p><code>cd /usr/local/spark-2.4.0/sbin</code><br>
+<code>./start-all.sh</code></p>
+<p>其他<br>
+3.1 HDFS 重格式化问题<br>
+参考 https://blog.csdn.net/gis_101/article/details/52821946<br>
+<s>重新格式化意味着集群的数据会被全部删除，格式化前需考虑数据备份或转移问题</s>；<br>
+先删除主节点（即namenode节点），Hadoop的临时存储目录tmp、namenode存储永久性元数据目录dfs/name、Hadoop系统日志文件目录log 中的内容 （注意是删除目录下的内容不是目录）；<br>
+删除所有数据节点(即datanode节点) ，Hadoop的临时存储目录tmp、namenode存储永久性元数据目录dfs/name、Hadoop系统日志文件目录log 中的内容；</p>
+<p>格式化一个新的分布式文件系统：<br>
+<code>cd /usr/local/hadoop/bin</code><br>
+<code>./hadoop namenode -format</code></p>
+<p>注意事项<br>
+Hadoop的临时存储目录tmp（即core-site.xml配置文件中的hadoop.tmp.dir属性，默认值是/tmp/hadoop-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi>u</mi><mi>s</mi><mi>e</mi><mi>r</mi><mi mathvariant="normal">.</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi></mrow><mi mathvariant="normal">）</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">如</mi><mi mathvariant="normal">果</mi><mi mathvariant="normal">没</mi><mi mathvariant="normal">有</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">置</mi><mi>h</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">.</mi><mi>t</mi><mi>m</mi><mi>p</mi><mi mathvariant="normal">.</mi><mi>d</mi><mi>i</mi><mi>r</mi><mi mathvariant="normal">属</mi><mi mathvariant="normal">性</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">那</mi><mi mathvariant="normal">么</mi><mi>h</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">格</mi><mi mathvariant="normal">式</mi><mi mathvariant="normal">化</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">将</mi><mi mathvariant="normal">会</mi><mi mathvariant="normal">在</mi><mi mathvariant="normal">/</mi><mi>t</mi><mi>m</mi><mi>p</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">下</mi><mi mathvariant="normal">创</mi><mi mathvariant="normal">建</mi><mi mathvariant="normal">一</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">例</mi><mi mathvariant="normal">如</mi><mi mathvariant="normal">在</mi><mi>c</mi><mi>l</mi><mi>o</mi><mi>u</mi><mi>d</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">户</mi><mi mathvariant="normal">下</mi><mi mathvariant="normal">安</mi><mi mathvariant="normal">装</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">置</mi><mi>h</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">那</mi><mi mathvariant="normal">么</mi><mi>H</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">临</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">存</mi><mi mathvariant="normal">储</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">就</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">于</mi><mi mathvariant="normal">/</mi><mi>t</mi><mi>m</mi><mi>p</mi><mi mathvariant="normal">/</mi><mi>h</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mo>−</mo><mi>c</mi><mi>l</mi><mi>o</mi><mi>u</mi><mi>d</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">下</mi><mi>H</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">的</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">据</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">（</mi><mi mathvariant="normal">即</mi><mi>h</mi><mi>d</mi><mi>f</mi><mi>s</mi><mo>−</mo><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>x</mi><mi>m</mi><mi>l</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">置</mi><mi mathvariant="normal">文</mi><mi mathvariant="normal">件</mi><mi mathvariant="normal">中</mi><mi mathvariant="normal">的</mi><mi>d</mi><mi>f</mi><mi>s</mi><mi mathvariant="normal">.</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>d</mi><mi>i</mi><mi>r</mi><mi mathvariant="normal">属</mi><mi mathvariant="normal">性</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">默</mi><mi mathvariant="normal">认</mi><mi mathvariant="normal">值</mi><mi mathvariant="normal">是</mi></mrow><annotation encoding="application/x-tex">{user.name}），如果没有配置hadoop.tmp.dir属性，那么hadoop格式化时将会在/tmp目录下创建一个目录，例如在cloud用户下安装配置hadoop，那么Hadoop的临时存储目录就位于/tmp/hadoop-cloud目录下
+Hadoop的namenode元数据目录（即hdfs-site.xml配置文件中的dfs.namenode.name.dir属性，默认值是</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">.</span><span class="mord mathdefault">n</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span></span><span class="mord cjk_fallback">）</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">如</span><span class="mord cjk_fallback">果</span><span class="mord cjk_fallback">没</span><span class="mord cjk_fallback">有</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">置</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord">.</span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord">.</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord cjk_fallback">属</span><span class="mord cjk_fallback">性</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">那</span><span class="mord cjk_fallback">么</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">格</span><span class="mord cjk_fallback">式</span><span class="mord cjk_fallback">化</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">将</span><span class="mord cjk_fallback">会</span><span class="mord cjk_fallback">在</span><span class="mord">/</span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">下</span><span class="mord cjk_fallback">创</span><span class="mord cjk_fallback">建</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">例</span><span class="mord cjk_fallback">如</span><span class="mord cjk_fallback">在</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">d</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">户</span><span class="mord cjk_fallback">下</span><span class="mord cjk_fallback">安</span><span class="mord cjk_fallback">装</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">置</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">那</span><span class="mord cjk_fallback">么</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">临</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">存</span><span class="mord cjk_fallback">储</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">就</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">于</span><span class="mord">/</span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord">/</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">d</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">下</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault">n</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">据</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">（</span><span class="mord cjk_fallback">即</span><span class="mord mathdefault">h</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord">.</span><span class="mord mathdefault">x</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">置</span><span class="mord cjk_fallback">文</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">s</span><span class="mord">.</span><span class="mord mathdefault">n</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord">.</span><span class="mord mathdefault">n</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord">.</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord cjk_fallback">属</span><span class="mord cjk_fallback">性</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">默</span><span class="mord cjk_fallback">认</span><span class="mord cjk_fallback">值</span><span class="mord cjk_fallback">是</span></span></span></span>{hadoop.tmp.dir}/dfs/name），同样如果没有配置该属性，那么hadoop在格式化时将自行创建。必须注意的是在格式化前必须清楚所有子节点（即DataNode节点）dfs/name下的内容，否则在启动hadoop时子节点的守护进程会启动失败。这是由于，每一次format主节点namenode，dfs/name/current目录下的VERSION文件会产生新的clusterID、namespaceID。但是如果子节点的dfs/name/current仍存在，hadoop格式化时就不会重建该目录，因此形成子节点的clusterID、namespaceID与主节点（即namenode节点）的clusterID、namespaceID不一致。最终导致hadoop启动失败。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[特征统计]]></title>
         <id>https://dingtom.github.io/post/ji-zhong-qu-shi-fen-xi-chi-san-cheng-du-fen-xi/</id>
         <link href="https://dingtom.github.io/post/ji-zhong-qu-shi-fen-xi-chi-san-cheng-du-fen-xi/">
         </link>
         <updated>2020-11-27T09:10:13.000Z</updated>
-        <content type="html"><![CDATA[<p><a href="https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb">https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb</a></p>
-<pre><code>import numpy as np 
-import pandas as pd 
-import matplotlib as mpl 
-import matplotlib.pyplot as plt 
-import seaborn as sns 
-import warnings 
-from sklearn.datasets import load_iris
-from scipy import stats  
-sns.set(style=&quot;darkgrid&quot;) 
-mpl.rcParams[&quot;font.family&quot;] = &quot;SimHei&quot; 
-mpl.rcParams[&quot;axes.unicode_minus&quot;] = False 
-warnings.filterwarnings(&quot;ignore&quot;)
-</code></pre>
-<pre><code>iris = load_iris()
-# feature_names是每一列数据的特征名。target_names是鸢尾花的属种名
-print(iris['data'].shape,iris['target'].shape,iris['feature_names'],iris['target_names'])
-</code></pre>
-<p>(150, 4) (150,) ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)'] ['setosa' 'versicolor' 'virginica']</p>
-<pre><code># reshape(-1,1)表示将原始数组变为1列，但是行数这里我写一个-1，表示系统
-# 会根据我指定的列数，自动去计算出行数。reshape(1,-1)含义同理
-dt = np.concatenate([iris.data,iris.target.reshape(-1,1)],axis=1)
-print(dt.shape)  # (150, 5)
-df = pd.DataFrame(dt,columns=iris.feature_names + [&quot;types&quot;])
-print(df.sample(5))
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-170eeb6b355d4684.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
-<h4 id="频数与频率">频数与频率</h4>
+        <content type="html"><![CDATA[<p><a href="https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb">https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb</a><br>
+`</p>
+<h2 id="特征统计">特征统计</h2>
+<p>特征统计可能是数据科学中最常用的统计学概念。它是你在研究数据集时经常使用的统计技术，包括偏差、方差、平均值、中位数、百分数等等。</p>
+<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-f6ad8aaac18ba88a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="箱型图" loading="lazy"></figure>
+<p>中间的直线表示数据的中位数（对异常值更具有鲁棒性）。<br>
+第一个四分位数（即数据中的25%要低于该值）。<br>
+第三个四分位数（即数据中的75%要低于该值）。</p>
+<ul>
+<li>当箱形图很短时，就意味着很多数据点是相似的，因为很多值是在一个很小的范围内分布;</li>
+<li>如果中位数接近了底部，那么大部分的数据具有较低的值。基本上，如果中位线不在框的中间，那么就表明了是偏斜数据;</li>
+<li>如果框上下两边的线很长表示数据<s>具有很高的标准偏差和方差</s>，意味着这些值被分散了，并且变化非常大。</li>
+</ul>
+<h1 id="概率分布">概率分布</h1>
+<p><img src="https://upload-images.jianshu.io/upload_images/18339009-4c7b9565a240309f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="均匀分布" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-34e1e11b3edf40ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="正态分布" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-ad02a5cea35a9122.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="泊松分布" loading="lazy"></p>
+<h1 id="频数与频率">频数与频率</h1>
 <ul>
 <li>预数，指一组数据中类别变量的每个不同取值出现的次数。</li>
 <li>频率，指每个类别变量的频数与总次数的比值，通常采用百分数表示。</li>
@@ -55,7 +589,7 @@ print(frequency)
 plt.bar([1, 2, 3], frequency)
 </code></pre>
 <figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/18339009-e6622ef2938a600b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
-<h4 id="集中趋势分析">集中趋势分析</h4>
+<h1 id="集中趋势分析">集中趋势分析</h1>
 <ul>
 <li>均值</li>
 <li>中位数</li>
@@ -100,7 +634,7 @@ for v in q:
 plt.legend()
 </code></pre>
 <figure data-type="image" tabindex="4"><img src="https://upload-images.jianshu.io/upload_images/18339009-3e9ebd3e4b3a505e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
-<h4 id="离散程度分析">离散程度分析</h4>
+<h1 id="离散程度分析">离散程度分析</h1>
 <ul>
 <li>
 <p>极差，极差指一组数据中，最大值与最小值之差。</p>
@@ -173,7 +707,6 @@ s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></sp
 如果峰度小于0，说明数据在分布上比标准正态分布分散，方差(标准差)较大。<br>
 <img src="https://upload-images.jianshu.io/upload_images/18339009-9828218e64b397ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
 </blockquote>
-<p><a href="https://www.cnblogs.com/feffery/p/11128113.html">参考</a></p>
 <pre><code>t1 = np.random.randint(1,11,100)
 t2 = np.random.randint(11,21,500)
 t3 = np.concatenate([t1,t2])
@@ -981,6 +1514,12 @@ LIMIT 10 OFFSET 0;
 <p>把两个表中具有相同 主键ID的数据连接起来</p>
 <p><s>单纯的select * from a,b是笛卡尔乘积</s>。比如a表有5条数据，b表有3条数据，那么最后的结果有5*3=15条数据。但是如果对两个表进行关联:select * from a,b where a.id = b.id 意思就变了，此时就等价于：select * from a inner join b on a.id = b.id。即就是<s>内连接</s>。<br>
 <img src="https://upload-images.jianshu.io/upload_images/18339009-a79c08f891013866.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<p>INNER JOIN 产生的结果是AB的交集。<br>
+FULL [OUTER] JOIN 产生A和B的并集。<br>
+LEFT [OUTER] JOIN 产生表A的完全集，而B表中匹配的则有值，没有匹配的则以null值取代。<br>
+RIGHT [OUTER] JOIN 产生表B的完全集，而A表中匹配的则有值，没有匹配的则以null值取代CROSS JOIN 把表A和表B的数据进行一个N*M的组合，即笛卡尔积。<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-93ca0a681c0411c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-315255693cbe1041.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
 <h2 id="内连接查询inner-join只保留两张表中完全匹配的结果集">内连接查询INNER JOIN：只保留两张表中完全匹配的结果集</h2>
 <pre><code>SELECT p.LastName, p.FirstName, o.OrderNo
 FROM Persons p
