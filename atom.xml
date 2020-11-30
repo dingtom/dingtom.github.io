@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-11-30T08:17:08.055Z</updated>
+    <updated>2020-11-30T09:17:22.475Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -10,6 +10,167 @@
     <logo>https://dingtom.github.io/images/avatar.png</logo>
     <icon>https://dingtom.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Tomding&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[缺失值处理]]></title>
+        <id>https://dingtom.github.io/post/que-shi-zhi-chu-li/</id>
+        <link href="https://dingtom.github.io/post/que-shi-zhi-chu-li/">
+        </link>
+        <updated>2020-11-30T09:16:12.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="删除">删除</h1>
+<p><s>样本数据量十分大且缺失值不多</s>的情况下非常有效，但如果样本量本身不大且缺失也不少，那么不建议使用。</p>
+<pre><code class="language-python">#删除数据表中含有空值的行
+df.dropna(how='any')
+</code></pre>
+<h1 id="不处理">不处理</h1>
+<p>补齐处理只是将未知值补以我们的主观估计值，不一定完全符合客观事实，一些模型无法应对具有缺失值的数据，因此要对缺失值进行处理。然而还有一些模型本身就可以应对具有缺失值的数据，此时无需对数据进行处理，比如<s>Xgboos等树模型</s>。</p>
+<h1 id="分箱缺失值一个箱">分箱：（缺失值一个箱）</h1>
+<p>虚拟变量其实就是缺失值的一种衍生变量。具体做法是通过判断特征值是否有缺失值来定义一个新的二分类变量。比如，特征为A含有缺失值，我们<s>衍生出一个新的特征B，如果A中特征值有缺失，那么相应的B中的值为1，如果A中特征值没有缺失，那么相应的B中的值为0。</s></p>
+<pre><code>data_train['CabinCat'] = data_train['Cabin'].copy()
+data_train.loc[ (data_train.CabinCat.notnull()), 'CabinCat' ] = &quot;No&quot;
+data_train.loc[ (data_train.CabinCat.isnull()), 'CabinCat' ] = &quot;Yes&quot;
+
+fig, ax = plt.subplots(figsize=(10,5))
+sns.countplot(x='CabinCat', hue='Survived',data=data_train)
+plt.show()
+</code></pre>
+<p><code>data_train[['Cabin','CabinCat']].head(10)</code></p>
+<h1 id="补全">补全</h1>
+<h2 id="均值-众数-中位数">均值、众数、中位数、</h2>
+<p><s>对于定类数据：使用 众数（mode）填补</s>，比如一个学校的男生和女生的数量，男生500人，女生50人，那么对于其余的缺失值我们会用人数较多的男生来填补。<br>
+<s>对于定量（定比）数据：使用平均数（mean）或中位数（median）填补</s>，比如一个班级学生的身高特征，对于一些同学缺失的身高值就可以使用全班同学身高的平均值或中位数来填补。一般如果特征分布为正太分布时，使用平均值效果比较好，而当分布由于异常值存在而不是正太分布的情况下，使用中位数效果比较好。</p>
+<p>注：此方法虽然简单，但是不够精准，可能会引入噪声，或者会改变特征原有的分布。<strong>如果缺失值是随机性的，那么用平均值比较适合保证无偏，否则会改变原分布。</strong></p>
+<pre><code>#使用price均值对NA进行填充
+df['price'].fillna(df['price'].mean())
+df['price'].fillna(df['price'].median())
+</code></pre>
+<h2 id="建模预测-多重插补-压缩感知补全-矩阵补全等">建模预测、多重插补、压缩感知补全、矩阵补全等</h2>
+<p>利用其它变量做模型的输入进行缺失变量的预测，与我们正常建模的方法一样，只是目标变量变为了缺失值。如果其它特征变量与缺失变量无关，则预测的结果毫无意义。如果预测结果相当准确，则又说明这个变量完全没有必要进行预测，因为这必然是与特征变量间存在重复信息。</p>
+<ul>
+<li>
+<p>回归预测：<br>
+缺失值是连续的，即定量的类型，才可以使用回归来预测。</p>
+</li>
+<li>
+<p>极大似然估计（Maximum likelyhood）：<br>
+在缺失类型为随机缺失的条件下，假设模型对于完整的样本是正确的，那么通过观测数据的边际分布可以对未知参数进行极大似然估计（Little and Rubin）。这种方法也被称为忽略缺失值的极大似然估计，对于极大似然的参数估计实际中常采用的计算方法是期望值最大化(Expectation Maximization，EM）。该方法比删除个案和单值插补更有吸引力，它一个重要前提：适用于大样本。有效样本的数量足够以保证ML估计值是渐近无偏的并服从正态分布。但是这种方法可能会陷入局部极值，收敛速度也不是很快，并且计算很复杂，且仅限于线性模型。</p>
+</li>
+<li>
+<p>多重插补（Mutiple imputation）：<br>
+多值插补的思想来源于贝叶斯估计，认为待插补的值是随机的，它的值来自于已观测到的值。具体实践上通常是估计出待插补的值，然后再加上不同的噪声，形成多组可选插补值。根据某种选择依据，选取最合适的插补值。</p>
+</li>
+<li>
+<p>热卡填补（Hot deck imputation）：<br>
+热卡填充法是在完整数据中找到一个与它最相似的对象，然后用这个相似对象的值来进行填充。通常会找到超出一个的相似对象，在所有匹配对象中没有最好的，而是从中随机的挑选一个作为填充值。这个问题关键是不同的问题可能会选用不同的标准来对相似进行判定，以及如何制定这个判定标准。该方法概念上很简单，且利用了数据间的关系来进行空值估计，但缺点在于难以定义相似标准，主观因素较多。</p>
+</li>
+<li>
+<p>K最近距离邻法（K-means clustering）<br>
+通过K均值的聚类方法将所有样本进行聚类划分，然后再通过划分的种类的均值对各自类中的缺失值进行填补。归其本质还是通过找相似来填补缺失值。</p>
+</li>
+<li>
+<p>多重插补：<br>
+我们看到，以上提出的拟合和替换方法都是单一的插补方法，而多重插补弥补了单一插补的缺陷，它并没有试图去通过模拟值去估计每个缺失值，而是提出缺失数据值的一个随即样本（这些样本可以是不同的模型拟合结果的组合）。这种程序的实施恰当地反映了由于缺失值引起的不确定性，使得统计推断有效。多重插补推断可以分为以下3个步骤：</p>
+</li>
+</ul>
+<blockquote>
+<p>为每个缺失值产生一套可能的插补值，这些值反映了无响应模型的不确定性；<br>
+每个插补数据集合都用针对完整数据集的统计方法进行统计分析；<br>
+对来自各个插补数据集的结果，根据评分函数进行选择，产生最终的插补值；</p>
+</blockquote>
+<ul>
+<li>随机森林：<br>
+这也是Kaggle竞赛中大佬们经常使用的一个办法，具体实现方式与正常一样，只是将缺失值作为目标变量即可.</li>
+</ul>
+<pre><code>def set_missing_ages(df):
+
+    # 把已有的数值型特征取出来丢进Random Forest Regressor中
+    age_df = df[['Age','Fare', 'Parch', 'SibSp', 'Pclass']]
+
+    # 乘客分成已知年龄和未知年龄两部分
+    known_age = age_df[age_df.Age.notnull()].as_matrix()
+    unknown_age = age_df[age_df.Age.isnull()].as_matrix()
+
+    # y即目标年龄
+    y = known_age[:, 0]
+
+    # X即特征属性值
+    X = known_age[:, 1:]
+
+    # fit到RandomForestRegressor之中
+    rfr = RandomForestRegressor(random_state=0, n_estimators=2000, n_jobs=-1)
+    rfr.fit(X, y)
+
+    # 用得到的模型进行未知年龄结果预测
+    predictedAges = rfr.predict(unknown_age[:, 1:])
+#     print predictedAges
+    # 用得到的预测结果填补原缺失数据
+    df.loc[ (df.Age.isnull()), 'Age' ] = predictedAges 
+
+    return df, rfr
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Feature_Enginneering]]></title>
+        <id>https://dingtom.github.io/post/feature_enginneering/</id>
+        <link href="https://dingtom.github.io/post/feature_enginneering/">
+        </link>
+        <updated>2020-11-30T08:40:23.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-bea64e5029c97e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/18339009-58b1f785ea1bdd02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<p>常见的特征工程包括：</p>
+<h1 id="异常处理">异常处理：</h1>
+<p>通过箱线图（或 3-Sigma）分析删除异常值；<br>
+BOX-COX 转换（处理有偏分布）；<br>
+长尾截断；</p>
+<h1 id="特征归一化标准化">特征归一化/标准化：</h1>
+<p>标准化（转换为标准正态分布）；<br>
+归一化（抓换到 [0,1] 区间）；<br>
+针对幂律分布，可以采用公式：  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo>(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>x</mi></mrow><mrow><mn>1</mn><mo>+</mo><mi>m</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>a</mi><mi>n</mi></mrow></mfrac><mo>)</mo></mrow><annotation encoding="application/x-tex">log(\frac{1+x}{1+median})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2484389999999999em;vertical-align:-0.403331em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></p>
+<h1 id="数据分桶">数据分桶：</h1>
+<p>等频分桶；<br>
+等距分桶；<br>
+Best-KS 分桶（类似利用基尼指数进行二分类）；<br>
+卡方分桶；</p>
+<h1 id="缺失值处理">缺失值处理：</h1>
+<p>不处理（针对类似 XGBoost 等树模型）；<br>
+删除（缺失数据太多）；<br>
+插值补全，包括均值/中位数/众数/建模预测/多重插补/压缩感知补全/矩阵补全等；<br>
+分箱，缺失值一个箱；</p>
+<h1 id="特征构造">特征构造：</h1>
+<p>构造统计量特征，报告计数、求和、比例、标准差等；<br>
+时间特征，包括相对时间和绝对时间，节假日，双休日等；<br>
+地理信息，包括分箱，分布编码等方法；<br>
+非线性变换，包括 log/ 平方/ 根号等；<br>
+特征组合，特征交叉；<br>
+仁者见仁，智者见智。</p>
+<h1 id="特征筛选">特征筛选</h1>
+<p>过滤式（filter）：先对数据进行特征选择，然后在训练学习器，常见的方法有 Relief/方差选择发/相关系数法/卡方检验法/互信息法；<br>
+包裹式（wrapper）：直接把最终将要使用的学习器的性能作为特征子集的评价准则，常见方法有 LVM（Las Vegas Wrapper） ；<br>
+嵌入式（embedding）：结合过滤式和包裹式，学习器训练过程中自动进行了特征选择，常见的有 lasso 回归；</p>
+<h1 id="降维">降维</h1>
+<p>PCA/ LDA/ ICA；<br>
+特征选择也是一种降维。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Modeling]]></title>
+        <id>https://dingtom.github.io/post/modeling/</id>
+        <link href="https://dingtom.github.io/post/modeling/">
+        </link>
+        <updated>2020-11-30T08:21:30.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-b2ff901cddb21e78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/18339009-a5371a595aa309c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[1.EDA]]></title>
+        <id>https://dingtom.github.io/post/eda/</id>
+        <link href="https://dingtom.github.io/post/eda/">
+        </link>
+        <updated>2020-11-30T08:20:15.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-9ba330f1c6a54599.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Python]]></title>
         <id>https://dingtom.github.io/post/python/</id>

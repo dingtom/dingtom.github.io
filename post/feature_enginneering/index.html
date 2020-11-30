@@ -8,7 +8,7 @@
 <meta name="keywords" content="tomding博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
-<title>安装nvidia显卡驱动 | Tomding&#39;s Blog</title>
+<title>Feature_Enginneering | Tomding&#39;s Blog</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1606727837902">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,8 +38,8 @@
 
 
 
-  <meta name="description" content="安装nvidia显卡驱动" />
-  <meta name="keywords" content="Linux" />
+  <meta name="description" content="Feature_Enginneering" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -254,14 +254,13 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E5%AE%89%E8%A3%85cuda">安装cuda</a><br>
-*<br>
-*<br>
-*<br>
-*<br>
-* <a href="#%E6%9F%A5%E7%9C%8Bcuda%E7%89%88%E6%9C%AC">查看cuda版本</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85cudnn">安装cudnn</a></li>
-<li><a href="#%E5%8D%B8%E8%BD%BD%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85">卸载显卡驱动重新安装</a></li>
+<li><a href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">异常处理：</a></li>
+<li><a href="#%E7%89%B9%E5%BE%81%E5%BD%92%E4%B8%80%E5%8C%96%E6%A0%87%E5%87%86%E5%8C%96">特征归一化/标准化：</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%88%86%E6%A1%B6">数据分桶：</a></li>
+<li><a href="#%E7%BC%BA%E5%A4%B1%E5%80%BC%E5%A4%84%E7%90%86">缺失值处理：</a></li>
+<li><a href="#%E7%89%B9%E5%BE%81%E6%9E%84%E9%80%A0">特征构造：</a></li>
+<li><a href="#%E7%89%B9%E5%BE%81%E7%AD%9B%E9%80%89">特征筛选</a></li>
+<li><a href="#%E9%99%8D%E7%BB%B4">降维</a></li>
 </ul>
 
   </div>
@@ -527,8 +526,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://dingtom.github.io/post/an-zhuang-nvidia-xian-qia-qu-dong/">
-      安装nvidia显卡驱动
+    <a class="post-title-link" href="https://dingtom.github.io/post/feature_enginneering/">
+      Feature_Enginneering
     </a>
   </h1>
   <div class="post-meta">
@@ -536,22 +535,9 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-11-25 15:17:28">2020-11-25</span>
+      <span class="publish-time" data-t="2020-11-30 16:40:23">2020-11-30</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
-    
-    <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show language" data-lan="category-in">分类于</span>
-      
-      
-      <a href="https://dingtom.github.io/tag/eaRjuF2eR/">
-        <span>Linux</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
@@ -560,64 +546,47 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>320<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>429<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>查看显卡型号<br>
-<code>lsb_release -a</code></p>
-<p>更新PCI ID数据库<br>
-<code>update-pciids</code><br>
-<code>lspci | grep -i nvidia</code></p>
-<p>驱动安装<br>
-<code>wget https://us.download.nvidia.com/XFree86/Linux-x86_64/455.23.04/NVIDIA-Linux-x86_64-455.23.04.run</code><br>
-查看TMPDIR目录是否报错<br>
-<code>echo $TMPDIR</code></p>
-<p>安装驱动</p>
-<p><code>sudo bash NVIDIA-Linux-x86_64-455.23.04.run</code></p>
-<p>禁用nouveau<br>
-<code>lsmod | grep nouveau</code></p>
-<p><code>vim /etc/modprobe.d/blacklist.conf</code>添加<br>
-<code>blacklist nouveau</code></p>
-<p><code>sudo update-initramfs -u</code></p>
-<p><code>sudo reboot now</code></p>
-<p>查看显卡信息<br>
-<code>nvidia-smi</code></p>
-<h1 id="安装cuda">安装cuda</h1>
-<p><a href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal">download</a></p>
-<h6 id="查看cuda版本">查看cuda版本</h6>
-<p><code>nvcc -V</code><br>
-不显示</p>
-<blockquote>
-<p>首先，查看cuda的bin目录下是否有nvcc：<br>
-<code>ls /usr/local/cuda/bin</code><br>
-如果存在，直接将cuda路径加入系统路径即可：<br>
-<code>vim ~/.bashrc</code>进入配置文件；<br>
-添加以下两行：<br>
-<code>export PATH=/usr/local/cuda/bin:$PATH</code><br>
-<code>export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</code><br>
-然后更新配置文件：<br>
-<code>source ~/.bashrc</code></p>
-</blockquote>
-<h1 id="安装cudnn">安装cudnn</h1>
-<p><a href="https://developer.nvidia.com/rdp/cudnn-archive">download</a><br>
-<code>tar -xvf cudnn-8.0-linux-x64-v5.1.tgz</code><br>
-安装cuDNN比较简单，解压后把相应的文件拷贝到对应的CUDA目录下即可</p>
-<p><code>sudo cp cuda/include/cudnn.h /usr/local/cuda/include/</code><br>
-<code>sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/</code><br>
-<code>sudo chmod a+r /usr/local/cuda/include/cudnn.h</code><br>
-<code>sudo chmod a+r /usr/local/cuda/lib64/libcudnn*</code></p>
-<h1 id="卸载显卡驱动重新安装">卸载显卡驱动重新安装</h1>
-<p>命令行界面<br>
-Ctrl+Alt+F1</p>
-<p><code>sudo apt-get --purge remove nvidia*</code></p>
-<p><code>sudo apt autoremove</code></p>
-<p>To remove CUDA Toolkit:<br>
-<code>sudo apt-get --purge remove &quot;*cublas*&quot; &quot;cuda*&quot;</code><br>
-To remove NVIDIA Drivers:<br>
-<code>sudo apt-get --purge remove &quot;*nvidia*&quot;</code></p>
+              <figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-bea64e5029c97e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/18339009-58b1f785ea1bdd02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<p>常见的特征工程包括：</p>
+<h1 id="异常处理">异常处理：</h1>
+<p>通过箱线图（或 3-Sigma）分析删除异常值；<br>
+BOX-COX 转换（处理有偏分布）；<br>
+长尾截断；</p>
+<h1 id="特征归一化标准化">特征归一化/标准化：</h1>
+<p>标准化（转换为标准正态分布）；<br>
+归一化（抓换到 [0,1] 区间）；<br>
+针对幂律分布，可以采用公式：  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo>(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>x</mi></mrow><mrow><mn>1</mn><mo>+</mo><mi>m</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>a</mi><mi>n</mi></mrow></mfrac><mo>)</mo></mrow><annotation encoding="application/x-tex">log(\frac{1+x}{1+median})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2484389999999999em;vertical-align:-0.403331em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></p>
+<h1 id="数据分桶">数据分桶：</h1>
+<p>等频分桶；<br>
+等距分桶；<br>
+Best-KS 分桶（类似利用基尼指数进行二分类）；<br>
+卡方分桶；</p>
+<h1 id="缺失值处理">缺失值处理：</h1>
+<p>不处理（针对类似 XGBoost 等树模型）；<br>
+删除（缺失数据太多）；<br>
+插值补全，包括均值/中位数/众数/建模预测/多重插补/压缩感知补全/矩阵补全等；<br>
+分箱，缺失值一个箱；</p>
+<h1 id="特征构造">特征构造：</h1>
+<p>构造统计量特征，报告计数、求和、比例、标准差等；<br>
+时间特征，包括相对时间和绝对时间，节假日，双休日等；<br>
+地理信息，包括分箱，分布编码等方法；<br>
+非线性变换，包括 log/ 平方/ 根号等；<br>
+特征组合，特征交叉；<br>
+仁者见仁，智者见智。</p>
+<h1 id="特征筛选">特征筛选</h1>
+<p>过滤式（filter）：先对数据进行特征选择，然后在训练学习器，常见的方法有 Relief/方差选择发/相关系数法/卡方检验法/互信息法；<br>
+包裹式（wrapper）：直接把最终将要使用的学习器的性能作为特征子集的评价准则，常见方法有 LVM（Las Vegas Wrapper） ；<br>
+嵌入式（embedding）：结合过滤式和包裹式，学习器训练过程中自动进行了特征选择，常见的有 lasso 回归；</p>
+<h1 id="降维">降维</h1>
+<p>PCA/ LDA/ ICA；<br>
+特征选择也是一种降维。</p>
 
             </div>
             
@@ -630,7 +599,7 @@ To remove NVIDIA Drivers:<br>
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://dingtom.github.io/post/an-zhuang-nvidia-xian-qia-qu-dong/" title="安装nvidia显卡驱动">https://dingtom.github.io/post/an-zhuang-nvidia-xian-qia-qu-dong/</a>
+      <a href="https://dingtom.github.io/post/feature_enginneering/" title="Feature_Enginneering">https://dingtom.github.io/post/feature_enginneering/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -639,21 +608,19 @@ To remove NVIDIA Drivers:<br>
   </ul>
   <div class="tags">
     
-      <a href="https://dingtom.github.io/tag/eaRjuF2eR/"># Linux</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="mysql" href="https://dingtom.github.io/post/mysql/">mysql</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="mysql" href="https://dingtom.github.io/post/mysql/">上一篇</a>
+        <a class="nav-pc-next" title="缺失值处理" href="https://dingtom.github.io/post/que-shi-zhi-chu-li/">缺失值处理</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="缺失值处理" href="https://dingtom.github.io/post/que-shi-zhi-chu-li/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Ubuntu安装Samba分享文件夹" href="https://dingtom.github.io/post/ubuntu-an-zhuang-samba-fen-xiang-wen-jian-jia/">Ubuntu安装Samba分享文件夹</a>
-        <a class="nav-mobile-next" title="Ubuntu安装Samba分享文件夹" href="https://dingtom.github.io/post/ubuntu-an-zhuang-samba-fen-xiang-wen-jian-jia/">下一篇</a>
+        <a class="nav-pc-next" title="Modeling" href="https://dingtom.github.io/post/modeling/">Modeling</a>
+        <a class="nav-mobile-next" title="Modeling" href="https://dingtom.github.io/post/modeling/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

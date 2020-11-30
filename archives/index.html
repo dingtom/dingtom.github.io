@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1606724220881">
+<link rel="shortcut icon" href="/favicon.ico?v=1606727837902">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -194,19 +194,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">12</span>
+        <span class="site-item-stat-count">16</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">8</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">8</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -254,7 +254,7 @@
   <div class="archive-timeline-box">
     <div class="archive-timeline-title">
       
-        <h2 class="language" data-lan="archives" data-count="12">非常好！目前共计12篇日志，继续努力！</h2>
+        <h2 class="language" data-lan="archives" data-count="16">非常好！目前共计16篇日志，继续努力！</h2>
       
     </div>
     
@@ -264,6 +264,58 @@
           <h2 class="tag-year">2020</h2>
         </div>    
         
+      
+      <a href="https://dingtom.github.io/post/que-shi-zhi-chu-li/">
+        <div class="motion-warpper tag-archive-node">
+          <div class="tag-node">
+            <h1>
+              11-30
+              <small>缺失值处理</small>
+            </h1>
+          </div>  
+      </div>
+      </a>
+    
+      
+      
+      <a href="https://dingtom.github.io/post/feature_enginneering/">
+        <div class="motion-warpper tag-archive-node">
+          <div class="tag-node">
+            <h1>
+              11-30
+              <small>Feature_Enginneering</small>
+            </h1>
+          </div>  
+      </div>
+      </a>
+    
+      
+      
+      <a href="https://dingtom.github.io/post/modeling/">
+        <div class="motion-warpper tag-archive-node">
+          <div class="tag-node">
+            <h1>
+              11-30
+              <small>Modeling</small>
+            </h1>
+          </div>  
+      </div>
+      </a>
+    
+      
+      
+      <a href="https://dingtom.github.io/post/eda/">
+        <div class="motion-warpper tag-archive-node">
+          <div class="tag-node">
+            <h1>
+              11-30
+              <small>1.EDA</small>
+            </h1>
+          </div>  
+      </div>
+      </a>
+    
+      
       
       <a href="https://dingtom.github.io/post/python/">
         <div class="motion-warpper tag-archive-node">
@@ -684,6 +736,155 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/que-shi-zhi-chu-li/"" data-c="
+          &lt;h1 id=&#34;删除&#34;&gt;删除&lt;/h1&gt;
+&lt;p&gt;&lt;s&gt;样本数据量十分大且缺失值不多&lt;/s&gt;的情况下非常有效，但如果样本量本身不大且缺失也不少，那么不建议使用。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#删除数据表中含有空值的行
+df.dropna(how=&#39;any&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;不处理&#34;&gt;不处理&lt;/h1&gt;
+&lt;p&gt;补齐处理只是将未知值补以我们的主观估计值，不一定完全符合客观事实，一些模型无法应对具有缺失值的数据，因此要对缺失值进行处理。然而还有一些模型本身就可以应对具有缺失值的数据，此时无需对数据进行处理，比如&lt;s&gt;Xgboos等树模型&lt;/s&gt;。&lt;/p&gt;
+&lt;h1 id=&#34;分箱缺失值一个箱&#34;&gt;分箱：（缺失值一个箱）&lt;/h1&gt;
+&lt;p&gt;虚拟变量其实就是缺失值的一种衍生变量。具体做法是通过判断特征值是否有缺失值来定义一个新的二分类变量。比如，特征为A含有缺失值，我们&lt;s&gt;衍生出一个新的特征B，如果A中特征值有缺失，那么相应的B中的值为1，如果A中特征值没有缺失，那么相应的B中的值为0。&lt;/s&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data_train[&#39;CabinCat&#39;] = data_train[&#39;Cabin&#39;].copy()
+data_train.loc[ (data_train.CabinCat.notnull()), &#39;CabinCat&#39; ] = &amp;quot;No&amp;quot;
+data_train.loc[ (data_train.CabinCat.isnull()), &#39;CabinCat&#39; ] = &amp;quot;Yes&amp;quot;
+
+fig, ax = plt.subplots(figsize=(10,5))
+sns.countplot(x=&#39;CabinCat&#39;, hue=&#39;Survived&#39;,data=data_train)
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;data_train[[&#39;Cabin&#39;,&#39;CabinCat&#39;]].head(10)&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;补全&#34;&gt;补全&lt;/h1&gt;
+&lt;h2 id=&#34;均值-众数-中位数&#34;&gt;均值、众数、中位数、&lt;/h2&gt;
+&lt;p&gt;&lt;s&gt;对于定类数据：使用 众数（mode）填补&lt;/s&gt;，比如一个学校的男生和女生的数量，男生500人，女生50人，那么对于其余的缺失值我们会用人数较多的男生来填补。&lt;br&gt;
+&lt;s&gt;对于定量（定比）数据：使用平均数（mean）或中位数（median）填补&lt;/s&gt;，比如一个班级学生的身高特征，对于一些同学缺失的身高值就可以使用全班同学身高的平均值或中位数来填补。一般如果特征分布为正太分布时，使用平均值效果比较好，而当分布由于异常值存在而不是正太分布的情况下，使用中位数效果比较好。&lt;/p&gt;
+&lt;p&gt;注：此方法虽然简单，但是不够精准，可能会引入噪声，或者会改变特征原有的分布。&lt;strong&gt;如果缺失值是随机性的，那么用平均值比较适合保证无偏，否则会改变原分布。&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#使用price均值对NA进行填充
+df[&#39;price&#39;].fillna(df[&#39;price&#39;].mean())
+df[&#39;price&#39;].fillna(df[&#39;price&#39;].median())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;建模预测-多重插补-压缩感知补全-矩阵补全等&#34;&gt;建模预测、多重插补、压缩感知补全、矩阵补全等&lt;/h2&gt;
+&lt;p&gt;利用其它变量做模型的输入进行缺失变量的预测，与我们正常建模的方法一样，只是目标变量变为了缺失值。如果其它特征变量与缺失变量无关，则预测的结果毫无意义。如果预测结果相当准确，则又说明这个变量完全没有必要进行预测，因为这必然是与特征变量间存在重复信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;回归预测：&lt;br&gt;
+缺失值是连续的，即定量的类型，才可以使用回归来预测。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;极大似然估计（Maximum likelyhood）：&lt;br&gt;
+在缺失类型为随机缺失的条件下，假设模型对于完整的样本是正确的，那么通过观测数据的边际分布可以对未知参数进行极大似然估计（Little and Rubin）。这种方法也被称为忽略缺失值的极大似然估计，对于极大似然的参数估计实际中常采用的计算方法是期望值最大化(Expectation Maximization，EM）。该方法比删除个案和单值插补更有吸引力，它一个重要前提：适用于大样本。有效样本的数量足够以保证ML估计值是渐近无偏的并服从正态分布。但是这种方法可能会陷入局部极值，收敛速度也不是很快，并且计算很复杂，且仅限于线性模型。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多重插补（Mutiple imputation）：&lt;br&gt;
+多值插补的思想来源于贝叶斯估计，认为待插补的值是随机的，它的值来自于已观测到的值。具体实践上通常是估计出待插补的值，然后再加上不同的噪声，形成多组可选插补值。根据某种选择依据，选取最合适的插补值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;热卡填补（Hot deck imputation）：&lt;br&gt;
+热卡填充法是在完整数据中找到一个与它最相似的对象，然后用这个相似对象的值来进行填充。通常会找到超出一个的相似对象，在所有匹配对象中没有最好的，而是从中随机的挑选一个作为填充值。这个问题关键是不同的问题可能会选用不同的标准来对相似进行判定，以及如何制定这个判定标准。该方法概念上很简单，且利用了数据间的关系来进行空值估计，但缺点在于难以定义相似标准，主观因素较多。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;K最近距离邻法（K-means clustering）&lt;br&gt;
+通过K均值的聚类方法将所有样本进行聚类划分，然后再通过划分的种类的均值对各自类中的缺失值进行填补。归其本质还是通过找相似来填补缺失值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多重插补：&lt;br&gt;
+我们看到，以上提出的拟合和替换方法都是单一的插补方法，而多重插补弥补了单一插补的缺陷，它并没有试图去通过模拟值去估计每个缺失值，而是提出缺失数据值的一个随即样本（这些样本可以是不同的模型拟合结果的组合）。这种程序的实施恰当地反映了由于缺失值引起的不确定性，使得统计推断有效。多重插补推断可以分为以下3个步骤：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为每个缺失值产生一套可能的插补值，这些值反映了无响应模型的不确定性；&lt;br&gt;
+每个插补数据集合都用针对完整数据集的统计方法进行统计分析；&lt;br&gt;
+对来自各个插补数据集的结果，根据评分函数进行选择，产生最终的插补值；&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;随机森林：&lt;br&gt;
+这也是Kaggle竞赛中大佬们经常使用的一个办法，具体实现方式与正常一样，只是将缺失值作为目标变量即可.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;def set_missing_ages(df):
+
+    # 把已有的数值型特征取出来丢进Random Forest Regressor中
+    age_df = df[[&#39;Age&#39;,&#39;Fare&#39;, &#39;Parch&#39;, &#39;SibSp&#39;, &#39;Pclass&#39;]]
+
+    # 乘客分成已知年龄和未知年龄两部分
+    known_age = age_df[age_df.Age.notnull()].as_matrix()
+    unknown_age = age_df[age_df.Age.isnull()].as_matrix()
+
+    # y即目标年龄
+    y = known_age[:, 0]
+
+    # X即特征属性值
+    X = known_age[:, 1:]
+
+    # fit到RandomForestRegressor之中
+    rfr = RandomForestRegressor(random_state=0, n_estimators=2000, n_jobs=-1)
+    rfr.fit(X, y)
+
+    # 用得到的模型进行未知年龄结果预测
+    predictedAges = rfr.predict(unknown_age[:, 1:])
+#     print predictedAges
+    # 用得到的预测结果填补原缺失数据
+    df.loc[ (df.Age.isnull()), &#39;Age&#39; ] = predictedAges 
+
+    return df, rfr
+&lt;/code&gt;&lt;/pre&gt;
+">缺失值处理</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/feature_enginneering/"" data-c="
+          &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-bea64e5029c97e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-58b1f785ea1bdd02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;常见的特征工程包括：&lt;/p&gt;
+&lt;h1 id=&#34;异常处理&#34;&gt;异常处理：&lt;/h1&gt;
+&lt;p&gt;通过箱线图（或 3-Sigma）分析删除异常值；&lt;br&gt;
+BOX-COX 转换（处理有偏分布）；&lt;br&gt;
+长尾截断；&lt;/p&gt;
+&lt;h1 id=&#34;特征归一化标准化&#34;&gt;特征归一化/标准化：&lt;/h1&gt;
+&lt;p&gt;标准化（转换为标准正态分布）；&lt;br&gt;
+归一化（抓换到 [0,1] 区间）；&lt;br&gt;
+针对幂律分布，可以采用公式：  &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;log(\frac{1+x}{1+median})&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.2484389999999999em;vertical-align:-0.403331em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.03588em;&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mopen nulldelimiter&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mfrac&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.845108em;&#34;&gt;&lt;span style=&#34;top:-2.655em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mbin mtight&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.23em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;frac-line&#34; style=&#34;border-bottom-width:0.04em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.394em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mbin mtight&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.403331em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose nulldelimiter&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h1 id=&#34;数据分桶&#34;&gt;数据分桶：&lt;/h1&gt;
+&lt;p&gt;等频分桶；&lt;br&gt;
+等距分桶；&lt;br&gt;
+Best-KS 分桶（类似利用基尼指数进行二分类）；&lt;br&gt;
+卡方分桶；&lt;/p&gt;
+&lt;h1 id=&#34;缺失值处理&#34;&gt;缺失值处理：&lt;/h1&gt;
+&lt;p&gt;不处理（针对类似 XGBoost 等树模型）；&lt;br&gt;
+删除（缺失数据太多）；&lt;br&gt;
+插值补全，包括均值/中位数/众数/建模预测/多重插补/压缩感知补全/矩阵补全等；&lt;br&gt;
+分箱，缺失值一个箱；&lt;/p&gt;
+&lt;h1 id=&#34;特征构造&#34;&gt;特征构造：&lt;/h1&gt;
+&lt;p&gt;构造统计量特征，报告计数、求和、比例、标准差等；&lt;br&gt;
+时间特征，包括相对时间和绝对时间，节假日，双休日等；&lt;br&gt;
+地理信息，包括分箱，分布编码等方法；&lt;br&gt;
+非线性变换，包括 log/ 平方/ 根号等；&lt;br&gt;
+特征组合，特征交叉；&lt;br&gt;
+仁者见仁，智者见智。&lt;/p&gt;
+&lt;h1 id=&#34;特征筛选&#34;&gt;特征筛选&lt;/h1&gt;
+&lt;p&gt;过滤式（filter）：先对数据进行特征选择，然后在训练学习器，常见的方法有 Relief/方差选择发/相关系数法/卡方检验法/互信息法；&lt;br&gt;
+包裹式（wrapper）：直接把最终将要使用的学习器的性能作为特征子集的评价准则，常见方法有 LVM（Las Vegas Wrapper） ；&lt;br&gt;
+嵌入式（embedding）：结合过滤式和包裹式，学习器训练过程中自动进行了特征选择，常见的有 lasso 回归；&lt;/p&gt;
+&lt;h1 id=&#34;降维&#34;&gt;降维&lt;/h1&gt;
+&lt;p&gt;PCA/ LDA/ ICA；&lt;br&gt;
+特征选择也是一种降维。&lt;/p&gt;
+">Feature_Enginneering</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/modeling/"" data-c="
+          &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-b2ff901cddb21e78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-a5371a595aa309c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">Modeling</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/eda/"" data-c="
+          &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-9ba330f1c6a54599.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">1.EDA</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/python/"" data-c="
