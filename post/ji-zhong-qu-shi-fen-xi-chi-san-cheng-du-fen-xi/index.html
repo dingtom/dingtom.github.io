@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>特征统计 | Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1606572629268">
+<link rel="shortcut icon" href="/favicon.ico?v=1606724220881">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -211,19 +211,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">11</span>
+        <span class="site-item-stat-count">12</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">7</span>
+        <span class="site-item-stat-count">8</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">7</span>
+        <span class="site-item-stat-count">8</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -1289,6 +1289,300 @@ plt.legend()
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/python/"" data-c="
+          &lt;ul&gt;
+&lt;li&gt;== 比较值，is比较ID(内存地址）&lt;/li&gt;
+&lt;li&gt;and\or逻辑比较，&amp;amp;|按位与\或&lt;/li&gt;
+&lt;li&gt;字符串拼接join()快，用加号拼接字符串因为字符串是不可变对象所以每次都会生成新对象&lt;/li&gt;
+&lt;li&gt;支持链式比较（两两相比加and）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;随机数&#34;&gt;随机数&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;随机种子：random.seed()
+随机选择：random.choice(List)
+随机打乱：random.shuffle(List)
+随机整数：random.randint(a,b),生成区间内的整数
+随机采样:random.sample(list18, samples)
+随机小数：random.random()
+习惯用numpy库，利用np.random.randn(5)生成5个随机小数
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;global&#34;&gt;global&lt;/h1&gt;
+&lt;p&gt;在函数声明 修改全局变量&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;a=4
+def f():
+    global a 
+    a=3 
+f()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;内置函数&#34;&gt;内置函数&lt;/h1&gt;
+&lt;h2 id=&#34;filter&#34;&gt;filter()&lt;/h2&gt;
+&lt;p&gt;用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新列表。该接收两个参数，第一个为函数，第二个为序列，序列的每个元素作为参数传递给函数进行判，然后返回 True 或 False，最后将返回 True 的元素放到新列表&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;t = filter(lambda x:True if x&amp;gt;3 else False, [0, 2, 3, 4, 5])
+print(list(t))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;map&#34;&gt;map()&lt;/h2&gt;
+&lt;p&gt;接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;比如，把这个list所有数字转为字符串：
+list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;reduce&#34;&gt;reduce()&lt;/h1&gt;
+&lt;p&gt;把一个函数作用在一个序列[x1, x2, x3, ...]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# 比方说对一个序列求和，就可以用reduce实现：
+from functools import reduce
+def add(x, y):
+  return x + y
+reduce(add, [1, 3, 5, 7, 9])
+25
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;-zip&#34;&gt;-zip()&lt;/h2&gt;
+&lt;p&gt;会将列表按位组合成元组&lt;/p&gt;
+&lt;h2 id=&#34;any-all&#34;&gt;any、all()&lt;/h2&gt;
+&lt;p&gt;判断可送代对象中是否包含（0,&amp;quot;&amp;quot;,False）的元素&lt;/p&gt;
+&lt;h1 id=&#34;列表推导式-字典推导式-生成器&#34;&gt;列表推导式、字典推导式、生成器&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-e3e9887c9e9be645.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;闭包装饰器的本质也是闭包&#34;&gt;闭包(装饰器的本质也是闭包)&lt;/h1&gt;
+&lt;p&gt;一个函数在另一个函数里面，外层函数返回的是里层函数，返回的函数还可以访问它的定义所在的作用域，也就是它带着它的环境。这个被称为闭包。&lt;/p&gt;
+&lt;p&gt;闭包可以保存环境变量&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def outer(factor):
+    def inner(number):
+        return number*factor
+    return inner
+func_inner = outer(4)
+# 第一次获取到内部的函数，之后可以直接使用这个函数
+print(func_inner)
+value = func_inner(5)
+print(value)  # 20
+# 或者我们也可以写成一句话：
+value = outer(4)(5)
+print(value)  # 20
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;函数装饰器&#34;&gt;&lt;a href=&#34;https://www.runoob.com/w3cnote/python-func-decorators.html&#34;&gt;函数装饰器&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;为什么要用装饰器：在写项目的时候不可能一次性把所有的功能都全部写完或则上线前客户需求改变，需要&lt;s&gt;对函数添加新功能（装饰器函数）。&lt;/s&gt;&lt;/p&gt;
+&lt;p&gt;开放封闭原则:&lt;br&gt;
+&lt;s&gt;对扩展是开放&lt;/s&gt;：就是对项目的拓展功能是开放的，可以进行添加新的功能&lt;br&gt;
+&lt;s&gt;对修改是封闭的&lt;/s&gt;：就是对原函数的源代码和调用方式是封闭的&lt;/p&gt;
+&lt;p&gt;使用函数装饰器 A() 去装饰另一个函数 B()，其底层执行了如下 2 步操作：&lt;br&gt;
+将 B 作为参数传给 A() 函数；将 A() 函数执行完成的返回值反馈回  B。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@A
+def B():
+=============================
+B = A(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;多个装饰器的执行顺序&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@B
+@A
+def C()
+装饰过程；A-&amp;gt;B
+执行过程；B-&amp;gt;A
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;# @wraps接受一个函数来进行装饰，并加入了复制函数名称、注释文档、参数列表等等的功能。这可以让我们在装饰器里面访问在装饰之前的函数的属性。
+from functools import wraps
+ 
+def logit(logfile=&#39;out.log&#39;):
+    def logging_decorator(func):
+        @wraps(func)  # 在装饰器里面访问在装饰之前的函数的属性。
+        def wrapped_function(*args, **kwargs):
+            log_string = func.__name__ + &amp;quot; was called&amp;quot;
+            print(log_string)
+            # 打开logfile，并写入内容
+            with open(logfile, &#39;a&#39;) as opened_file:
+                # 现在将日志打到指定的logfile
+                opened_file.write(log_string + &#39;\n&#39;)
+            return func(*args, **kwargs)
+        return wrapped_function
+    return logging_decorator
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;@logit()
+def myfunc1():
+    pass
+ 
+myfunc1()
+# Output: myfunc1 was called
+# 现在一个叫做 out.log 的文件出现了，里面的内容就是上面的字符串
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;@logit(logfile=&#39;func2.log&#39;)
+def myfunc2():
+    pass
+ 
+myfunc2()
+# Output: myfunc2 was called
+# 现在一个叫做 func2.log 的文件出现了，里面的内容就是上面的字符串
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;property&#34;&gt;@property&lt;/h2&gt;
+&lt;p&gt;&lt;s&gt;就是负责把一个方法变成属性调用的&lt;/s&gt;&lt;/p&gt;
+&lt;h1 id=&#34;面向对象&#34;&gt;面向对象&lt;/h1&gt;
+&lt;p&gt;实例的变量名如果以__开头，就变成了一个私有变量（private）。&lt;/p&gt;
+&lt;p&gt;仍然可以通过_Student__name来访问__name变量，表面上看，外部代码“成功”地设置了“__name”变量，但实际上这个“__name”变量和class内部的__name变量不是一个变量&lt;/p&gt;
+&lt;p&gt;对于静态语言（例如Java）来说，如果需要传入Animal类型，则传入的对象必须是Animal类型或者它的子类，否则，将无法调用run()方法。&lt;s&gt;对于Python这样的动态语言来说，则不一定需要传入Animal类型。我们只需要保证传入的对象有一个run()方法就可以&lt;/s&gt;了：这就是动态语言的“鸭子类型”&lt;/p&gt;
+&lt;p&gt;dir()：获得一个对象的所有属性和方法&lt;br&gt;
+getattr()、setattr()以及hasattr()，我们可以直接操作一个对象的状态&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;hasattr(obj, &#39;x&#39;) # 有属性&#39;x&#39;吗？
+setattr(obj, &#39;y&#39;, 19) # 设置一个属性&#39;y&#39;
+ getattr(obj, &#39;z&#39;, 404) # 获取属性&#39;z&#39;，如果不存在，返回默认值404
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;还可以尝试给实例绑定一个方法,但是，&lt;s&gt;给一个实例绑定的方法，对另一个实例是不起作用的&lt;/s&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def set_age(self, age): # 定义一个函数作为实例方法
+  self.age = age
+from types import MethodType
+给实例绑定一个方法
+s.set_age = MethodType(set_age, s) #
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;为了给所有实例都绑定方法，可以&lt;s&gt;给class绑定方法：&lt;/s&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Student.set_age= set_age
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果我们想要限制实例的属性，比如，只允许对Student实例添加name和age属性。&lt;br&gt;
+为了达到限制的目的，Python允许在定义class的时候，定义一个特殊的~~__slots__变量，来限制该class实例能添加的属性,__slots__定义的属性仅对当前类实例起作用，对继承的子类是不起作用的~~：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class Student(object):
+    __slots__ = (&#39;name&#39;, &#39;age&#39;) # 用tuple定义允许绑定的属性名称
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;实例方法类方法静态方法&#34;&gt;实例方法，类方法，静态方法&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;实例方法， 类对象直接调用实例方法&lt;/li&gt;
+&lt;li&gt;类方法，使用类名直接调用类方法，不需要实例化，类方法只能调用类属性，不能调用实例属性&lt;/li&gt;
+&lt;li&gt;静态方法，不需要实例化，其实就是的函数，和函数唯一的区别是，静态方法定义在类这个空间（类命名空间）中，而函数则定义在程序所在的空间（全局命名空间）中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;静态方法&lt;s&gt;没有类似 self、cls 这样的特殊参数&lt;/s&gt;，因此 Python 解释器不会对它包含的参数做任何类或对象的绑定。也正因为如此，类的静态方法中&lt;s&gt;无法调用任何类属性和类方法。&lt;/s&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;#类构造方法，也属于实例方法
+def __init__(self):
+     self.name = &amp;quot;C语言中文网&amp;quot;
+     self.add = &amp;quot;http://c.biancheng.net&amp;quot;
+# 下面定义了一个say实例方法
+def say(self):
+     print(&amp;quot;正在调用 say() 实例方法&amp;quot;)
+#下面定义了一个类方法
+@classmethod
+def info(cls):
+     print(&amp;quot;正在调用类方法&amp;quot;,cls)
+# 和 self 一样，cls 参数的命名也不是规定的（可以随意命名），只是 Python 程序员约定俗称的习惯而已。
+@staticmethod
+    def info(name,add):
+        print(name,add)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;文件操作&#34;&gt;文件操作&lt;/h1&gt;
+&lt;h2 id=&#34;oswalk&#34;&gt;os.walk()&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt; for root, dirs, files in os.walk(&#39;.&#39;):  
+        print(root) #当前目录路径  
+        print(dirs) #当前路径下所有子目录  (不包括子目录)
+        print(files) #当前路径下所有非目录子文件(不包括子目录)
+        print(&#39;*&#39;*10)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ospathsplitext&#34;&gt;os.path.splitext()&lt;/h2&gt;
+&lt;p&gt;函数将路径拆分为文件名+扩展名&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;os.path.splitext(“E:/lena.jpg”)
+# 将得到”E:/lena“+&amp;quot;.jpg&amp;quot;。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ospathbasename&#34;&gt;os.path.basename&lt;/h2&gt;
+&lt;p&gt;返回path最后的文件名。如果path以／或\结尾，那么就会返回空值。即os.path.split(path)的第二个元素。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;path = &#39;/Users/beazley/Data/data.csv&#39;
+os.path.basename(path)
+#&#39;data.csv&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;oslistdir&#34;&gt;os.listdir()&lt;/h2&gt;
+&lt;p&gt;所有目录和文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1.创建目录
+os.mkdir(“file”)
+2.复制文件：
+shutil.copyfile(“oldfile”,”newfile”) #oldfile和newfile都只能是文件
+shutil.copy(“oldfile”,”newfile”) #oldfile只能是文件夹，newfile可以是文件，也可以是目标目录
+3.复制文件夹：
+shutil.copytree(“olddir”,”newdir”) #olddir和newdir都只能是目录，且newdir必须不存在
+5.重命名文件(目录)
+os.rename(“oldname”,”newname”) #文件或目录都是使用这条命令
+6.移动文件(目录)
+shutil.move(“oldpos”,”newpos”)
+7.删除文件
+os.remove(“file”)
+8.删除目录
+os.rmdir(“dir”) #只能删除空目录
+shutil.rmtree(“dir”) #空目录、有内容的目录都可以删
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;生成器&#34;&gt;生成器&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;def foo():
+    print(&amp;quot;starting...&amp;quot;)
+    while True:
+        res = yield 4
+        print(&amp;quot;res:&amp;quot;,res)
+g = foo()
+print(next(g))
+print(&amp;quot;*&amp;quot;*20)
+print(next(g))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;starting...
+4
+********************
+res: None
+4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;1.程序开始执行以后，&lt;s&gt;因为foo函数中有yield关键字，所以foo函数并不会真的执行，而是先得到一个生成器g(相当于一个对象).&lt;/s&gt;&lt;br&gt;
+2.直到&lt;s&gt;调用next方法，foo函数正式开始执行&lt;/s&gt;，先执行foo函数中的print方法，然后进入while循环&lt;br&gt;
+3.程序遇到yield关键字，然后把yield想想成return,return了一个4之后，程序停止，并没有执行赋值给res操作，此时next(g)语句执行完成，所以输出的前两行（第一个是while上面的print的结果,第二个是return出的结果）是执行print(next(g))的结果，&lt;br&gt;
+4.程序执行print(&amp;quot;*&amp;quot;&lt;em&gt;20)，输出20个&lt;/em&gt;&lt;br&gt;
+5.又开始执行下面的print(next(g)),这个时候和上面那个差不多，不过不同的是，&lt;s&gt;这个时候是从刚才那个next程序停止的地方开始执行的&lt;/s&gt;，也就是要执行res的赋值操作，这时候要注意，这个时候赋值操作的右边是没有值的（因为刚才那个是return出去了，并没有给赋值操作的左边传参数），所以这个时候res赋值是None,所以接着下面的输出就是res:None,&lt;br&gt;
+6.程序会继续在while里执行，又一次碰到yield,这个时候同样return 出4，然后程序停止，print函数输出的4就是这次return出的4.&lt;/p&gt;
+&lt;h1 id=&#34;切片&#34;&gt;切片&lt;/h1&gt;
+&lt;p&gt;object[start_index:end_index:step]&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-708a7823d1970cd5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;print(a[::-1]) ### 取从后向前（相反）的元素
+a[3::2]# 从索引3开始隔一取一
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;格式化字符串&#34;&gt;格式化字符串&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-10f11f25f2121404.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;传参&#34;&gt;传参&lt;/h1&gt;
+&lt;p&gt;fun(*args,**kwargs)&lt;br&gt;
+*args是用来发送一个非键值对的可变数量的参数列表给一个函数&lt;br&gt;
+**kwargs允许你将不定长度的键值对，作为参数传递给一个函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def func1(a,b=1,*c,**d):
+    print(a,b,c,d)  
+    
+l = [3,4]
+dic = {&#39;@&#39;:2,&#39;#&#39;:3}
+
+func1(1,2,l,dic)
+func1(1,2,*l,**dic)
+func1(1,2,3,4,**dic)
+
+# 1 2 ([3, 4], {&#39;@&#39;: 2, &#39;#&#39;: 3}) {}
+# 1 2 (3, 4) {&#39;@&#39;: 2, &#39;#&#39;: 3}
+# 1 2 (3, 4) {&#39;@&#39;: 2, &#39;#&#39;: 3}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;列表-字典&#34;&gt;列表、字典&lt;/h1&gt;
+&lt;p&gt;字典的合并&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dictl={&#39;a&#39;:1,&#39;b&#39;:2}
+dict2={&#39;c&#39;:3,&#39;d&#39;:4}
+dictl.update(dict2)
+print(dictl)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;问题&#34;&gt;问题&lt;/h1&gt;
+&lt;h2 id=&#34;列表和元组的区别&#34;&gt;列表和元组的区别&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;列表是动态数组，它们可变且可以重设长度（改变其内部元素的个数）。&lt;/li&gt;
+&lt;li&gt;元组是静态数组，它们不可变，且其内部数据一旦创建便无法改变。 但是我们可以将两个元组合并成一个新元组。&lt;br&gt;
+3.&lt;s&gt;元组缓存于Python运行时环境，这意味着我们每次使用元组时无须访问内核去分配内存&lt;/s&gt;&lt;br&gt;
+Python是一门垃圾收集语言，这意味着当一个变量不再被使用时，Python会将该变量使用的内存释放回操作系统，以供其他程序（变量）使用。然而，对于长度为1~20的元组，&lt;s&gt;即使它们不在被使用，它们的空间也不会立刻还给系统，而是留待未来使用&lt;/s&gt;。这意味着当未来需要一个同样大小的新的元组时，我们不再需要向操作系统申请一块内存来存放数据，因为我们已经有了预留的空间。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;gll&#34;&gt;GlL&lt;/h2&gt;
+&lt;p&gt;python的全局解释器锁，&lt;s&gt;同一进程中假如有多个线程运行线程在运行python程序的时候会霸占 python解释器（加了一把锁即GlL),使该进程内的其他线程无法运行&lt;/s&gt;，等该线程运行完后其他线程才能运行。如果线程运行过程中遇到耗时操作，则解释器锁解开，使其他线程运行。所以在多线程中，线程的运行仍是有先后顺序的，并不是同时进行&lt;/p&gt;
+&lt;p&gt;多进程中因为每个进程都能被系统分配资源，相当于&lt;s&gt;每个进程有了一个 python解释器&lt;/s&gt;所以多进程可以实现多个进程的同时运行，缺点是进程系统资源开销大&lt;/p&gt;
+&lt;h2 id=&#34;python传参数是传值还是传址&#34;&gt;python传参数是传值还是传址？&lt;/h2&gt;
+&lt;p&gt;Python中函数参数是&lt;s&gt;引用传递&lt;/s&gt;（注意不是值传递）。对于不可变类型（数值型、字符串、元组），因变量不能修改，所以运算不会影响到变量自身；而对于可变类型（列表字典）来说，函数体运算可能会更改传入的参数变量。&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-afd4b5afada2703d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;python对象销毁垃圾回收&#34;&gt;python对象销毁(垃圾回收)&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Python 使用了引用计数这一简单技术来跟踪和回收垃圾。在 Python 内部记录着所有使用中的对象各有多少引用。一个内部跟踪变量，称为一个引用计数器。当对象被创建时， 就创建了一个引用计数， 当这个对象不再需要时， 也就是说， &lt;s&gt;这个对象的引用计数变为0 时， 它被垃圾回收。但是回收不是&amp;quot;立即&amp;quot;的&lt;/s&gt;， 由解释器在适当的时机，将垃圾对象占用的内存空间回收。循环引用指的是，两个对象相互引用，但是没有其他变量引用他们。这种情况下，仅使用引用计数是不够的。&lt;s&gt;Python 的垃圾收集器实际上是一个引用计数器和一个循环垃圾收集器。&lt;/s&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;简述乐观锁和悲观锁&#34;&gt;简述乐观锁和悲观锁&lt;/h2&gt;
+&lt;p&gt;悲观锁，就是很悲观，&lt;s&gt;每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁&lt;/s&gt;，这样别人想拿这个数据就会 block直到它拿到锁。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁。&lt;br&gt;
+乐观锁，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是&lt;s&gt;在更新的时候会判断一下在此期间别人有没有去更新这个数据&lt;/s&gt;，可以使用版本号等机制，乐观锁适用于多读的应用类型，这样可以提高吞吐量&lt;/p&gt;
+">Python</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/docker/"" data-c="
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-a16ddde40bfc6f50.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;ubuntu安装 Docker 的时候需在管理员的账号下操作。&lt;br&gt;
@@ -1705,8 +1999,8 @@ h05
 export PATH=$PATH:$SPARK_HOME/bin
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;source /etc/profile&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;使用 ssh h02 可进入其他四个容器，依次在 /etc/profile 文件后追加那两行环境变量&lt;br&gt;
-在目录 /usr/local/spark-2.4.0/conf 修改配置&lt;br&gt;
+&lt;p&gt;使用 ssh h02/3/4/5 可进入其他四个容器，依次在 /etc/profile 文件后追加那两行环境变量&lt;/p&gt;
+&lt;p&gt;在目录 /usr/local/spark-2.4.0/conf 修改配置&lt;br&gt;
 ​&lt;code&gt;cd /usr/local/spark-2.4.0/conf&lt;/code&gt;&lt;br&gt;
 修改文件名&lt;br&gt;
 ​&lt;code&gt;mv spark-env.sh.template spark-env.sh&lt;/code&gt;&lt;br&gt;
@@ -1723,19 +2017,19 @@ export SPARK_WORKER_MEMORY=4g
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;修改文件名&lt;br&gt;
 ​&lt;code&gt;mv slaves.template slaves&lt;/code&gt;&lt;br&gt;
-修改 slaves 如下&lt;/p&gt;
+修改 slaves 如下&lt;br&gt;
+&lt;code&gt;vim slaves&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;h01
 h02
 h03
 h04
 h05
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;使用 scp 命令将配置好的 Hbase 复制到其他 4 个容器中&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h02:/usr/local/
-root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h03:/usr/local/
-root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h04:/usr/local/
-root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h05:/usr/local/
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用 scp 命令将配置好的 Hbase 复制到其他 4 个容器中&lt;br&gt;
+&lt;code&gt;scp -r /usr/local/spark-2.4.0 root@h02:/usr/local/&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;scp -r /usr/local/spark-2.4.0 root@h03:/usr/local/&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;scp -r /usr/local/spark-2.4.0 root@h04:/usr/local/&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;scp -r /usr/local/spark-2.4.0 root@h05:/usr/local/&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;启动-spark&#34;&gt;启动 Spark&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;cd /usr/local/spark-2.4.0/sbin&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;./start-all.sh&lt;/code&gt;&lt;/p&gt;
@@ -1748,9 +2042,14 @@ root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h05:/usr/local/
 &lt;p&gt;格式化一个新的分布式文件系统：&lt;br&gt;
 &lt;code&gt;cd /usr/local/hadoop/bin&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;./hadoop namenode -format&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;注意事项&lt;br&gt;
-Hadoop的临时存储目录tmp（即core-site.xml配置文件中的hadoop.tmp.dir属性，默认值是/tmp/hadoop-&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mrow&gt;&lt;mi&gt;u&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;.&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;）&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;，&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;如&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;果&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;没&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;有&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;配&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;置&lt;/mi&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;.&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;.&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;属&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;性&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;，&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;那&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;么&lt;/mi&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;格&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;式&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;化&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;时&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;将&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;会&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;在&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;/&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;目&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;录&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;下&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;创&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;建&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;一&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;个&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;目&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;录&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;，&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;例&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;如&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;在&lt;/mi&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;u&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;用&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;户&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;下&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;安&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;装&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;配&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;置&lt;/mi&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;，&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;那&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;么&lt;/mi&gt;&lt;mi&gt;H&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;的&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;临&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;时&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;存&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;储&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;目&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;录&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;就&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;位&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;于&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;/&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;/&lt;/mi&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;u&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;目&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;录&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;下&lt;/mi&gt;&lt;mi&gt;H&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;的&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;元&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;数&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;据&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;目&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;录&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;（&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;即&lt;/mi&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;.&lt;/mi&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;配&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;置&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;文&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;件&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;中&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;的&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;.&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;.&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;.&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;属&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;性&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;，&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;默&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;认&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;值&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;是&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;{user.name}），如果没有配置hadoop.tmp.dir属性，那么hadoop格式化时将会在/tmp目录下创建一个目录，例如在cloud用户下安装配置hadoop，那么Hadoop的临时存储目录就位于/tmp/hadoop-cloud目录下
-Hadoop的namenode元数据目录（即hdfs-site.xml配置文件中的dfs.namenode.name.dir属性，默认值是&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;u&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;）&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;如&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;果&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;没&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;有&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;配&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;置&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;属&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;性&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;那&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;么&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;格&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;式&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;化&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;时&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;将&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;会&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;在&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;目&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;录&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;下&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;创&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;建&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;一&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;个&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;目&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;录&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;例&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;如&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;在&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;u&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;用&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;户&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;下&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;安&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;装&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;配&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;置&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;那&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;么&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.08125em;&#34;&gt;H&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;的&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;临&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;时&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;存&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;储&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;目&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;录&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;就&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;位&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;于&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8888799999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;u&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;目&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;录&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;下&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.08125em;&#34;&gt;H&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;的&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;元&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;数&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;据&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;目&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;录&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;（&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;即&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8888799999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;配&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;置&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;文&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;件&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;中&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;的&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;属&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;性&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;默&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;认&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;值&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;是&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;{hadoop.tmp.dir}/dfs/name），同样如果没有配置该属性，那么hadoop在格式化时将自行创建。必须注意的是在格式化前必须清楚所有子节点（即DataNode节点）dfs/name下的内容，否则在启动hadoop时子节点的守护进程会启动失败。这是由于，每一次format主节点namenode，dfs/name/current目录下的VERSION文件会产生新的clusterID、namespaceID。但是如果子节点的dfs/name/current仍存在，hadoop格式化时就不会重建该目录，因此形成子节点的clusterID、namespaceID与主节点（即namenode节点）的clusterID、namespaceID不一致。最终导致hadoop启动失败。&lt;/p&gt;
+&lt;p&gt;注意事项&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+Hadoop的临时存储目录tmp（即core-site.xml配置文件中的hadoop.tmp.dir属性，默认值是/tmp/hadoop-${user.name}），
+如果没有配置hadoop.tmp.dir属性，那么hadoop格式化时将会在/tmp目录下创建一个目录，例如在cloud用户下安装配置hadoop，那么Hadoop的临时存储目录就位于/tmp/hadoop-cloud目录下Hadoop的namenode元数据目录（即hdfs-site.xml配置文件中的dfs.namenode.name.dir属性，默认值是${hadoop.tmp.dir}/dfs/name），
+同样如果没有配置该属性，那么hadoop在格式化时将自行创建。必须注意的是在格式化前必须清楚所有子节点（即DataNode节点）dfs/name下的内容，否则在启动hadoop时子节点的守护进程会启动失败。这是由于，每一次format主节点namenode，dfs/name/current目录下的VERSION文件会产生新的clusterID、namespaceID。
+但是如果子节点的dfs/name/current仍存在，hadoop格式化时就不会重建该目录，因此形成子节点的clusterID、namespaceID与主节点（即namenode节点）的clusterID、namespaceID不一致。最终导致hadoop启动失败。
+
+&lt;/code&gt;&lt;/pre&gt;
 ">Docker安装Hadoop</a>
       </div>
       
@@ -2180,8 +2479,33 @@ DELETE：从字面意思也能看出，这种方式就是删除服务器数据�
 &lt;p&gt;对称密钥加密是指&lt;s&gt;加密和解密使用同一个密钥的方式&lt;/s&gt;，这种方式存在的最大问题就是密钥发送问题，即如何安全地将密钥发给对方；&lt;br&gt;
 而非对称加密是指使用一对非对称密钥，即&lt;s&gt;公钥和私钥，公钥可以随意发布，但私钥只有自己知道&lt;/s&gt;。发送密文的一方使用对方的公钥进行加密处理，对方接收到加密信息后，使用自己的私钥进行解密。&lt;br&gt;
 由于非对称加密的方式不需要发送用来解密的私钥，所以可以保证安全性；但是和对称加密比起来，非常的慢&lt;/p&gt;
-&lt;h1 id=&#34;cookie&#34;&gt;cookie&lt;/h1&gt;
+&lt;h1 id=&#34;简述-cookie和-session的区别&#34;&gt;简述 cookie？和 session的区别&lt;/h1&gt;
 &lt;p&gt;cookie是由Web~~服务器保存在用户浏览器上的小文件（key-value格式），包含用户相关的信息。~~客户端向服务器发起请求，如果服务器需要记录该用户状态，就使用response向客户端浏览器颁发一个Cookie。客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一同提交给服务器。服务器检查该Cookie，以此来辨认用户身份。&lt;/p&gt;
+&lt;p&gt;1, session在服务器端， cookie在客户端（浏览器）&lt;br&gt;
+2，session的运行依赖 session id，而 session id是存在 cookie中的，也就是说，如果浏览器禁用了 cookie，同时 session也会失效，存储 Session时，键与 Cookie中的sessionid相同，值是开发人员设置的键值对信息，进行了base64编码，过期时间由开发人员设置&lt;br&gt;
+3，cookie安全性比 session差&lt;/p&gt;
+&lt;h1 id=&#34;sql注入&#34;&gt;SQL注入&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-b53953def3dedd79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+解決方式：通过传参数方式解决SQL注入&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-cbdf12c3596bc7f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;关系型数据库和非关系型数据库&#34;&gt;关系型数据库和非关系型数据库&lt;/h1&gt;
+&lt;p&gt;关系模型指的就是二维表格模型，好比Excel文件中的表格，强调用表格的方式存储数据（有字段，表与表之间还有关系）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Oracle&lt;/li&gt;
+&lt;li&gt;Microsoft SQL Server&lt;/li&gt;
+&lt;li&gt;MySQL：数据保存在磁盘中，检索的话，会有一定的操作，访问速度相&lt;br&gt;
+对慢&lt;/li&gt;
+&lt;li&gt;SQLite（手机端的）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;非关系型数据库,即NoSQL（not only SQL），非关联型的，强调Key-Value的方式存储数据&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;MongoDB&lt;/li&gt;
+&lt;li&gt;Redis：内存型，数据保存在内存中，速度快&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;h1 id=&#34;进程与线程的区别&#34;&gt;进程与线程的区别&lt;/h1&gt;
 &lt;p&gt;1.&lt;s&gt;线程是程序执行的最小单位，而进程是操作系统分配资源的最小单位&lt;/s&gt;&lt;/p&gt;
 &lt;ol&gt;
@@ -3366,8 +3690,7 @@ EOF
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/linux-ming-ling/"" data-c="
-          &lt;p&gt;[TOC]&lt;br&gt;
-Ctrl+d	键盘输入结束或退出终端&lt;br&gt;
+          &lt;p&gt;Ctrl+d	键盘输入结束或退出终端&lt;br&gt;
 Ctrl+s	暂停当前程序，暂停后按下任意键恢复运行&lt;br&gt;
 Ctrl+z	将当前程序放到后台运行，恢复到前台为命令fg&lt;br&gt;
 Ctrl+a	将光标移至输入行头，相当于Home键&lt;br&gt;
@@ -3397,20 +3720,20 @@ tmp (temporary)用于存放各种临时文件&lt;br&gt;
 var (variable)用于存放运行时需要改变数据的文件&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;文件增删改查&#34;&gt;文件增删改查&lt;/h1&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;mkdir&#34;&gt;mkdir&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;创建目录和父目录a,b,c,d&lt;br&gt;
 &lt;code&gt;mkdir -p a/b/c/d&lt;/code&gt;&lt;br&gt;
 -p 建立多级目录&lt;br&gt;
 -m 在建立目录的时候给目录赋于权限值&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;rmdir&#34;&gt;rmdir&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;删除空目录&lt;br&gt;
 -p 删除多级空目录&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;cp&#34;&gt;cp&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;拷贝文件夹a到/tmp目录&lt;br&gt;
 &lt;code&gt;cp -rvf a/ /tmp/&lt;/code&gt;&lt;br&gt;
 -R 复制整个目录里的内容&lt;br&gt;
@@ -3418,8 +3741,8 @@ var (variable)用于存放运行时需要改变数据的文件&lt;/p&gt;
 -v 在复制文件的时候显示进度&lt;br&gt;
 -f 在复制的时候如果碰到目的文件名有重复就将原先的删除&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;mv&#34;&gt;mv&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;重命名 &lt;code&gt;mv a.txt b.txt&lt;/code&gt;&lt;br&gt;
 移动文件a到/tmp目录，并重命名为b&lt;br&gt;
 &lt;code&gt;mv -vf a /tmp/b&lt;/code&gt;&lt;br&gt;
@@ -3428,15 +3751,15 @@ var (variable)用于存放运行时需要改变数据的文件&lt;/p&gt;
 -u 当移动时只有源文件比目的文件新的时候才会移动&lt;br&gt;
 -f 强制覆盖已有的文件&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;touch&#34;&gt;touch&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;创建文件&lt;br&gt;
 &lt;code&gt;touch asd.txt&lt;/code&gt;&lt;br&gt;
 创建多个文件&lt;br&gt;
 &lt;code&gt;touch love_{1..10}_shiyanlou.txt&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;rm&#34;&gt;rm&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;删除机器上的所有文件&lt;br&gt;
 rm -rvf /&lt;br&gt;
 -i 在删除文件之前需要手工确认&lt;br&gt;
@@ -3457,16 +3780,16 @@ rm -rvf /&lt;br&gt;
 -full-time显示文件的详细访问时间&lt;br&gt;
 -lc查看文件状态修改时间&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;cat&#34;&gt;cat&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;查看文本文件&lt;br&gt;
 如果文件很大的话，cat命令的输出结果会疯狂在终端上输出，可以多次按ctrl+c终止。&lt;br&gt;
 -b 显示文件内容的时候显示行数&lt;br&gt;
 -n 显示文件内容包括空行&lt;br&gt;
 -s 将多个空行合并成一个空行输出&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;tr&#34;&gt;tr&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;删除、转换一段文本信息中的某些文字&lt;br&gt;
 -d	删除匹配的字符，注意不是全词匹配也不是按字符顺序匹配&lt;br&gt;
 -s	去除指定的在输入文本中连续并重复的字符&lt;br&gt;
@@ -3478,8 +3801,8 @@ rm -rvf /&lt;br&gt;
 &lt;code&gt;echo &#39;input some text here&#39; | tr &#39;[:lower:]&#39; &#39;[:upper:]&#39;&lt;/code&gt;&lt;br&gt;
 上面的&#39;[:lower:]&#39; &#39;[:upper:]&#39;你也可以简单的写作&#39;[a-z]&#39; &#39;[A-Z]&#39;,当然反过来将大写变小写也是可以的&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;jion&#34;&gt;jion&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;将两个文件中包含相同内容的那一行合并在一起。&lt;br&gt;
 -t	指定分隔符，默认为空格&lt;br&gt;
 -i	忽略大小写的差异&lt;br&gt;
@@ -3488,8 +3811,8 @@ rm -rvf /&lt;br&gt;
 将/etc/passwd与/etc/group两个文件合并，指定以&#39;:&#39;作为分隔符, 分别比对第4和第3个字段&lt;br&gt;
 &lt;code&gt;sudo join -t&#39;:&#39; -1 4 /etc/passwd -2 3 /etc/group&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;paste&#34;&gt;paste&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;在不对比数据的情况下，简单地将多个文件合并一起，以Tab隔开。&lt;br&gt;
 -d	指定合并的分隔符，默认为 Tab&lt;br&gt;
 -s	不合并到一行，每个文件为一行&lt;/p&gt;
@@ -3560,7 +3883,7 @@ rm -rvf /&lt;br&gt;
 find ~ -size +1500c&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
-&lt;ol start=&#34;2&#34;&gt;
+&lt;ol&gt;
 &lt;li&gt;查找等于1500字节的文件&lt;br&gt;
 find ~ -size 1500c&lt;/li&gt;
 &lt;li&gt;查找小于1500字节的文件&lt;br&gt;
@@ -3817,20 +4140,22 @@ export	显示从 Shell 中导出成环境变量的变量，也能通过它将自
 &lt;code&gt;unset&lt;/code&gt;&lt;br&gt;
 命令删除一个环境变量&lt;/p&gt;
 &lt;h1 id=&#34;压-解缩&#34;&gt;压、解缩&lt;/h1&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;gzip&#34;&gt;gzip&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;压缩文件成者文件夹&lt;br&gt;
 -d解压缩文件&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;zip&#34;&gt;zip&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;将目录 /home/shiyanlou/Desktop 打包成一个文件&lt;br&gt;
 &lt;code&gt;zip -r -9 -q -o -l shiyanlou.zip /home/shiyanlou/Desktop&lt;/code&gt;&lt;br&gt;
 -r 参数表示递归打包包含子目录的全部内容，9 压缩级别最大1 最小,&lt;br&gt;
 -q 参数表示为安静模式，即不向屏幕输出信息，&lt;br&gt;
 -o，表示输出文件,&lt;br&gt;
 -l 参数将 LF 转换为 CR+LF 来达到win/linux兼容。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h4 id=&#34;unzip&#34;&gt;unzip&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;将文件解压到指定目录：&lt;br&gt;
 &lt;code&gt;unzip -q shiyanlou.zip -d ziptest&lt;/code&gt;&lt;br&gt;
 -q 使用安静模式&lt;br&gt;
@@ -3839,8 +4164,8 @@ export	显示从 Shell 中导出成环境变量的变量，也能通过它将自
 -O（英文字母，大写 o）参数指定编码类型：(win默认会采用 GBK , Linux 默认 UTF-8 )&lt;br&gt;
 unzip -O GBK 中文压缩文件.zip&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
 &lt;h4 id=&#34;tar&#34;&gt;tar&lt;/h4&gt;
+&lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;tar -xzf shiyanlou.tar.gz -C tardir&lt;/code&gt;&lt;br&gt;
 压缩文件格式&lt;code&gt;-z/*.tar.gz&lt;/code&gt;，&lt;code&gt;-J/*.tar.xz&lt;/code&gt;	，&lt;code&gt;-j/*tar.bz2&lt;/code&gt;&lt;br&gt;
 -P 保留绝对路径符&lt;br&gt;

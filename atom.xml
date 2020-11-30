@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-11-28T14:10:35.527Z</updated>
+    <updated>2020-11-30T08:17:08.055Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -10,6 +10,303 @@
     <logo>https://dingtom.github.io/images/avatar.png</logo>
     <icon>https://dingtom.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Tomding&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Python]]></title>
+        <id>https://dingtom.github.io/post/python/</id>
+        <link href="https://dingtom.github.io/post/python/">
+        </link>
+        <updated>2020-11-30T08:13:07.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>== 比较值，is比较ID(内存地址）</li>
+<li>and\or逻辑比较，&amp;|按位与\或</li>
+<li>字符串拼接join()快，用加号拼接字符串因为字符串是不可变对象所以每次都会生成新对象</li>
+<li>支持链式比较（两两相比加and）</li>
+</ul>
+<h1 id="随机数">随机数</h1>
+<pre><code>随机种子：random.seed()
+随机选择：random.choice(List)
+随机打乱：random.shuffle(List)
+随机整数：random.randint(a,b),生成区间内的整数
+随机采样:random.sample(list18, samples)
+随机小数：random.random()
+习惯用numpy库，利用np.random.randn(5)生成5个随机小数
+</code></pre>
+<h1 id="global">global</h1>
+<p>在函数声明 修改全局变量</p>
+<pre><code>a=4
+def f():
+    global a 
+    a=3 
+f()
+</code></pre>
+<h1 id="内置函数">内置函数</h1>
+<h2 id="filter">filter()</h2>
+<p>用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新列表。该接收两个参数，第一个为函数，第二个为序列，序列的每个元素作为参数传递给函数进行判，然后返回 True 或 False，最后将返回 True 的元素放到新列表</p>
+<pre><code>t = filter(lambda x:True if x&gt;3 else False, [0, 2, 3, 4, 5])
+print(list(t))
+</code></pre>
+<h2 id="map">map()</h2>
+<p>接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</p>
+<pre><code>比如，把这个list所有数字转为字符串：
+list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+['1', '2', '3', '4', '5', '6', '7', '8', '9']
+</code></pre>
+<h1 id="reduce">reduce()</h1>
+<p>把一个函数作用在一个序列[x1, x2, x3, ...]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是</p>
+<pre><code>reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+</code></pre>
+<pre><code># 比方说对一个序列求和，就可以用reduce实现：
+from functools import reduce
+def add(x, y):
+  return x + y
+reduce(add, [1, 3, 5, 7, 9])
+25
+</code></pre>
+<h2 id="-zip">-zip()</h2>
+<p>会将列表按位组合成元组</p>
+<h2 id="any-all">any、all()</h2>
+<p>判断可送代对象中是否包含（0,&quot;&quot;,False）的元素</p>
+<h1 id="列表推导式-字典推导式-生成器">列表推导式、字典推导式、生成器</h1>
+<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-e3e9887c9e9be645.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<h1 id="闭包装饰器的本质也是闭包">闭包(装饰器的本质也是闭包)</h1>
+<p>一个函数在另一个函数里面，外层函数返回的是里层函数，返回的函数还可以访问它的定义所在的作用域，也就是它带着它的环境。这个被称为闭包。</p>
+<p>闭包可以保存环境变量</p>
+<pre><code>def outer(factor):
+    def inner(number):
+        return number*factor
+    return inner
+func_inner = outer(4)
+# 第一次获取到内部的函数，之后可以直接使用这个函数
+print(func_inner)
+value = func_inner(5)
+print(value)  # 20
+# 或者我们也可以写成一句话：
+value = outer(4)(5)
+print(value)  # 20
+</code></pre>
+<h1 id="函数装饰器"><a href="https://www.runoob.com/w3cnote/python-func-decorators.html">函数装饰器</a></h1>
+<p>为什么要用装饰器：在写项目的时候不可能一次性把所有的功能都全部写完或则上线前客户需求改变，需要<s>对函数添加新功能（装饰器函数）。</s></p>
+<p>开放封闭原则:<br>
+<s>对扩展是开放</s>：就是对项目的拓展功能是开放的，可以进行添加新的功能<br>
+<s>对修改是封闭的</s>：就是对原函数的源代码和调用方式是封闭的</p>
+<p>使用函数装饰器 A() 去装饰另一个函数 B()，其底层执行了如下 2 步操作：<br>
+将 B 作为参数传给 A() 函数；将 A() 函数执行完成的返回值反馈回  B。</p>
+<pre><code>@A
+def B():
+=============================
+B = A(B)
+</code></pre>
+<p>多个装饰器的执行顺序</p>
+<pre><code>@B
+@A
+def C()
+装饰过程；A-&gt;B
+执行过程；B-&gt;A
+</code></pre>
+<pre><code># @wraps接受一个函数来进行装饰，并加入了复制函数名称、注释文档、参数列表等等的功能。这可以让我们在装饰器里面访问在装饰之前的函数的属性。
+from functools import wraps
+ 
+def logit(logfile='out.log'):
+    def logging_decorator(func):
+        @wraps(func)  # 在装饰器里面访问在装饰之前的函数的属性。
+        def wrapped_function(*args, **kwargs):
+            log_string = func.__name__ + &quot; was called&quot;
+            print(log_string)
+            # 打开logfile，并写入内容
+            with open(logfile, 'a') as opened_file:
+                # 现在将日志打到指定的logfile
+                opened_file.write(log_string + '\n')
+            return func(*args, **kwargs)
+        return wrapped_function
+    return logging_decorator
+</code></pre>
+<pre><code>@logit()
+def myfunc1():
+    pass
+ 
+myfunc1()
+# Output: myfunc1 was called
+# 现在一个叫做 out.log 的文件出现了，里面的内容就是上面的字符串
+</code></pre>
+<pre><code>@logit(logfile='func2.log')
+def myfunc2():
+    pass
+ 
+myfunc2()
+# Output: myfunc2 was called
+# 现在一个叫做 func2.log 的文件出现了，里面的内容就是上面的字符串
+</code></pre>
+<h2 id="property">@property</h2>
+<p><s>就是负责把一个方法变成属性调用的</s></p>
+<h1 id="面向对象">面向对象</h1>
+<p>实例的变量名如果以__开头，就变成了一个私有变量（private）。</p>
+<p>仍然可以通过_Student__name来访问__name变量，表面上看，外部代码“成功”地设置了“__name”变量，但实际上这个“__name”变量和class内部的__name变量不是一个变量</p>
+<p>对于静态语言（例如Java）来说，如果需要传入Animal类型，则传入的对象必须是Animal类型或者它的子类，否则，将无法调用run()方法。<s>对于Python这样的动态语言来说，则不一定需要传入Animal类型。我们只需要保证传入的对象有一个run()方法就可以</s>了：这就是动态语言的“鸭子类型”</p>
+<p>dir()：获得一个对象的所有属性和方法<br>
+getattr()、setattr()以及hasattr()，我们可以直接操作一个对象的状态</p>
+<pre><code>hasattr(obj, 'x') # 有属性'x'吗？
+setattr(obj, 'y', 19) # 设置一个属性'y'
+ getattr(obj, 'z', 404) # 获取属性'z'，如果不存在，返回默认值404
+</code></pre>
+<p>还可以尝试给实例绑定一个方法,但是，<s>给一个实例绑定的方法，对另一个实例是不起作用的</s></p>
+<pre><code>def set_age(self, age): # 定义一个函数作为实例方法
+  self.age = age
+from types import MethodType
+给实例绑定一个方法
+s.set_age = MethodType(set_age, s) #
+</code></pre>
+<p>为了给所有实例都绑定方法，可以<s>给class绑定方法：</s></p>
+<pre><code>Student.set_age= set_age
+</code></pre>
+<p>如果我们想要限制实例的属性，比如，只允许对Student实例添加name和age属性。<br>
+为了达到限制的目的，Python允许在定义class的时候，定义一个特殊的~~__slots__变量，来限制该class实例能添加的属性,__slots__定义的属性仅对当前类实例起作用，对继承的子类是不起作用的~~：</p>
+<pre><code>class Student(object):
+    __slots__ = ('name', 'age') # 用tuple定义允许绑定的属性名称
+</code></pre>
+<h1 id="实例方法类方法静态方法">实例方法，类方法，静态方法</h1>
+<ul>
+<li>实例方法， 类对象直接调用实例方法</li>
+<li>类方法，使用类名直接调用类方法，不需要实例化，类方法只能调用类属性，不能调用实例属性</li>
+<li>静态方法，不需要实例化，其实就是的函数，和函数唯一的区别是，静态方法定义在类这个空间（类命名空间）中，而函数则定义在程序所在的空间（全局命名空间）中。</li>
+</ul>
+<blockquote>
+<p>静态方法<s>没有类似 self、cls 这样的特殊参数</s>，因此 Python 解释器不会对它包含的参数做任何类或对象的绑定。也正因为如此，类的静态方法中<s>无法调用任何类属性和类方法。</s></p>
+</blockquote>
+<pre><code>#类构造方法，也属于实例方法
+def __init__(self):
+     self.name = &quot;C语言中文网&quot;
+     self.add = &quot;http://c.biancheng.net&quot;
+# 下面定义了一个say实例方法
+def say(self):
+     print(&quot;正在调用 say() 实例方法&quot;)
+#下面定义了一个类方法
+@classmethod
+def info(cls):
+     print(&quot;正在调用类方法&quot;,cls)
+# 和 self 一样，cls 参数的命名也不是规定的（可以随意命名），只是 Python 程序员约定俗称的习惯而已。
+@staticmethod
+    def info(name,add):
+        print(name,add)
+</code></pre>
+<h1 id="文件操作">文件操作</h1>
+<h2 id="oswalk">os.walk()</h2>
+<pre><code> for root, dirs, files in os.walk('.'):  
+        print(root) #当前目录路径  
+        print(dirs) #当前路径下所有子目录  (不包括子目录)
+        print(files) #当前路径下所有非目录子文件(不包括子目录)
+        print('*'*10)
+</code></pre>
+<h2 id="ospathsplitext">os.path.splitext()</h2>
+<p>函数将路径拆分为文件名+扩展名</p>
+<pre><code>os.path.splitext(“E:/lena.jpg”)
+# 将得到”E:/lena“+&quot;.jpg&quot;。
+</code></pre>
+<h2 id="ospathbasename">os.path.basename</h2>
+<p>返回path最后的文件名。如果path以／或\结尾，那么就会返回空值。即os.path.split(path)的第二个元素。</p>
+<pre><code>path = '/Users/beazley/Data/data.csv'
+os.path.basename(path)
+#'data.csv'
+</code></pre>
+<h2 id="oslistdir">os.listdir()</h2>
+<p>所有目录和文件</p>
+<pre><code>1.创建目录
+os.mkdir(“file”)
+2.复制文件：
+shutil.copyfile(“oldfile”,”newfile”) #oldfile和newfile都只能是文件
+shutil.copy(“oldfile”,”newfile”) #oldfile只能是文件夹，newfile可以是文件，也可以是目标目录
+3.复制文件夹：
+shutil.copytree(“olddir”,”newdir”) #olddir和newdir都只能是目录，且newdir必须不存在
+5.重命名文件(目录)
+os.rename(“oldname”,”newname”) #文件或目录都是使用这条命令
+6.移动文件(目录)
+shutil.move(“oldpos”,”newpos”)
+7.删除文件
+os.remove(“file”)
+8.删除目录
+os.rmdir(“dir”) #只能删除空目录
+shutil.rmtree(“dir”) #空目录、有内容的目录都可以删
+</code></pre>
+<h1 id="生成器">生成器</h1>
+<pre><code>def foo():
+    print(&quot;starting...&quot;)
+    while True:
+        res = yield 4
+        print(&quot;res:&quot;,res)
+g = foo()
+print(next(g))
+print(&quot;*&quot;*20)
+print(next(g))
+</code></pre>
+<pre><code>starting...
+4
+********************
+res: None
+4
+</code></pre>
+<p>1.程序开始执行以后，<s>因为foo函数中有yield关键字，所以foo函数并不会真的执行，而是先得到一个生成器g(相当于一个对象).</s><br>
+2.直到<s>调用next方法，foo函数正式开始执行</s>，先执行foo函数中的print方法，然后进入while循环<br>
+3.程序遇到yield关键字，然后把yield想想成return,return了一个4之后，程序停止，并没有执行赋值给res操作，此时next(g)语句执行完成，所以输出的前两行（第一个是while上面的print的结果,第二个是return出的结果）是执行print(next(g))的结果，<br>
+4.程序执行print(&quot;*&quot;<em>20)，输出20个</em><br>
+5.又开始执行下面的print(next(g)),这个时候和上面那个差不多，不过不同的是，<s>这个时候是从刚才那个next程序停止的地方开始执行的</s>，也就是要执行res的赋值操作，这时候要注意，这个时候赋值操作的右边是没有值的（因为刚才那个是return出去了，并没有给赋值操作的左边传参数），所以这个时候res赋值是None,所以接着下面的输出就是res:None,<br>
+6.程序会继续在while里执行，又一次碰到yield,这个时候同样return 出4，然后程序停止，print函数输出的4就是这次return出的4.</p>
+<h1 id="切片">切片</h1>
+<p>object[start_index:end_index:step]<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-708a7823d1970cd5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<pre><code>print(a[::-1]) ### 取从后向前（相反）的元素
+a[3::2]# 从索引3开始隔一取一
+</code></pre>
+<h1 id="格式化字符串">格式化字符串</h1>
+<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/18339009-10f11f25f2121404.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<h1 id="传参">传参</h1>
+<p>fun(*args,**kwargs)<br>
+*args是用来发送一个非键值对的可变数量的参数列表给一个函数<br>
+**kwargs允许你将不定长度的键值对，作为参数传递给一个函数。</p>
+<pre><code>def func1(a,b=1,*c,**d):
+    print(a,b,c,d)  
+    
+l = [3,4]
+dic = {'@':2,'#':3}
+
+func1(1,2,l,dic)
+func1(1,2,*l,**dic)
+func1(1,2,3,4,**dic)
+
+# 1 2 ([3, 4], {'@': 2, '#': 3}) {}
+# 1 2 (3, 4) {'@': 2, '#': 3}
+# 1 2 (3, 4) {'@': 2, '#': 3}
+</code></pre>
+<h1 id="列表-字典">列表、字典</h1>
+<p>字典的合并</p>
+<pre><code>dictl={'a':1,'b':2}
+dict2={'c':3,'d':4}
+dictl.update(dict2)
+print(dictl)
+</code></pre>
+<h1 id="问题">问题</h1>
+<h2 id="列表和元组的区别">列表和元组的区别</h2>
+<blockquote>
+<ol>
+<li>列表是动态数组，它们可变且可以重设长度（改变其内部元素的个数）。</li>
+<li>元组是静态数组，它们不可变，且其内部数据一旦创建便无法改变。 但是我们可以将两个元组合并成一个新元组。<br>
+3.<s>元组缓存于Python运行时环境，这意味着我们每次使用元组时无须访问内核去分配内存</s><br>
+Python是一门垃圾收集语言，这意味着当一个变量不再被使用时，Python会将该变量使用的内存释放回操作系统，以供其他程序（变量）使用。然而，对于长度为1~20的元组，<s>即使它们不在被使用，它们的空间也不会立刻还给系统，而是留待未来使用</s>。这意味着当未来需要一个同样大小的新的元组时，我们不再需要向操作系统申请一块内存来存放数据，因为我们已经有了预留的空间。</li>
+</ol>
+</blockquote>
+<h2 id="gll">GlL</h2>
+<p>python的全局解释器锁，<s>同一进程中假如有多个线程运行线程在运行python程序的时候会霸占 python解释器（加了一把锁即GlL),使该进程内的其他线程无法运行</s>，等该线程运行完后其他线程才能运行。如果线程运行过程中遇到耗时操作，则解释器锁解开，使其他线程运行。所以在多线程中，线程的运行仍是有先后顺序的，并不是同时进行</p>
+<p>多进程中因为每个进程都能被系统分配资源，相当于<s>每个进程有了一个 python解释器</s>所以多进程可以实现多个进程的同时运行，缺点是进程系统资源开销大</p>
+<h2 id="python传参数是传值还是传址">python传参数是传值还是传址？</h2>
+<p>Python中函数参数是<s>引用传递</s>（注意不是值传递）。对于不可变类型（数值型、字符串、元组），因变量不能修改，所以运算不会影响到变量自身；而对于可变类型（列表字典）来说，函数体运算可能会更改传入的参数变量。<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-afd4b5afada2703d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<h2 id="python对象销毁垃圾回收">python对象销毁(垃圾回收)</h2>
+<blockquote>
+<p>Python 使用了引用计数这一简单技术来跟踪和回收垃圾。在 Python 内部记录着所有使用中的对象各有多少引用。一个内部跟踪变量，称为一个引用计数器。当对象被创建时， 就创建了一个引用计数， 当这个对象不再需要时， 也就是说， <s>这个对象的引用计数变为0 时， 它被垃圾回收。但是回收不是&quot;立即&quot;的</s>， 由解释器在适当的时机，将垃圾对象占用的内存空间回收。循环引用指的是，两个对象相互引用，但是没有其他变量引用他们。这种情况下，仅使用引用计数是不够的。<s>Python 的垃圾收集器实际上是一个引用计数器和一个循环垃圾收集器。</s></p>
+</blockquote>
+<h2 id="简述乐观锁和悲观锁">简述乐观锁和悲观锁</h2>
+<p>悲观锁，就是很悲观，<s>每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁</s>，这样别人想拿这个数据就会 block直到它拿到锁。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁。<br>
+乐观锁，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是<s>在更新的时候会判断一下在此期间别人有没有去更新这个数据</s>，可以使用版本号等机制，乐观锁适用于多读的应用类型，这样可以提高吞吐量</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Docker]]></title>
         <id>https://dingtom.github.io/post/docker/</id>
@@ -506,8 +803,8 @@ h05
 export PATH=$PATH:$SPARK_HOME/bin
 </code></pre>
 <p><code>source /etc/profile</code></p>
-<p>使用 ssh h02 可进入其他四个容器，依次在 /etc/profile 文件后追加那两行环境变量<br>
-在目录 /usr/local/spark-2.4.0/conf 修改配置<br>
+<p>使用 ssh h02/3/4/5 可进入其他四个容器，依次在 /etc/profile 文件后追加那两行环境变量</p>
+<p>在目录 /usr/local/spark-2.4.0/conf 修改配置<br>
 ​<code>cd /usr/local/spark-2.4.0/conf</code><br>
 修改文件名<br>
 ​<code>mv spark-env.sh.template spark-env.sh</code><br>
@@ -524,19 +821,19 @@ export SPARK_WORKER_MEMORY=4g
 </code></pre>
 <p>修改文件名<br>
 ​<code>mv slaves.template slaves</code><br>
-修改 slaves 如下</p>
+修改 slaves 如下<br>
+<code>vim slaves</code></p>
 <pre><code>h01
 h02
 h03
 h04
 h05
 </code></pre>
-<p>使用 scp 命令将配置好的 Hbase 复制到其他 4 个容器中</p>
-<pre><code>root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h02:/usr/local/
-root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h03:/usr/local/
-root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h04:/usr/local/
-root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h05:/usr/local/
-</code></pre>
+<p>使用 scp 命令将配置好的 Hbase 复制到其他 4 个容器中<br>
+<code>scp -r /usr/local/spark-2.4.0 root@h02:/usr/local/</code><br>
+<code>scp -r /usr/local/spark-2.4.0 root@h03:/usr/local/</code><br>
+<code>scp -r /usr/local/spark-2.4.0 root@h04:/usr/local/</code><br>
+<code>scp -r /usr/local/spark-2.4.0 root@h05:/usr/local/</code></p>
 <h2 id="启动-spark">启动 Spark</h2>
 <p><code>cd /usr/local/spark-2.4.0/sbin</code><br>
 <code>./start-all.sh</code></p>
@@ -549,9 +846,14 @@ root@h01:/usr/local# scp -r /usr/local/spark-2.4.0 root@h05:/usr/local/
 <p>格式化一个新的分布式文件系统：<br>
 <code>cd /usr/local/hadoop/bin</code><br>
 <code>./hadoop namenode -format</code></p>
-<p>注意事项<br>
-Hadoop的临时存储目录tmp（即core-site.xml配置文件中的hadoop.tmp.dir属性，默认值是/tmp/hadoop-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi>u</mi><mi>s</mi><mi>e</mi><mi>r</mi><mi mathvariant="normal">.</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi></mrow><mi mathvariant="normal">）</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">如</mi><mi mathvariant="normal">果</mi><mi mathvariant="normal">没</mi><mi mathvariant="normal">有</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">置</mi><mi>h</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">.</mi><mi>t</mi><mi>m</mi><mi>p</mi><mi mathvariant="normal">.</mi><mi>d</mi><mi>i</mi><mi>r</mi><mi mathvariant="normal">属</mi><mi mathvariant="normal">性</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">那</mi><mi mathvariant="normal">么</mi><mi>h</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">格</mi><mi mathvariant="normal">式</mi><mi mathvariant="normal">化</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">将</mi><mi mathvariant="normal">会</mi><mi mathvariant="normal">在</mi><mi mathvariant="normal">/</mi><mi>t</mi><mi>m</mi><mi>p</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">下</mi><mi mathvariant="normal">创</mi><mi mathvariant="normal">建</mi><mi mathvariant="normal">一</mi><mi mathvariant="normal">个</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">例</mi><mi mathvariant="normal">如</mi><mi mathvariant="normal">在</mi><mi>c</mi><mi>l</mi><mi>o</mi><mi>u</mi><mi>d</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">户</mi><mi mathvariant="normal">下</mi><mi mathvariant="normal">安</mi><mi mathvariant="normal">装</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">置</mi><mi>h</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">那</mi><mi mathvariant="normal">么</mi><mi>H</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">临</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">存</mi><mi mathvariant="normal">储</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">就</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">于</mi><mi mathvariant="normal">/</mi><mi>t</mi><mi>m</mi><mi>p</mi><mi mathvariant="normal">/</mi><mi>h</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mo>−</mo><mi>c</mi><mi>l</mi><mi>o</mi><mi>u</mi><mi>d</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">下</mi><mi>H</mi><mi>a</mi><mi>d</mi><mi>o</mi><mi>o</mi><mi>p</mi><mi mathvariant="normal">的</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">数</mi><mi mathvariant="normal">据</mi><mi mathvariant="normal">目</mi><mi mathvariant="normal">录</mi><mi mathvariant="normal">（</mi><mi mathvariant="normal">即</mi><mi>h</mi><mi>d</mi><mi>f</mi><mi>s</mi><mo>−</mo><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>x</mi><mi>m</mi><mi>l</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">置</mi><mi mathvariant="normal">文</mi><mi mathvariant="normal">件</mi><mi mathvariant="normal">中</mi><mi mathvariant="normal">的</mi><mi>d</mi><mi>f</mi><mi>s</mi><mi mathvariant="normal">.</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>o</mi><mi>d</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>n</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi mathvariant="normal">.</mi><mi>d</mi><mi>i</mi><mi>r</mi><mi mathvariant="normal">属</mi><mi mathvariant="normal">性</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">默</mi><mi mathvariant="normal">认</mi><mi mathvariant="normal">值</mi><mi mathvariant="normal">是</mi></mrow><annotation encoding="application/x-tex">{user.name}），如果没有配置hadoop.tmp.dir属性，那么hadoop格式化时将会在/tmp目录下创建一个目录，例如在cloud用户下安装配置hadoop，那么Hadoop的临时存储目录就位于/tmp/hadoop-cloud目录下
-Hadoop的namenode元数据目录（即hdfs-site.xml配置文件中的dfs.namenode.name.dir属性，默认值是</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">.</span><span class="mord mathdefault">n</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span></span><span class="mord cjk_fallback">）</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">如</span><span class="mord cjk_fallback">果</span><span class="mord cjk_fallback">没</span><span class="mord cjk_fallback">有</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">置</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord">.</span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord">.</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord cjk_fallback">属</span><span class="mord cjk_fallback">性</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">那</span><span class="mord cjk_fallback">么</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">格</span><span class="mord cjk_fallback">式</span><span class="mord cjk_fallback">化</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">将</span><span class="mord cjk_fallback">会</span><span class="mord cjk_fallback">在</span><span class="mord">/</span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">下</span><span class="mord cjk_fallback">创</span><span class="mord cjk_fallback">建</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">例</span><span class="mord cjk_fallback">如</span><span class="mord cjk_fallback">在</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">d</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">户</span><span class="mord cjk_fallback">下</span><span class="mord cjk_fallback">安</span><span class="mord cjk_fallback">装</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">置</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">那</span><span class="mord cjk_fallback">么</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">临</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">存</span><span class="mord cjk_fallback">储</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">就</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">于</span><span class="mord">/</span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mord mathdefault">p</span><span class="mord">/</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">d</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">下</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault">a</span><span class="mord mathdefault">d</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">p</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault">n</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">据</span><span class="mord cjk_fallback">目</span><span class="mord cjk_fallback">录</span><span class="mord cjk_fallback">（</span><span class="mord cjk_fallback">即</span><span class="mord mathdefault">h</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord">.</span><span class="mord mathdefault">x</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">置</span><span class="mord cjk_fallback">文</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">s</span><span class="mord">.</span><span class="mord mathdefault">n</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord">.</span><span class="mord mathdefault">n</span><span class="mord mathdefault">a</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord">.</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord cjk_fallback">属</span><span class="mord cjk_fallback">性</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">默</span><span class="mord cjk_fallback">认</span><span class="mord cjk_fallback">值</span><span class="mord cjk_fallback">是</span></span></span></span>{hadoop.tmp.dir}/dfs/name），同样如果没有配置该属性，那么hadoop在格式化时将自行创建。必须注意的是在格式化前必须清楚所有子节点（即DataNode节点）dfs/name下的内容，否则在启动hadoop时子节点的守护进程会启动失败。这是由于，每一次format主节点namenode，dfs/name/current目录下的VERSION文件会产生新的clusterID、namespaceID。但是如果子节点的dfs/name/current仍存在，hadoop格式化时就不会重建该目录，因此形成子节点的clusterID、namespaceID与主节点（即namenode节点）的clusterID、namespaceID不一致。最终导致hadoop启动失败。</p>
+<p>注意事项</p>
+<pre><code>
+Hadoop的临时存储目录tmp（即core-site.xml配置文件中的hadoop.tmp.dir属性，默认值是/tmp/hadoop-${user.name}），
+如果没有配置hadoop.tmp.dir属性，那么hadoop格式化时将会在/tmp目录下创建一个目录，例如在cloud用户下安装配置hadoop，那么Hadoop的临时存储目录就位于/tmp/hadoop-cloud目录下Hadoop的namenode元数据目录（即hdfs-site.xml配置文件中的dfs.namenode.name.dir属性，默认值是${hadoop.tmp.dir}/dfs/name），
+同样如果没有配置该属性，那么hadoop在格式化时将自行创建。必须注意的是在格式化前必须清楚所有子节点（即DataNode节点）dfs/name下的内容，否则在启动hadoop时子节点的守护进程会启动失败。这是由于，每一次format主节点namenode，dfs/name/current目录下的VERSION文件会产生新的clusterID、namespaceID。
+但是如果子节点的dfs/name/current仍存在，hadoop格式化时就不会重建该目录，因此形成子节点的clusterID、namespaceID与主节点（即namenode节点）的clusterID、namespaceID不一致。最终导致hadoop启动失败。
+
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -990,8 +1292,33 @@ DELETE：从字面意思也能看出，这种方式就是删除服务器数据�
 <p>对称密钥加密是指<s>加密和解密使用同一个密钥的方式</s>，这种方式存在的最大问题就是密钥发送问题，即如何安全地将密钥发给对方；<br>
 而非对称加密是指使用一对非对称密钥，即<s>公钥和私钥，公钥可以随意发布，但私钥只有自己知道</s>。发送密文的一方使用对方的公钥进行加密处理，对方接收到加密信息后，使用自己的私钥进行解密。<br>
 由于非对称加密的方式不需要发送用来解密的私钥，所以可以保证安全性；但是和对称加密比起来，非常的慢</p>
-<h1 id="cookie">cookie</h1>
+<h1 id="简述-cookie和-session的区别">简述 cookie？和 session的区别</h1>
 <p>cookie是由Web~~服务器保存在用户浏览器上的小文件（key-value格式），包含用户相关的信息。~~客户端向服务器发起请求，如果服务器需要记录该用户状态，就使用response向客户端浏览器颁发一个Cookie。客户端浏览器会把Cookie保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该Cookie一同提交给服务器。服务器检查该Cookie，以此来辨认用户身份。</p>
+<p>1, session在服务器端， cookie在客户端（浏览器）<br>
+2，session的运行依赖 session id，而 session id是存在 cookie中的，也就是说，如果浏览器禁用了 cookie，同时 session也会失效，存储 Session时，键与 Cookie中的sessionid相同，值是开发人员设置的键值对信息，进行了base64编码，过期时间由开发人员设置<br>
+3，cookie安全性比 session差</p>
+<h1 id="sql注入">SQL注入</h1>
+<p><img src="https://upload-images.jianshu.io/upload_images/18339009-b53953def3dedd79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+解決方式：通过传参数方式解决SQL注入<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-cbdf12c3596bc7f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<h1 id="关系型数据库和非关系型数据库">关系型数据库和非关系型数据库</h1>
+<p>关系模型指的就是二维表格模型，好比Excel文件中的表格，强调用表格的方式存储数据（有字段，表与表之间还有关系）</p>
+<blockquote>
+<ul>
+<li>Oracle</li>
+<li>Microsoft SQL Server</li>
+<li>MySQL：数据保存在磁盘中，检索的话，会有一定的操作，访问速度相<br>
+对慢</li>
+<li>SQLite（手机端的）</li>
+</ul>
+</blockquote>
+<p>非关系型数据库,即NoSQL（not only SQL），非关联型的，强调Key-Value的方式存储数据</p>
+<blockquote>
+<ul>
+<li>MongoDB</li>
+<li>Redis：内存型，数据保存在内存中，速度快</li>
+</ul>
+</blockquote>
 <h1 id="进程与线程的区别">进程与线程的区别</h1>
 <p>1.<s>线程是程序执行的最小单位，而进程是操作系统分配资源的最小单位</s></p>
 <ol>
@@ -2194,8 +2521,7 @@ EOF
         <link href="https://dingtom.github.io/post/linux-ming-ling/">
         </link>
         <updated>2020-11-25T05:55:41.000Z</updated>
-        <content type="html"><![CDATA[<p>[TOC]<br>
-Ctrl+d	键盘输入结束或退出终端<br>
+        <content type="html"><![CDATA[<p>Ctrl+d	键盘输入结束或退出终端<br>
 Ctrl+s	暂停当前程序，暂停后按下任意键恢复运行<br>
 Ctrl+z	将当前程序放到后台运行，恢复到前台为命令fg<br>
 Ctrl+a	将光标移至输入行头，相当于Home键<br>
@@ -2225,20 +2551,20 @@ tmp (temporary)用于存放各种临时文件<br>
 var (variable)用于存放运行时需要改变数据的文件</p>
 </blockquote>
 <h1 id="文件增删改查">文件增删改查</h1>
-<blockquote>
 <h4 id="mkdir">mkdir</h4>
+<blockquote>
 <p>创建目录和父目录a,b,c,d<br>
 <code>mkdir -p a/b/c/d</code><br>
 -p 建立多级目录<br>
 -m 在建立目录的时候给目录赋于权限值</p>
 </blockquote>
-<blockquote>
 <h4 id="rmdir">rmdir</h4>
+<blockquote>
 <p>删除空目录<br>
 -p 删除多级空目录</p>
 </blockquote>
-<blockquote>
 <h4 id="cp">cp</h4>
+<blockquote>
 <p>拷贝文件夹a到/tmp目录<br>
 <code>cp -rvf a/ /tmp/</code><br>
 -R 复制整个目录里的内容<br>
@@ -2246,8 +2572,8 @@ var (variable)用于存放运行时需要改变数据的文件</p>
 -v 在复制文件的时候显示进度<br>
 -f 在复制的时候如果碰到目的文件名有重复就将原先的删除</p>
 </blockquote>
-<blockquote>
 <h4 id="mv">mv</h4>
+<blockquote>
 <p>重命名 <code>mv a.txt b.txt</code><br>
 移动文件a到/tmp目录，并重命名为b<br>
 <code>mv -vf a /tmp/b</code><br>
@@ -2256,15 +2582,15 @@ var (variable)用于存放运行时需要改变数据的文件</p>
 -u 当移动时只有源文件比目的文件新的时候才会移动<br>
 -f 强制覆盖已有的文件</p>
 </blockquote>
-<blockquote>
 <h4 id="touch">touch</h4>
+<blockquote>
 <p>创建文件<br>
 <code>touch asd.txt</code><br>
 创建多个文件<br>
 <code>touch love_{1..10}_shiyanlou.txt</code></p>
 </blockquote>
-<blockquote>
 <h4 id="rm">rm</h4>
+<blockquote>
 <p>删除机器上的所有文件<br>
 rm -rvf /<br>
 -i 在删除文件之前需要手工确认<br>
@@ -2285,16 +2611,16 @@ rm -rvf /<br>
 -full-time显示文件的详细访问时间<br>
 -lc查看文件状态修改时间</p>
 </blockquote>
-<blockquote>
 <h4 id="cat">cat</h4>
+<blockquote>
 <p>查看文本文件<br>
 如果文件很大的话，cat命令的输出结果会疯狂在终端上输出，可以多次按ctrl+c终止。<br>
 -b 显示文件内容的时候显示行数<br>
 -n 显示文件内容包括空行<br>
 -s 将多个空行合并成一个空行输出</p>
 </blockquote>
-<blockquote>
 <h4 id="tr">tr</h4>
+<blockquote>
 <p>删除、转换一段文本信息中的某些文字<br>
 -d	删除匹配的字符，注意不是全词匹配也不是按字符顺序匹配<br>
 -s	去除指定的在输入文本中连续并重复的字符<br>
@@ -2306,8 +2632,8 @@ rm -rvf /<br>
 <code>echo 'input some text here' | tr '[:lower:]' '[:upper:]'</code><br>
 上面的'[:lower:]' '[:upper:]'你也可以简单的写作'[a-z]' '[A-Z]',当然反过来将大写变小写也是可以的</p>
 </blockquote>
-<blockquote>
 <h4 id="jion">jion</h4>
+<blockquote>
 <p>将两个文件中包含相同内容的那一行合并在一起。<br>
 -t	指定分隔符，默认为空格<br>
 -i	忽略大小写的差异<br>
@@ -2316,8 +2642,8 @@ rm -rvf /<br>
 将/etc/passwd与/etc/group两个文件合并，指定以':'作为分隔符, 分别比对第4和第3个字段<br>
 <code>sudo join -t':' -1 4 /etc/passwd -2 3 /etc/group</code></p>
 </blockquote>
-<blockquote>
 <h4 id="paste">paste</h4>
+<blockquote>
 <p>在不对比数据的情况下，简单地将多个文件合并一起，以Tab隔开。<br>
 -d	指定合并的分隔符，默认为 Tab<br>
 -s	不合并到一行，每个文件为一行</p>
@@ -2388,7 +2714,7 @@ rm -rvf /<br>
 find ~ -size +1500c</li>
 </ol>
 </blockquote>
-<ol start="2">
+<ol>
 <li>查找等于1500字节的文件<br>
 find ~ -size 1500c</li>
 <li>查找小于1500字节的文件<br>
@@ -2645,20 +2971,22 @@ export	显示从 Shell 中导出成环境变量的变量，也能通过它将自
 <code>unset</code><br>
 命令删除一个环境变量</p>
 <h1 id="压-解缩">压、解缩</h1>
-<blockquote>
 <h4 id="gzip">gzip</h4>
+<blockquote>
 <p>压缩文件成者文件夹<br>
 -d解压缩文件</p>
 </blockquote>
-<blockquote>
 <h4 id="zip">zip</h4>
+<blockquote>
 <p>将目录 /home/shiyanlou/Desktop 打包成一个文件<br>
 <code>zip -r -9 -q -o -l shiyanlou.zip /home/shiyanlou/Desktop</code><br>
 -r 参数表示递归打包包含子目录的全部内容，9 压缩级别最大1 最小,<br>
 -q 参数表示为安静模式，即不向屏幕输出信息，<br>
 -o，表示输出文件,<br>
 -l 参数将 LF 转换为 CR+LF 来达到win/linux兼容。</p>
+</blockquote>
 <h4 id="unzip">unzip</h4>
+<blockquote>
 <p>将文件解压到指定目录：<br>
 <code>unzip -q shiyanlou.zip -d ziptest</code><br>
 -q 使用安静模式<br>
@@ -2667,8 +2995,8 @@ export	显示从 Shell 中导出成环境变量的变量，也能通过它将自
 -O（英文字母，大写 o）参数指定编码类型：(win默认会采用 GBK , Linux 默认 UTF-8 )<br>
 unzip -O GBK 中文压缩文件.zip</p>
 </blockquote>
-<blockquote>
 <h4 id="tar">tar</h4>
+<blockquote>
 <p><code>tar -xzf shiyanlou.tar.gz -C tardir</code><br>
 压缩文件格式<code>-z/*.tar.gz</code>，<code>-J/*.tar.xz</code>	，<code>-j/*tar.bz2</code><br>
 -P 保留绝对路径符<br>
