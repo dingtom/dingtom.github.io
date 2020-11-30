@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>异常值处理 | Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1606743510053">
+<link rel="shortcut icon" href="/favicon.ico?v=1606744383589">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -39,7 +39,7 @@
 
 
   <meta name="description" content="异常值处理" />
-  <meta name="keywords" content="" />
+  <meta name="keywords" content="数据挖掘" />
 </head>
 
 <body>
@@ -190,7 +190,8 @@
       <div class="sidebar-body gemini" id="sidebar_body">
         
           
-            
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -200,7 +201,7 @@
       
       
       
-        <p>小菜鸡一只</p>
+        <p>温故而知新</p>
       
       
     </div>
@@ -247,6 +248,206 @@
   </div>
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li><a href="#%E5%BC%82%E5%B8%B8%E5%80%BC%E6%A3%80%E6%B5%8B%E7%89%B9%E5%BE%81%E5%88%86%E4%B8%BA%E7%B1%BB%E5%88%AB%E7%89%B9%E5%BE%81%E5%92%8C%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81">异常值检测特征分为类别特征和数字特征</a>
+<ul>
+<li><a href="#%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81">数字特征</a></li>
+<li><a href="#%E7%B1%BB%E5%88%AB%E7%89%B9%E5%BE%81">类别特征</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BC%82%E5%B8%B8%E5%80%BC%E5%A4%84%E7%90%86">异常值处理</a>
+<ul>
+<li><a href="#%E7%AE%B1%E7%BA%BF%E5%9B%BE%E6%B2%A1%E6%9C%89%E5%AF%B9%E6%95%B0%E6%8D%AE%E4%BD%9C%E4%BB%BB%E4%BD%95%E9%99%90%E5%88%B6%E6%80%A7%E8%A6%81%E6%B1%82">箱线图(没有对数据作任何限制性要求)</a></li>
+<li><a href="#3-sigmasigma%E7%AC%A6%E5%90%88%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83">3-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span></span>(Sigma)(符合正态分布）</a></li>
+<li><a href="#box-cox%E8%BD%AC%E6%8D%A2%E5%A4%84%E7%90%86%E6%9C%89%E5%81%8F%E5%88%86%E5%B8%83">BOX-COX转换（处理有偏分布）</a></li>
+<li><a href="#%E9%95%BF%E5%B0%BE%E6%88%AA%E6%96%AD">长尾截断</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BE%88%E5%A4%9A%E6%A8%A1%E5%9E%8B%E5%81%87%E8%AE%BE%E6%95%B0%E6%8D%AE%E6%9C%8D%E4%BB%8E%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83">很多模型假设数据服从正态分布</a></li>
+<li><a href="#%E5%88%AB%E4%B8%8D%E5%B9%B3%E8%A1%A1">别不平衡</a></li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
           
         
       </div>
@@ -348,19 +549,73 @@
     </span>
     
     <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://dingtom.github.io/tag/gax8BjfEH/">
+        <span>数据挖掘</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1<span class="language" data-lan="minute">分钟</span></span>
+      <span>3<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>739<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>2</p>
+              <h1 id="异常值检测特征分为类别特征和数字特征">异常值检测特征分为类别特征和数字特征</h1>
+<h2 id="数字特征">数字特征</h2>
+<p>相关性分析、查看特征的偏度和峰度、数字特征相互之间的关系可视化、多变量互相回归关系可视化、数字特征的频数可视化</p>
+<h2 id="类别特征">类别特征</h2>
+<p>ounique分布、箱形图可视化、小提琴图可视化、类别柱形图可视化</p>
+<h1 id="异常值处理">异常值处理</h1>
+<h2 id="箱线图没有对数据作任何限制性要求">箱线图(没有对数据作任何限制性要求)</h2>
+<h2 id="3-sigmasigma符合正态分布">3-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span></span>(Sigma)(符合正态分布）</h2>
+<h2 id="box-cox转换处理有偏分布">BOX-COX转换（处理有偏分布）</h2>
+<h2 id="长尾截断">长尾截断</h2>
+<p>聚类、k近邻、One Class SVM、Isolation Forest</p>
+<blockquote>
+<p>关于高势集特征model，也就是类别中取值个数非常多的， 一般可以使用聚类的方式，然后独热</p>
+</blockquote>
+<h1 id="很多模型假设数据服从正态分布">很多模型假设数据服从正态分布</h1>
+<p>数据整体<s>服从正态分布，样本均值和方差则相互独立</s>。当样本不服从正态分布时，可以做如下转换：</p>
+<ul>
+<li>
+<p>线性变化z-scores：基于原始数据的均值（mean）和标准差（standard deviation）进行数据的标准化。将A的原始值x使用z-score标准化到x’</p>
+</li>
+<li>
+<p>yeo-johnson变换：是幂变换（power transformation）的方法之一，通过构建一组单调函数对随机变量进行数据变换。</p>
+</li>
+<li>
+<p>Boxcox变换：一种广义幂变换方法，是统计建模中常用的一种数据变换，用于连续的响应变量不满足正态分布的情况。在做线性回归的过程中，一般需要做线性模型假定。</p>
+</li>
+</ul>
+<p>关于box-cox转换，一般是用于连续的变量不满足正态的时候，在做线性回归的过程中，一般线性模型假定:   <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi><mo>=</mo><mi>X</mi><mi>β</mi><mo>+</mo><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">Y=X\beta + \epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span></p>
+<p>其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>满足正态分布，但是利用实际数据建立回归模型时，个别变量的系数通不过。例如往往不可观测的误差<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>可能是和预测变量相关的，不服从正态分布，于是给线性回归的最小二乘估计系数的结果带来误差，为了使模型满足线性性、独立性、方差齐性以及正态性，需改变数据形式，故应用BOX-COX转换。具体详情这里不做过多介绍，当然还有很多转换非正态数据分布的方式：<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-03d35f2ce4fcf3bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+在一些情况下（P值&lt;0.003）上述方法很难实现正态化处理，所以优先使用BOX-COX转换，但是当P值&gt;0.003时两种方法均可，优先考虑普通的平方变换。<br>
+BOX-COX的变换公式：<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-b259d819c0b52fe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<h1 id="别不平衡">别不平衡</h1>
+<p>1.扩充数据集<br>
+2.尝试其他评价指标：AUC等<br>
+3.调整θ值<br>
+4.重采样：过采样/欠采样<br>
+5.合成样本： SMOTE<br>
+6.选择其他模型：决策树等<br>
+7.加权少类别的样本错分代价<br>
+8.将大类分解成多个小类</p>
 
             </div>
             
@@ -381,6 +636,8 @@
     </li>
   </ul>
   <div class="tags">
+    
+      <a href="https://dingtom.github.io/tag/gax8BjfEH/"># 数据挖掘</a>
     
   </div>
   <div class="nav">
@@ -896,7 +1153,48 @@
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/yi-chang-zhi-chu-li/"" data-c="
-          &lt;p&gt;2&lt;/p&gt;
+          &lt;h1 id=&#34;异常值检测特征分为类别特征和数字特征&#34;&gt;异常值检测特征分为类别特征和数字特征&lt;/h1&gt;
+&lt;h2 id=&#34;数字特征&#34;&gt;数字特征&lt;/h2&gt;
+&lt;p&gt;相关性分析、查看特征的偏度和峰度、数字特征相互之间的关系可视化、多变量互相回归关系可视化、数字特征的频数可视化&lt;/p&gt;
+&lt;h2 id=&#34;类别特征&#34;&gt;类别特征&lt;/h2&gt;
+&lt;p&gt;ounique分布、箱形图可视化、小提琴图可视化、类别柱形图可视化&lt;/p&gt;
+&lt;h1 id=&#34;异常值处理&#34;&gt;异常值处理&lt;/h1&gt;
+&lt;h2 id=&#34;箱线图没有对数据作任何限制性要求&#34;&gt;箱线图(没有对数据作任何限制性要求)&lt;/h2&gt;
+&lt;h2 id=&#34;3-sigmasigma符合正态分布&#34;&gt;3-&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;σ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\sigma&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.03588em;&#34;&gt;σ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;(Sigma)(符合正态分布）&lt;/h2&gt;
+&lt;h2 id=&#34;box-cox转换处理有偏分布&#34;&gt;BOX-COX转换（处理有偏分布）&lt;/h2&gt;
+&lt;h2 id=&#34;长尾截断&#34;&gt;长尾截断&lt;/h2&gt;
+&lt;p&gt;聚类、k近邻、One Class SVM、Isolation Forest&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于高势集特征model，也就是类别中取值个数非常多的， 一般可以使用聚类的方式，然后独热&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;很多模型假设数据服从正态分布&#34;&gt;很多模型假设数据服从正态分布&lt;/h1&gt;
+&lt;p&gt;数据整体&lt;s&gt;服从正态分布，样本均值和方差则相互独立&lt;/s&gt;。当样本不服从正态分布时，可以做如下转换：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;线性变化z-scores：基于原始数据的均值（mean）和标准差（standard deviation）进行数据的标准化。将A的原始值x使用z-score标准化到x’&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;yeo-johnson变换：是幂变换（power transformation）的方法之一，通过构建一组单调函数对随机变量进行数据变换。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Boxcox变换：一种广义幂变换方法，是统计建模中常用的一种数据变换，用于连续的响应变量不满足正态分布的情况。在做线性回归的过程中，一般需要做线性模型假定。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;关于box-cox转换，一般是用于连续的变量不满足正态的时候，在做线性回归的过程中，一般线性模型假定:   &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;Y&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;X&lt;/mi&gt;&lt;mi&gt;β&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi&gt;ϵ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;Y=X\beta + \epsilon&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.68333em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.22222em;&#34;&gt;Y&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8888799999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.07847em;&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.05278em;&#34;&gt;β&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;ϵ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;其中&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;ϵ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\epsilon&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;ϵ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;满足正态分布，但是利用实际数据建立回归模型时，个别变量的系数通不过。例如往往不可观测的误差&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;ϵ&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\epsilon&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;ϵ&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;可能是和预测变量相关的，不服从正态分布，于是给线性回归的最小二乘估计系数的结果带来误差，为了使模型满足线性性、独立性、方差齐性以及正态性，需改变数据形式，故应用BOX-COX转换。具体详情这里不做过多介绍，当然还有很多转换非正态数据分布的方式：&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-03d35f2ce4fcf3bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+在一些情况下（P值&amp;lt;0.003）上述方法很难实现正态化处理，所以优先使用BOX-COX转换，但是当P值&amp;gt;0.003时两种方法均可，优先考虑普通的平方变换。&lt;br&gt;
+BOX-COX的变换公式：&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-b259d819c0b52fe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;别不平衡&#34;&gt;别不平衡&lt;/h1&gt;
+&lt;p&gt;1.扩充数据集&lt;br&gt;
+2.尝试其他评价指标：AUC等&lt;br&gt;
+3.调整θ值&lt;br&gt;
+4.重采样：过采样/欠采样&lt;br&gt;
+5.合成样本： SMOTE&lt;br&gt;
+6.选择其他模型：决策树等&lt;br&gt;
+7.加权少类别的样本错分代价&lt;br&gt;
+8.将大类分解成多个小类&lt;/p&gt;
 ">异常值处理</a>
       </div>
       
@@ -1001,7 +1299,7 @@ df[&#39;price&#39;].fillna(df[&#39;price&#39;].median())
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-bea64e5029c97e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-58b1f785ea1bdd02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;常见的特征工程包括：&lt;/p&gt;
-&lt;h1 id=&#34;异常处理&#34;&gt;&lt;a href=&#34;https://dingtom.github.io/post/feature_enginneering/&#34;&gt;异常处理：&lt;/a&gt;&lt;/h1&gt;
+&lt;h1 id=&#34;异常处理&#34;&gt;&lt;a href=&#34;https://dingtom.github.io/post/feature_enginneering/yi-chang-zhi-chu-li/&#34;&gt;异常处理：&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;通过箱线图（或 3-Sigma）分析删除异常值；&lt;br&gt;
 BOX-COX 转换（处理有偏分布）；&lt;br&gt;
 长尾截断；&lt;/p&gt;
@@ -1014,7 +1312,7 @@ BOX-COX 转换（处理有偏分布）；&lt;br&gt;
 等距分桶；&lt;br&gt;
 Best-KS 分桶（类似利用基尼指数进行二分类）；&lt;br&gt;
 卡方分桶；&lt;/p&gt;
-&lt;h1 id=&#34;缺失值处理httpsdingtomgithubiopost&#34;&gt;[缺失值处理：](https://dingtom.github.io/post/&lt;/h1&gt;
+&lt;h1 id=&#34;缺失值处理&#34;&gt;&lt;a href=&#34;https://dingtom.github.io/post/que-shi-zhi-chu-li/&#34;&gt;缺失值处理：&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;不处理（针对类似 XGBoost 等树模型）；&lt;br&gt;
 删除（缺失数据太多）；&lt;br&gt;
 插值补全，包括均值/中位数/众数/建模预测/多重插补/压缩感知补全/矩阵补全等；&lt;br&gt;

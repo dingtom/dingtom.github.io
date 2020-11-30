@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-11-30T13:38:39.225Z</updated>
+    <updated>2020-11-30T13:53:18.367Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -16,7 +16,48 @@
         <link href="https://dingtom.github.io/post/yi-chang-zhi-chu-li/">
         </link>
         <updated>2020-11-30T13:37:32.000Z</updated>
-        <content type="html"><![CDATA[<p>2</p>
+        <content type="html"><![CDATA[<h1 id="异常值检测特征分为类别特征和数字特征">异常值检测特征分为类别特征和数字特征</h1>
+<h2 id="数字特征">数字特征</h2>
+<p>相关性分析、查看特征的偏度和峰度、数字特征相互之间的关系可视化、多变量互相回归关系可视化、数字特征的频数可视化</p>
+<h2 id="类别特征">类别特征</h2>
+<p>ounique分布、箱形图可视化、小提琴图可视化、类别柱形图可视化</p>
+<h1 id="异常值处理">异常值处理</h1>
+<h2 id="箱线图没有对数据作任何限制性要求">箱线图(没有对数据作任何限制性要求)</h2>
+<h2 id="3-sigmasigma符合正态分布">3-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span></span></span></span>(Sigma)(符合正态分布）</h2>
+<h2 id="box-cox转换处理有偏分布">BOX-COX转换（处理有偏分布）</h2>
+<h2 id="长尾截断">长尾截断</h2>
+<p>聚类、k近邻、One Class SVM、Isolation Forest</p>
+<blockquote>
+<p>关于高势集特征model，也就是类别中取值个数非常多的， 一般可以使用聚类的方式，然后独热</p>
+</blockquote>
+<h1 id="很多模型假设数据服从正态分布">很多模型假设数据服从正态分布</h1>
+<p>数据整体<s>服从正态分布，样本均值和方差则相互独立</s>。当样本不服从正态分布时，可以做如下转换：</p>
+<ul>
+<li>
+<p>线性变化z-scores：基于原始数据的均值（mean）和标准差（standard deviation）进行数据的标准化。将A的原始值x使用z-score标准化到x’</p>
+</li>
+<li>
+<p>yeo-johnson变换：是幂变换（power transformation）的方法之一，通过构建一组单调函数对随机变量进行数据变换。</p>
+</li>
+<li>
+<p>Boxcox变换：一种广义幂变换方法，是统计建模中常用的一种数据变换，用于连续的响应变量不满足正态分布的情况。在做线性回归的过程中，一般需要做线性模型假定。</p>
+</li>
+</ul>
+<p>关于box-cox转换，一般是用于连续的变量不满足正态的时候，在做线性回归的过程中，一般线性模型假定:   <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi><mo>=</mo><mi>X</mi><mi>β</mi><mo>+</mo><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">Y=X\beta + \epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span></p>
+<p>其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>满足正态分布，但是利用实际数据建立回归模型时，个别变量的系数通不过。例如往往不可观测的误差<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>可能是和预测变量相关的，不服从正态分布，于是给线性回归的最小二乘估计系数的结果带来误差，为了使模型满足线性性、独立性、方差齐性以及正态性，需改变数据形式，故应用BOX-COX转换。具体详情这里不做过多介绍，当然还有很多转换非正态数据分布的方式：<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-03d35f2ce4fcf3bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+在一些情况下（P值&lt;0.003）上述方法很难实现正态化处理，所以优先使用BOX-COX转换，但是当P值&gt;0.003时两种方法均可，优先考虑普通的平方变换。<br>
+BOX-COX的变换公式：<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-b259d819c0b52fe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<h1 id="别不平衡">别不平衡</h1>
+<p>1.扩充数据集<br>
+2.尝试其他评价指标：AUC等<br>
+3.调整θ值<br>
+4.重采样：过采样/欠采样<br>
+5.合成样本： SMOTE<br>
+6.选择其他模型：决策树等<br>
+7.加权少类别的样本错分代价<br>
+8.将大类分解成多个小类</p>
 ]]></content>
     </entry>
     <entry>
@@ -127,7 +168,7 @@ df['price'].fillna(df['price'].median())
         <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-bea64e5029c97e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
 <figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/18339009-58b1f785ea1bdd02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
 <p>常见的特征工程包括：</p>
-<h1 id="异常处理"><a href="https://dingtom.github.io/post/feature_enginneering/">异常处理：</a></h1>
+<h1 id="异常处理"><a href="https://dingtom.github.io/post/feature_enginneering/yi-chang-zhi-chu-li/">异常处理：</a></h1>
 <p>通过箱线图（或 3-Sigma）分析删除异常值；<br>
 BOX-COX 转换（处理有偏分布）；<br>
 长尾截断；</p>
@@ -140,7 +181,7 @@ BOX-COX 转换（处理有偏分布）；<br>
 等距分桶；<br>
 Best-KS 分桶（类似利用基尼指数进行二分类）；<br>
 卡方分桶；</p>
-<h1 id="缺失值处理httpsdingtomgithubiopost">[缺失值处理：](https://dingtom.github.io/post/</h1>
+<h1 id="缺失值处理"><a href="https://dingtom.github.io/post/que-shi-zhi-chu-li/">缺失值处理：</a></h1>
 <p>不处理（针对类似 XGBoost 等树模型）；<br>
 删除（缺失数据太多）；<br>
 插值补全，包括均值/中位数/众数/建模预测/多重插补/压缩感知补全/矩阵补全等；<br>
