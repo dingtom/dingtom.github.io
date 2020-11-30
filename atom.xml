@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-11-30T09:17:22.475Z</updated>
+    <updated>2020-11-30T13:38:39.225Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://dingtom.github.io/images/avatar.png</logo>
     <icon>https://dingtom.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Tomding&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[异常值处理]]></title>
+        <id>https://dingtom.github.io/post/yi-chang-zhi-chu-li/</id>
+        <link href="https://dingtom.github.io/post/yi-chang-zhi-chu-li/">
+        </link>
+        <updated>2020-11-30T13:37:32.000Z</updated>
+        <content type="html"><![CDATA[<p>2</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[缺失值处理]]></title>
         <id>https://dingtom.github.io/post/que-shi-zhi-chu-li/</id>
@@ -118,32 +127,32 @@ df['price'].fillna(df['price'].median())
         <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-bea64e5029c97e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
 <figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/18339009-58b1f785ea1bdd02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
 <p>常见的特征工程包括：</p>
-<h1 id="异常处理">异常处理：</h1>
+<h1 id="异常处理"><a href="https://dingtom.github.io/post/feature_enginneering/">异常处理：</a></h1>
 <p>通过箱线图（或 3-Sigma）分析删除异常值；<br>
 BOX-COX 转换（处理有偏分布）；<br>
 长尾截断；</p>
-<h1 id="特征归一化标准化">特征归一化/标准化：</h1>
+<h1 id="特征归一化标准化httpsdingtomgithubiopost">[特征归一化/标准化：](https://dingtom.github.io/post/</h1>
 <p>标准化（转换为标准正态分布）；<br>
 归一化（抓换到 [0,1] 区间）；<br>
 针对幂律分布，可以采用公式：  <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo>(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>x</mi></mrow><mrow><mn>1</mn><mo>+</mo><mi>m</mi><mi>e</mi><mi>d</mi><mi>i</mi><mi>a</mi><mi>n</mi></mrow></mfrac><mo>)</mo></mrow><annotation encoding="application/x-tex">log(\frac{1+x}{1+median})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2484389999999999em;vertical-align:-0.403331em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></p>
-<h1 id="数据分桶">数据分桶：</h1>
+<h1 id="数据分桶httpsdingtomgithubiopost">[数据分桶：](https://dingtom.github.io/post/</h1>
 <p>等频分桶；<br>
 等距分桶；<br>
 Best-KS 分桶（类似利用基尼指数进行二分类）；<br>
 卡方分桶；</p>
-<h1 id="缺失值处理">缺失值处理：</h1>
+<h1 id="缺失值处理httpsdingtomgithubiopost">[缺失值处理：](https://dingtom.github.io/post/</h1>
 <p>不处理（针对类似 XGBoost 等树模型）；<br>
 删除（缺失数据太多）；<br>
 插值补全，包括均值/中位数/众数/建模预测/多重插补/压缩感知补全/矩阵补全等；<br>
-分箱，缺失值一个箱；</p>
-<h1 id="特征构造">特征构造：</h1>
-<p>构造统计量特征，报告计数、求和、比例、标准差等；<br>
+分箱，缺失值一个箱；<br>
+#[特征构造：](https://dingtom.github.io/post/<br>
+构造统计量特征，报告计数、求和、比例、标准差等；<br>
 时间特征，包括相对时间和绝对时间，节假日，双休日等；<br>
 地理信息，包括分箱，分布编码等方法；<br>
 非线性变换，包括 log/ 平方/ 根号等；<br>
 特征组合，特征交叉；<br>
 仁者见仁，智者见智。</p>
-<h1 id="特征筛选">特征筛选</h1>
+<h1 id="特征筛选httpsdingtomgithubiopost">[特征筛选：](https://dingtom.github.io/post/</h1>
 <p>过滤式（filter）：先对数据进行特征选择，然后在训练学习器，常见的方法有 Relief/方差选择发/相关系数法/卡方检验法/互信息法；<br>
 包裹式（wrapper）：直接把最终将要使用的学习器的性能作为特征子集的评价准则，常见方法有 LVM（Las Vegas Wrapper） ；<br>
 嵌入式（embedding）：结合过滤式和包裹式，学习器训练过程中自动进行了特征选择，常见的有 lasso 回归；</p>
@@ -169,6 +178,37 @@ Best-KS 分桶（类似利用基尼指数进行二分类）；<br>
         </link>
         <updated>2020-11-30T08:20:15.000Z</updated>
         <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-9ba330f1c6a54599.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<h1 id="载入各种数据科学以及可视化库">载入各种数据科学以及可视化库:</h1>
+<p>数据科学库 pandas、numpy、scipy；<br>
+可视化库 matplotlib、seabon；<br>
+其他；</p>
+<h1 id="载入数据">载入数据：</h1>
+<p>载入训练集和测试集；<br>
+简略观察数据(head()+shape)；</p>
+<h1 id="数据总览">数据总览:</h1>
+<p>通过describe()来熟悉数据的相关统计量<br>
+通过info()来熟悉数据类型</p>
+<h1 id="判断数据缺失和异常">判断数据缺失和异常</h1>
+<p>查看每列的存在nan情况<br>
+异常值检测</p>
+<h1 id="了解预测值的分布">了解预测值的分布</h1>
+<p>总体分布概况（无界约翰逊分布等）<br>
+查看skewness and kurtosis<br>
+查看预测值的具体频数<br>
+特征分为类别特征和数字特征，并对类别特征查看unique分布</p>
+<h1 id="数字特征分析">数字特征分析</h1>
+<p>相关性分析<br>
+查看几个特征得 偏度和峰值<br>
+每个数字特征得分布可视化<br>
+数字特征相互之间的关系可视化<br>
+多变量互相回归关系可视化<br>
+类型特征分析<br>
+unique分布</p>
+<h1 id="类别特征箱形图可视化">类别特征箱形图可视化</h1>
+<p>类别特征的小提琴图可视化<br>
+类别特征的柱形图可视化类别<br>
+特征的每个类别频数可视化(count_plot)</p>
+<h1 id="用pandas_profiling生成数据报告">用pandas_profiling生成数据报告</h1>
 ]]></content>
     </entry>
     <entry>

@@ -8,7 +8,7 @@
 <meta name="keywords" content="tomding博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
-<title>Docker | Tomding&#39;s Blog</title>
+<title>异常值处理 | Tomding&#39;s Blog</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1606743510053">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,8 +38,8 @@
 
 
 
-  <meta name="description" content="Docker" />
-  <meta name="keywords" content="Docker" />
+  <meta name="description" content="异常值处理" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -190,8 +190,7 @@
       <div class="sidebar-body gemini" id="sidebar_body">
         
           
-            <div class="post-side-meta" id="post_side_meta">
-              
+            
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -248,255 +247,6 @@
   </div>
 
 </div>
-            </div>
-            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
-              <div class="toc-box right-motion">
-  <div class="toc-wrapper auto-number auto"
-    id="toc_wrapper">
-    <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#%E5%AE%B9%E5%99%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86">容器生命周期管理</a>
-<ul>
-<li><a href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%AE%B9%E5%99%A8%E5%B9%B6%E8%BF%90%E8%A1%8C%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4run">创建一个新的容器并运行一个命令：run</a></li>
-<li><a href="#%E5%90%AF%E5%8A%A8%E5%81%9C%E6%AD%A2%E9%87%8D%E5%90%AF%E5%AE%B9%E5%99%A8startstoprestart">启动/停止/重启容器：start/stop/restart</a></li>
-<li><a href="#%E6%9D%80%E6%8E%89%E5%AE%B9%E5%99%A8kill">杀掉容器：kill</a></li>
-<li><a href="#%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8rm">删除容器：rm</a></li>
-<li><a href="#%E6%9A%82%E5%81%9C%E6%81%A2%E5%A4%8D%E5%AE%B9%E5%99%A8%E4%B8%AD%E8%BF%9B%E7%A8%8Bpauseunpause">暂停/恢复容器中进程：pause/unpause</a></li>
-<li><a href="#%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8create">创建容器：create</a></li>
-<li><a href="#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8exec">进入容器：exec</a></li>
-</ul>
-</li>
-<li><a href="#%E5%AE%B9%E5%99%A8%E6%93%8D%E4%BD%9C">容器操作</a>
-<ul>
-<li><a href="#%E6%9F%A5%E7%9C%8B%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8ps">查看正在运行的容器：ps</a></li>
-<li><a href="#inspect">inspect</a></li>
-<li><a href="#top">top</a></li>
-<li><a href="#attach">attach</a></li>
-<li><a href="#events">events</a></li>
-<li><a href="#logs">logs</a></li>
-<li><a href="#wait">wait</a></li>
-<li><a href="#export">export</a></li>
-<li><a href="#port">port</a></li>
-</ul>
-</li>
-<li><a href="#%E5%AE%B9%E5%99%A8rootfs%E5%91%BD%E4%BB%A4">容器rootfs命令</a>
-<ul>
-<li><a href="#%E4%BB%8E%E5%AE%B9%E5%99%A8%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E9%95%9C%E5%83%8Fcommit">从容器创建一个新的镜像：commit</a></li>
-<li><a href="#cp">cp</a></li>
-<li><a href="#diff">diff</a></li>
-</ul>
-</li>
-<li><a href="#%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93">镜像仓库</a>
-<ul>
-<li><a href="#login">login</a></li>
-<li><a href="#%E6%8B%89%E5%8F%96%E6%88%96%E8%80%85%E6%9B%B4%E6%96%B0%E9%95%9C%E5%83%8Fpull">拉取或者更新镜像：pull</a></li>
-<li><a href="#push">push</a></li>
-<li><a href="#search">search</a></li>
-</ul>
-</li>
-<li><a href="#%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86">本地镜像管理</a>
-<ul>
-<li><a href="#%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F%E5%88%97%E8%A1%A8images">查看镜像列表：images</a></li>
-<li><a href="#%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8Frmi">删除镜像：rmi</a></li>
-<li><a href="#tag">tag</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8dockerfile%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8Fbuild">使用Dockerfile构建镜像：build</a></li>
-<li><a href="#history">history</a></li>
-<li><a href="#%E9%95%9C%E5%83%8F%E4%BF%9D%E5%AD%98%E4%B8%BAtarsave">镜像保存为tar：save</a></li>
-<li><a href="#%E4%BB%8Etar%E5%8A%A0%E8%BD%BD%E9%95%9C%E5%83%8Fload">从tar加载镜像：load</a></li>
-<li><a href="#import">import</a></li>
-</ul>
-</li>
-<li><a href="#infoversion">info|version</a>
-<ul>
-<li><a href="#info">info</a></li>
-<li><a href="#version">version</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-  </div>
-</div>
-
-<script>
-
-  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
-  let active = 'active-show', activeClass = 'active-current';
-  let tocWrapper = document.querySelector('#toc_wrapper');
-  let tocContent = tocWrapper.children[0];
-  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
-
-  function addTocNumber(elem, deep) {
-    if (!elem) {
-      return;
-    }
-    let prop = elem.__proto__;
-
-    if (prop === HTMLUListElement.prototype) {
-      for (let i = 0; i < elem.children.length; i++) {
-        addTocNumber(elem.children[i], deep + (i + 1) + '.');
-      }
-    } else if (prop === HTMLLIElement.prototype) {
-      // 保存li元素
-      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
-        lList.push(elem);
-      }
-      for (let i = 0; i < elem.children.length; i++) {
-        let cur = elem.children[i];
-        if (cur.__proto__ === HTMLAnchorElement.prototype) {
-          if (autoNumber) {
-            cur.text = deep + ' ' + cur.text;
-          }
-        } else if (cur.__proto__ === HTMLUListElement.prototype) {
-          addTocNumber(cur, deep);
-        }
-      }
-    }
-  }
-
-  function removeParentActiveClass() {
-    let parents = tocContent.querySelectorAll('.' + active)
-    parents.forEach(function (elem) {
-      elem.classList.remove(active);
-    });
-  }
-
-  function addActiveClass(index) {
-    if (index >= 0 && index < hList.length) {
-      lList[index].classList.add(activeClass);
-    }
-  }
-
-  function removeActiveClass(index) {
-    if (index >= 0 && index < hList.length) {
-      lList[index].classList.remove(activeClass);
-    }
-  }
-
-  function addActiveLiElemment(elem, parent) {
-    if (!elem || elem === parent) {
-      return;
-    } else {
-      if (elem.__proto__ === HTMLLIElement.prototype) {
-        elem.classList.add(active);
-      }
-      addActiveLiElemment(elem.parentElement, parent);
-    }
-  }
-
-  function showToc() {
-    if (tocWrapper) {
-      postBody = document.querySelector('#post_body');
-      for (let i = 0; i < postBody.children.length; i++) {
-        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
-          hList.push(postBody.children[i]);
-        }
-      }
-      if (tocWrapper.classList.contains('compress')) {
-        tocContent.classList.add('closed');
-      } else if (tocWrapper.classList.contains('no_compress')) {
-        tocContent.classList.add('expanded');
-      } else {
-        if (hList.length > 10) {
-          active = 'active-hidden'
-          tocContent.classList.add('closed');
-        } else {
-          tocContent.classList.add('expanded');
-        }
-      }
-    }
-  }
-
-  (function () {
-    // 处理不是从#一级标题开始目录
-    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
-      let con = tocContent.children[0].children[0];
-      tocContent.innerHTML = con.innerHTML;
-    }
-    let markdownItTOC = document.querySelector('.markdownIt-TOC');
-    let innerHeight = window.innerHeight;
-    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
-    addTocNumber(tocContent, '');
-  })();
-
-  document.addEventListener('scroll', function (e) {
-    if (lList.length <= 0) {
-      return;
-    }
-    let scrollTop = document.scrollingElement.scrollTop + 10;
-    let dir;
-
-    if (lastTop - scrollTop > 0) {
-      dir = 'up';
-    } else {
-      dir = 'down';
-    }
-
-    lastTop = scrollTop;
-    if (scrollTop <= 0) {
-      if (lastIndex >= 0 && lastIndex < hList.length) {
-        lList[lastIndex].classList.remove(activeClass);
-      }
-      return;
-    }
-
-    let current = 0, hasFind = false;
-    for (let i = 0; i < hList.length; i++) {
-      if (hList[i].offsetTop > scrollTop) {
-        current = i;
-        hasFind = true;
-        break;
-      }
-    }
-    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
-      current = hList.length - 1;
-    } else {
-      current--;
-    }
-    if (dir === 'down') {
-      if (current > lastIndex) {
-        addActiveClass(current);
-        removeActiveClass(lastIndex)
-        lastIndex = current;
-        removeParentActiveClass();
-        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
-      }
-    } else {
-      if (current < lastIndex) {
-        addActiveClass(current);
-        removeActiveClass(lastIndex);
-        lastIndex = current;
-        removeParentActiveClass();
-        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
-      }
-    }
-  });
-
-
-  window.addEventListener('load', function () {
-    showToc();
-    document.querySelector('#sidebar').style = 'display: block;';
-    tocWrapper.classList.add('toc-active');
-    setTimeout(function () {
-      if ("createEvent" in document) {
-        let evt = document.createEvent("HTMLEvents");
-        evt.initEvent("scroll", false, true);
-        document.dispatchEvent(evt);
-      }
-      else {
-        document.fireEvent("scroll");
-      }
-    }, 500)
-  })
-
-</script>
-            </div>
           
         
       </div>
@@ -584,8 +334,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://dingtom.github.io/post/docker/">
-      Docker
+    <a class="post-title-link" href="https://dingtom.github.io/post/yi-chang-zhi-chu-li/">
+      异常值处理
     </a>
   </h1>
   <div class="post-meta">
@@ -593,108 +343,24 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-11-28 22:10:09">2020-11-28</span>
+      <span class="publish-time" data-t="2020-11-30 21:37:32">2020-11-30</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show language" data-lan="category-in">分类于</span>
-      
-      
-      <a href="https://dingtom.github.io/tag/46lxGzSB2/">
-        <span>Docker</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>1<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>490<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-a16ddde40bfc6f50.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
-<p>ubuntu安装 Docker 的时候需在管理员的账号下操作。<br>
-<code>wget -qO- https://get.docker.com/ | sh</code><br>
-安装完成之后，以 sudo 启动 Docker 服务。<br>
-<code>sudo service docker start</code></p>
-<h3 id="容器生命周期管理">容器生命周期管理</h3>
-<h4 id="创建一个新的容器并运行一个命令run"><a href="https://www.runoob.com/docker/docker-run-command.html">创建一个新的容器并运行一个命令：run</a></h4>
-<p><code>docker run -d(后台运行不阻塞shell） -p 80:80（指定容器端口映射，内部：外部） nginx</code></p>
-<blockquote>
-<p>-d：后台运行容器<br>
--h: 指定容器的hostname；<br>
--p：主机端口号:容器端口号```容器内外端口映射<br>
---name name：指定容器名称<br>
--v &lt;外部 dir&gt;:&lt; 内部 dir&gt;：目录映射<br>
-<mirror name>:<version>：指定映像版本<br>
--it：容器的 Shell 映射到当前的 Shell，然后你在本机窗口输入的命令，就会传入容器。<br>
---link：将另一个容器映射到本容器，进行通信</p>
-</blockquote>
-<h4 id="启动停止重启容器startstoprestart"><a href="https://www.runoob.com/docker/docker-start-stop-restart-command.html">启动/停止/重启容器：start/stop/restart</a></h4>
-<h4 id="杀掉容器kill"><a href="https://www.runoob.com/docker/docker-kill-command.html">杀掉容器：kill</a></h4>
-<h4 id="删除容器rm"><a href="https://www.runoob.com/docker/docker-rm-command.html">删除容器：rm</a></h4>
-<p><code>docker rm -f &lt;container id&gt;</code></p>
-<h4 id="暂停恢复容器中进程pauseunpause"><a href="https://www.runoob.com/docker/docker-pause-unpause-command.html">暂停/恢复容器中进程：pause/unpause</a></h4>
-<h4 id="创建容器create"><a href="https://www.runoob.com/docker/docker-create-command.html">创建容器：create</a></h4>
-<h4 id="进入容器exec"><a href="https://www.runoob.com/docker/docker-exec-command.html">进入容器：exec</a></h4>
-<p><code>docker exec -it &lt;container id&gt; bash</code></p>
-<h3 id="容器操作">容器操作</h3>
-<h4 id="查看正在运行的容器ps"><a href="https://www.runoob.com/docker/docker-ps-command.html">查看正在运行的容器：ps</a></h4>
-<p><code>docker ps</code></p>
-<h4 id="inspect"><a href="https://www.runoob.com/docker/docker-inspect-command.html">inspect</a></h4>
-<h4 id="top"><a href="https://www.runoob.com/docker/docker-top-command.html">top</a></h4>
-<h4 id="attach"><a href="https://www.runoob.com/docker/docker-attach-command.html">attach</a></h4>
-<h4 id="events"><a href="https://www.runoob.com/docker/docker-events-command.html">events</a></h4>
-<h4 id="logs"><a href="https://www.runoob.com/docker/docker-logs-command.html">logs</a></h4>
-<h4 id="wait"><a href="https://www.runoob.com/docker/docker-wait-command.html">wait</a></h4>
-<h4 id="export"><a href="https://www.runoob.com/docker/docker-export-command.html">export</a></h4>
-<h4 id="port"><a href="https://www.runoob.com/docker/docker-port-command.html">port</a></h4>
-<h3 id="容器rootfs命令">容器rootfs命令</h3>
-<h4 id="从容器创建一个新的镜像commit"><a href="https://www.runoob.com/docker/docker-commit-command.html">从容器创建一个新的镜像：commit</a></h4>
-<p><code>docker commit &lt;container id&gt; &lt;mirror name&gt;</code>我们修改过后的容器保存成镜像，重新运行，它可以保持这个变化</p>
-<blockquote>
-<p>-a :提交的镜像作者；<br>
--c :使用Dockerfile指令来创建镜像；<br>
--m :提交时的说明文字；<br>
--p :在commit时，将容器暂停。</p>
-</blockquote>
-<h4 id="cp"><a href="https://www.runoob.com/docker/docker-cp-command.html">cp</a></h4>
-<h4 id="diff"><a href="https://www.runoob.com/docker/docker-diff-command.html">diff</a></h4>
-<h3 id="镜像仓库">镜像仓库</h3>
-<h4 id="login"><a href="https://www.runoob.com/docker/docker-login-command.html">login</a></h4>
-<h4 id="拉取或者更新镜像pull"><a href="https://www.runoob.com/docker/docker-pull-command.html">拉取或者更新镜像：pull</a></h4>
-<p><code>docker pull nginx（等效于nginx:latest）</code></p>
-<h4 id="push"><a href="https://www.runoob.com/docker/docker-push-command.html">push</a></h4>
-<h4 id="search"><a href="https://www.runoob.com/docker/docker-search-command.html">search</a></h4>
-<h3 id="本地镜像管理">本地镜像管理</h3>
-<h4 id="查看镜像列表images"><a href="https://www.runoob.com/docker/docker-images-command.html">查看镜像列表：images</a></h4>
-<p><code>docker images</code></p>
-<h4 id="删除镜像rmi"><a href="https://www.runoob.com/docker/docker-rmi-command.html">删除镜像：rmi</a></h4>
-<p><code>docker rmi &lt;mirror name&gt;</code></p>
-<h4 id="tag"><a href="https://www.runoob.com/docker/docker-tag-command.html">tag</a></h4>
-<h4 id="使用dockerfile构建镜像build"><a href="https://www.runoob.com/docker/docker-build-command.html">使用Dockerfile构建镜像：build</a></h4>
-<p><code>docker build -t &lt;mirror name&gt; &lt;存放Dockerfile的文件夹&gt;</code></p>
-<h4 id="history"><a href="https://www.runoob.com/docker/docker-history-command.html">history</a></h4>
-<h4 id="镜像保存为tarsave"><a href="https://www.runoob.com/docker/docker-save-command.html">镜像保存为tar：save</a></h4>
-<p><code>docker save &lt;mirror name&gt; &gt; &lt;tar name&gt;</code></p>
-<h4 id="从tar加载镜像load"><a href="https://www.runoob.com/docker/docker-load-command.html">从tar加载镜像：load</a></h4>
-<p><code>docker load &lt; &lt;tar name&gt;</code></p>
-<h4 id="import"><a href="https://www.runoob.com/docker/docker-import-command.html">import</a></h4>
-<h3 id="infoversion">info|version</h3>
-<h4 id="info"><a href="https://www.runoob.com/docker/docker-info-command.html">info</a></h4>
-<h4 id="version"><a href="https://www.runoob.com/docker/docker-version-command.html">version</a></h4>
-<!-- more -->
+              <p>2</p>
 
             </div>
             
@@ -707,7 +373,7 @@
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://dingtom.github.io/post/docker/" title="Docker">https://dingtom.github.io/post/docker/</a>
+      <a href="https://dingtom.github.io/post/yi-chang-zhi-chu-li/" title="异常值处理">https://dingtom.github.io/post/yi-chang-zhi-chu-li/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -716,21 +382,15 @@
   </ul>
   <div class="tags">
     
-      <a href="https://dingtom.github.io/tag/46lxGzSB2/"># Docker</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Python" href="https://dingtom.github.io/post/python/">Python</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Python" href="https://dingtom.github.io/post/python/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Docker安装Hadoop" href="https://dingtom.github.io/post/docker-an-zhuang-hadoop/">Docker安装Hadoop</a>
-        <a class="nav-mobile-next" title="Docker安装Hadoop" href="https://dingtom.github.io/post/docker-an-zhuang-hadoop/">下一篇</a>
+        <a class="nav-pc-next" title="缺失值处理" href="https://dingtom.github.io/post/que-shi-zhi-chu-li/">缺失值处理</a>
+        <a class="nav-mobile-next" title="缺失值处理" href="https://dingtom.github.io/post/que-shi-zhi-chu-li/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
