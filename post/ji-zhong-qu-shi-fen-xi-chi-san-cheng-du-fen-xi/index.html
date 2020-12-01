@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>特征统计 | Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1606744383589">
+<link rel="shortcut icon" href="/favicon.ico?v=1606793993975">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -211,7 +211,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">17</span>
+        <span class="site-item-stat-count">19</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1289,6 +1289,142 @@ plt.legend()
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/te-zheng-gou-zao-xuan-ze/"" data-c="
+          &lt;h1 id=&#34;特征构造&#34;&gt;特征构造&lt;/h1&gt;
+&lt;p&gt;统计量特征：计数、求和、比例、标准差等&lt;br&gt;
+时间特征：相对时间、绝对时间，节假日，双休日等&lt;br&gt;
+地理信息：分桶&lt;br&gt;
+非线性变换：取log、平方、根号&lt;br&gt;
+数据分桶：等频、等距分桶、Dest-KS分桶、卡方分桶&lt;br&gt;
+特征组合、交叉：人、商品&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;数据分桶&lt;/strong&gt;&lt;br&gt;
+等频分桶：区间的边界值要经过选择,使得每个区间包含大致相等的实例数量。&lt;br&gt;
+等距分桶：从最小值到最大值之间,均分为 N 等份；&lt;br&gt;
+Best-KS分桶：类似利用基尼指数进行二分类；&lt;br&gt;
+卡方分桶：自底向上的(即基于合并的)数据离散化方法。它依赖于卡方检验：具有最小卡方值的相邻区间合并在一起,直到满足确定的停止准则。&lt;br&gt;
+&lt;strong&gt;为什么要做数据分桶呢？&lt;/strong&gt;&lt;br&gt;
+离散后&lt;s&gt;稀疏向量内积乘法运算速度更快，计算结果也方便存储&lt;/s&gt;，容易扩展；&lt;br&gt;
+离散后的特征&lt;s&gt;对异常值更具鲁棒性&lt;/s&gt;，如 age&amp;gt;30 为 1 否则为 0，对于年龄为 200 的也不会对模型造成很大的干扰；&lt;br&gt;
+LR 属于广义线性模型，表达能力有限，&lt;s&gt;经过离散化后，每个变量有单独的权重，这相当于引入了非线性，能够提升模型的表达能力，加大拟合&lt;/s&gt;；&lt;br&gt;
+离散后特征&lt;s&gt;可以进行特征交叉，提升表达能力，由 M+N 个变量编程 M*N 个变量，进一步引入非线形，提升了表达能力&lt;/s&gt;；&lt;br&gt;
+特征离散后模型更稳定，如用户年龄区间，不会因为用户年龄长了一岁就变化&lt;br&gt;
+当然还有很多原因，LightGBM 在改进 XGBoost 时就增加了数据分桶，增强了模型的泛化性。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;特征选择&#34;&gt;特征选择&lt;/h1&gt;
+&lt;h2 id=&#34;特征选择主要有两个功能&#34;&gt;特征选择主要有两个功能：&lt;/h2&gt;
+&lt;p&gt;减少特征数量、降维，使模型泛化能力更强，减少过拟合&lt;br&gt;
+增强对特征和特征值之间的理解&lt;/p&gt;
+&lt;h2 id=&#34;从两个方面考虑来选择特征&#34;&gt;从两个方面考虑来选择特征：&lt;/h2&gt;
+&lt;p&gt;&lt;s&gt;特征是否发散&lt;/s&gt;：如果一个特征不发散，例如方差接近于0，也就是说样本在这个特征上基本上没有差异，这个特征对于样本的区分并没有什么用。&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;特征与目标的相关性&lt;/s&gt;：这点比较显见，与目标相关性高的特征，应当优选选择。&lt;/p&gt;
+&lt;h1 id=&#34;过滤式filter&#34;&gt;过滤式（filter）：&lt;/h1&gt;
+&lt;p&gt;概述：按照发散性或者相关性&lt;s&gt;对各个特征进行评分&lt;/s&gt;，设定阈值或者待选择阈值的个数，&lt;s&gt;选择特征。然后再训练学习器。&lt;s&gt;特征选择过程与&lt;/s&gt;后续学习器无关&lt;/s&gt;&lt;/p&gt;
+&lt;p&gt;方法： Relief、方差选择、相关系数、卡方检验、互信息&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;数值型特征，方差很小的特征可不要&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;分类特征,取值个数高度偏斜的那种可以先去掉&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;相关系数排序&lt;br&gt;
+选择相关系数大于阈值的部分特征；（当然有时候根据字段含义也可以选）&lt;br&gt;
+连续数据，正态分布，线性关系，用pearson相关系数是最恰当，当然用spearman相关系数也可以，效率没有pearon相关系数高。上述任一条件不满足，就用spearman相关系数，不能用pearson相关系数。&lt;br&gt;
+两个定序测量数据（顺序变量）之间也用spearman相关系数，不能用pearson相关系数。Pearson相关系数的一个明显缺陷是，作为特征排序机制，他只对线性关系敏感。如果关系是非线性的，即便两个变量具有一一对应的关系，Pearson相关性也可能会接近0。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;利用假设检验得到特征与输出值之间的相关性&lt;br&gt;
+方法有比如卡方检验、t检验、F检验等。&lt;br&gt;
+卡方检验一般是检查离散变量与离散变量的相关性，当然离散变量的相关性信息增益和信息增益比也是不错的选择（可以通过决策树模型来评估来看）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;互信息&lt;br&gt;
+利用互信息从信息熵的角度分析相关性&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;包裹式wrapper&#34;&gt;包裹式（wrapper）：&lt;/h2&gt;
+&lt;p&gt;&lt;s&gt;确定模型和评价准则之后，对特征空间的不同子集做交叉验证，进而搜索最佳特征子集&lt;/s&gt;&lt;/p&gt;
+&lt;h3 id=&#34;方法lvmlas-vegas-wrapper递归特征消除算法-基于机器学习模型的特征排序&#34;&gt;方法：LVM（Las Vegas Wrapper）递归特征消除算法, 基于机器学习模型的特征排序&lt;/h3&gt;
+&lt;h3 id=&#34;主要思想&#34;&gt;主要思想：&lt;/h3&gt;
+&lt;p&gt;包裹式从初始特征集合中不断的选择特征子集，训练学习器，根据学习器的性能来对子集进行评价，直到选择出最佳的子集。包裹式特征选择直接针对给定学习器进行优化。&lt;/p&gt;
+&lt;h3 id=&#34;优缺点&#34;&gt;优缺点：&lt;/h3&gt;
+&lt;p&gt;从最终学习器的性能来看，包裹式比过滤式更好；&lt;br&gt;
+计算开销通常比过滤式特征选择要大得多。&lt;/p&gt;
+&lt;p&gt;特征子集的搜索问题，最容易想到的办法是穷举法，还可以在拉斯维加斯方法框架下使用随机策略进行子集搜索（Las Vegas Wrapper，LVW）。但是由于LVW算法中特征子集搜索采用了随机策略，每次特征子集评价都需要训练学习器，计算开销很大，如果初始特征数很多，算法可能运行很长时间都达不到停止条件，若有运行时间限制，可能给不出解。&lt;br&gt;
+因此，我们通常使用的是贪心算法：如前向搜索（在最优的子集上逐步增加特征，直到增加特征并不能使模型性能提升为止）、后向搜索、双向搜索（将前向搜索和后向搜索相结合）。&lt;/p&gt;
+&lt;h2 id=&#34;嵌入式embedding&#34;&gt;嵌入式（embedding）：&lt;/h2&gt;
+&lt;p&gt;概述：&lt;s&gt;结合过滤式和包裹式，学习器训练过程中自动进行了特征选择&lt;/s&gt;。先使用某些机器学习的算法和模型进行训练，得到各个特征的权值系数，根据系数从大到小选择特征。&lt;/p&gt;
+&lt;h3 id=&#34;方法lrl1-决策树-lasso回归&#34;&gt;方法：LR+L1、决策树、lasso回归&lt;/h3&gt;
+&lt;h3 id=&#34;主要思想-2&#34;&gt;主要思想：&lt;/h3&gt;
+&lt;p&gt;在过滤式和包裹式特征选择方法中，特征选择过程与学习器训练过程有明显的分别。而嵌入式特征选择在学习器训练过程中自动地进行特征选择。&lt;/p&gt;
+&lt;p&gt;嵌入式选择最常用的是L1 正则化和L2正则化&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;正则化项越大，模型越简单，系数越小，&lt;s&gt;当正则化项增大到一定程度时，所有的特征系数都会趋于0，在这个过程中，会有一部分特征的系数先变成0。也就实现了特征选择过程&lt;/s&gt;。逻辑回归、线性回归、决策树都可以当作正则化选择特征的基学习器，&lt;s&gt;只有可以得到特征系数或者可以得到特征重要度的算法才可以作为嵌入式选择的基学习器。&lt;/s&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+">特征构造、选择</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/yi-chang-zhi-jian-ce/"" data-c="
+          &lt;h1 id=&#34;简单统计&#34;&gt;简单统计&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;df.describe()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-6a679dfcfb9de935.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;散点图&#34;&gt;散点图&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-6be9fc217cd4afbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;3原则&#34;&gt;3∂原则&lt;/h1&gt;
+&lt;p&gt;**这个原则有个条件：数据需要服从正态分布。**在3∂原则下，**异常值如超过3倍标准差，那么可以将其视为异常值。**正负3∂的概率是99.7%，那么距离平均值3∂之外的值出现的概率为P(|x-u| &amp;gt; 3∂) &amp;lt;= 0.003，属于极个别的小概率事件。&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-7248f7ed5f503f8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;箱型图&#34;&gt;箱型图&lt;/h1&gt;
+&lt;p&gt;利用箱型图的四分位距（IQR）对异常值进行检测&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-be96c9561d21b050.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+**四分位距(IQR)就是上四分位与下四分位的差值。**而我们通过IQR的1.5倍为标准，**规定：超过（上四分位+1.5倍IQR距离，或者下四分位-1.5倍IQR距离）的点为异常值。**下面是Python中的代码实现，主要使用了numpy的percentile方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Percentile = np.percentile(df[&#39;length&#39;],[0,25,50,75,100])
+IQR = Percentile[3] - Percentile[1]
+UpLimit = Percentile[3]+ageIQR*1.5
+DownLimit = Percentile[1]-ageIQR*1.5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;也可以使用seaborn的可视化方法boxplot来实现：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;f,ax=plt.subplots(figsize=(10,8))
+sns.boxplot(y=&#39;length&#39;,data=df,ax=ax)
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;基于模型检测&#34;&gt;基于模型检测&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;**构建一个概率分布模型，并计算对象符合该模型的概率，把具有低概率的对象视为异常点。**如果模型是簇的集合，则异常是不显著属于任何簇的对象；如果模型是回归时，异常是相对远离预测值的对象。&lt;br&gt;
+离群点的概率定义：离群点是一个对象，关于数据的概率分布模型，它具有低概率。&lt;strong&gt;这种情况的前提是必须知道数据集服从什么分布，如果估计错误就造成了重尾分布。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;优缺点：（1）有坚实的统计学理论基础，当存在充分的数据和所用的检验类型的知识时，这些检验可能非常有效；（2）对于多元数据，可用的选择少一些，并且对于高维数据，这些检测可能性很差。&lt;/p&gt;
+&lt;h1 id=&#34;基于近邻度的离群点检测&#34;&gt;基于近邻度的离群点检测&lt;/h1&gt;
+&lt;p&gt;统计方法是**利用数据的分布来观察异常值，一些方法甚至需要一些分布条件，**而在实际中数据的分布很难达到一些假设条件，在使用上有一定的局限性。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;确定数据集的有意义的邻近性度量比确定它的统计分布更容易。这种方法比统计学方法更一般、更容易使用，因为一个对象的离群点得分由到它的k-最近邻（KNN）的距离给定。&lt;br&gt;
+需要注意的是：离群点得分对k的取值高度敏感。**如果k太小，则少量的邻近离群点可能导致较低的离群点得分；**如果K太大，则点数少于k的簇中所有的对象可能都成了离群点。为了使该方案对于k的选取更具有鲁棒性，可以使用k个最近邻的平均距离。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;优缺点：（1）简单；（2）缺点：基于邻近度的方法需要O(m2)时间，大数据集不适用；（3）该方法对参数的选择也是敏感的；（4）不能处理具有不同密度区域的数据集，因为它使用全局阈值，不能考虑这种密度的变化。&lt;/p&gt;
+&lt;h1 id=&#34;基于密度的离群点检测&#34;&gt;基于密度的离群点检测&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;从基于密度的观点来说，&lt;strong&gt;离群点是在低密度区域中的对象。基于密度的离群点检测与基于邻近度的离群点检测密切相关，因为密度通常用邻近度定义。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;一种常用的定义密度的方法是，定义密度为到k个最近邻的平均距离的倒数。如果该距离小，则密度高，反之亦然。另一种密度定义是使用&lt;strong&gt;DBSCAN聚类&lt;/strong&gt;算法使用的密度定义，即一个对象周围的密度等于该对象指定距离d内对象的个数。&lt;/p&gt;
+&lt;p&gt;优缺点：（1）给出了对象是离群点的定量度量，并且即使数据具有不同的区域也能够很好的处理；（2）与基于距离的方法一样，这些方法必然具有O(m2)的时间复杂度。对于低维数据使用特定的数据结构可以达到O(mlogm)；（3）参数选择是困难的。虽然LOF算法通过观察不同的k值，然后取得最大离群点得分来处理该问题，但是，仍然需要选择这些值的上下界。&lt;/p&gt;
+&lt;h1 id=&#34;基于聚类的方法来做异常点检测&#34;&gt;基于聚类的方法来做异常点检测&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;基于聚类的离群点：一个对象是基于聚类的离群点，如果该对象不强属于任何簇，那么该对象属于离群点。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;离群点对初始聚类的影响：如果通过聚类检测离群点，则由于离群点影响聚类，存在一个问题：结构是否有效。**这也是k-means算法的缺点，对离群点敏感。**为了处理该问题，可以使用如下方法：对象聚类，删除离群点，对象再次聚类（这个不能保证产生最优结果）。&lt;/p&gt;
+&lt;p&gt;优缺点：（1）基于线性和接近线性复杂度（k均值）的聚类技术来发现离群点可能是高度有效的；（2）簇的定义通常是离群点的补，因此可能同时发现簇和离群点；（3）产生的离群点集和它们的得分可能非常依赖所用的簇的个数和数据中离群点的存在性；（4）聚类算法产生的簇的质量对该算法产生的离群点的质量影响非常大。&lt;/p&gt;
+&lt;h1 id=&#34;专门的离群点检测&#34;&gt;专门的离群点检测&lt;/h1&gt;
+&lt;p&gt;其实以上说到聚类方法的本意是是无监督分类，并不是为了寻找离群点的，只是恰好它的功能可以实现离群点的检测，算是一个衍生的功能。&lt;/p&gt;
+&lt;p&gt;除了以上提及的方法，还有两个专门用于检测异常点的方法比较常用：&lt;strong&gt;One Class SVM和Isolation Forest&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;!-- more --&gt;
+">异常值检测</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/yi-chang-zhi-chu-li/"" data-c="
           &lt;h1 id=&#34;异常值检测特征分为类别特征和数字特征&#34;&gt;异常值检测特征分为类别特征和数字特征&lt;/h1&gt;
 &lt;h2 id=&#34;数字特征&#34;&gt;数字特征&lt;/h2&gt;
@@ -1436,7 +1572,7 @@ df[&#39;price&#39;].fillna(df[&#39;price&#39;].median())
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-bea64e5029c97e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-58b1f785ea1bdd02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;常见的特征工程包括：&lt;/p&gt;
-&lt;h1 id=&#34;异常处理&#34;&gt;&lt;a href=&#34;https://dingtom.github.io/post/feature_enginneering/yi-chang-zhi-chu-li/&#34;&gt;异常处理：&lt;/a&gt;&lt;/h1&gt;
+&lt;h1 id=&#34;异常处理&#34;&gt;&lt;a href=&#34;https://dingtom.github.io/post/yi-chang-zhi-chu-li/&#34;&gt;异常处理：&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;通过箱线图（或 3-Sigma）分析删除异常值；&lt;br&gt;
 BOX-COX 转换（处理有偏分布）；&lt;br&gt;
 长尾截断；&lt;/p&gt;
