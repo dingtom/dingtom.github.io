@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>特征构造、选择 | Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1606793993975">
+<link rel="shortcut icon" href="/favicon.ico?v=1606969207426">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -211,7 +211,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">19</span>
+        <span class="site-item-stat-count">20</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -666,6 +666,10 @@ LR 属于广义线性模型，表达能力有限，<s>经过离散化后，每�
   </div>
   <div class="nav">
     <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="模型调参" href="https://dingtom.github.io/post/mo-xing-diao-can/">模型调参</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="模型调参" href="https://dingtom.github.io/post/mo-xing-diao-can/">上一篇</a>
       
     </div>
     <div class="nav-next">
@@ -1174,6 +1178,126 @@ LR 属于广义线性模型，表达能力有限，<s>经过离散化后，每�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/mo-xing-diao-can/"" data-c="
+          &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-48e19a2cced9c78e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;贪心调参-坐标下降&#34;&gt;贪心调参 （坐标下降）&lt;/h1&gt;
+&lt;p&gt;所谓贪心算法是指，在对问题求解时，总是做出在&lt;s&gt;当前看来是最好的选择。也就是说，不从整体最优上加以考虑，它所做出的仅仅是在某种意义上的**局部最优解&lt;/s&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;s&gt;选择的贪心策略必须具备无后效性（即某个状态以后的过程不会影响以前的状态，只与当前状态有关。）&lt;/s&gt;&lt;/p&gt;
+&lt;h2 id=&#34;贪心算法的基本思路&#34;&gt;贪心算法的基本思路&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1.建立数学模型来描述问题&lt;br&gt;
+2.把求解的问题分成若干个子问题&lt;br&gt;
+3.对每个子问题求解，得到子问题的局部最优解&lt;br&gt;
+4.把子问题的解局部最优解合成原来问题的一个解&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;例子&#34;&gt;例子&lt;/h2&gt;
+&lt;p&gt;有一个背包，最多能承载150斤的重量，现在有7个物品，重量分别为[35, 30, 60, 50, 40, 10, 25]，它们的价值分别为[10, 40, 30, 50, 35, 40, 30]&lt;/p&gt;
+&lt;p&gt;分别求出子问题的最优解再堆叠出全局最优解&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;按照制订的规则（价值）进行计算，顺序是：4 2 6 5 。&lt;br&gt;
+最终的总重量是：130。&lt;br&gt;
+最终的总价值是：165。&lt;br&gt;
+按照制订的规则（重量）进行计算，顺序是：6 7 2 1 5 。&lt;br&gt;
+最终的总重量是：140。&lt;br&gt;
+最终的总价值是：155。&lt;br&gt;
+按照制订的规则（单位密度）进行计算，顺序是：6 2 7 4 1。&lt;br&gt;
+最终的总重量是：150。&lt;br&gt;
+最终的总价值是：170。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;三、该算法存在的问题&lt;br&gt;
+不能保证求得的最后解是最佳的&lt;br&gt;
+不能用来求最大值或最小值的问题&lt;br&gt;
+只能求满足某些约束条件的可行解的范围&lt;br&gt;
+四、贪心算法适用的问题&lt;/p&gt;
+&lt;h2 id=&#34;贪心策略适用的前提是&#34;&gt;贪心策略适用的前提是：&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1、原问题复杂度过高；&lt;br&gt;
+2、求全局最优解的数学模型难以建立；&lt;br&gt;
+3、求全局最优解的计算量过大；&lt;br&gt;
+4、没有太大必要一定要求出全局最优解，“比较优”就可以。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;坐标下降法是一类优化算法，其最大的优势在于不用计算待优化的目标函数的梯度。不循环使用各个参数进行调整，而是贪心地选取了对整体模型性能影响最大的参数。参数对整体模型性能的影响力是动态变化的，故每一轮坐标选取的过程中，这种方法在对每个坐标的下降方向进行一次直线搜索（line search）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#  -------------------------------贪心调参 （坐标下降）-----------------------------------
+objective = [&#39;regression&#39;, &#39;regression_l1&#39;, &#39;mape&#39;, &#39;huber&#39;, &#39;fair&#39;]
+num_leaves = [3, 5, 10, 15, 20, 40, 55]
+max_depth = [3, 5, 10, 15, 20, 40, 55]
+greedy_parameters_lgb = dict()
+greedy_score = 100
+for o in objective:
+    score = np.mean(cross_val_score(LGBMRegressor(objective=o), 
+                                    X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                                    scoring=make_scorer(mean_absolute_error)))
+    if greedy_score &amp;gt; score:
+        greedy_parameters_lgb[&#39;objective&#39;] = o
+        greedy_score = score
+greedy_score = 100
+for l in num_leaves:
+    score = np.mean(cross_val_score(LGBMRegressor(objective=greedy_parameters_lgb[&#39;objective&#39;],
+                                                  num_leaves=l), 
+                                    X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                                    scoring=make_scorer(mean_absolute_error)))
+    if greedy_score &amp;gt; score:
+        greedy_parameter_lgb[&#39;num_leaves&#39;] = l
+        greedy_score = score
+greedy_score = 100
+for d in max_depth:
+    score = np.mean(cross_val_score(LGBMRegressor(objective=greedy_parameters_lgb[&#39;objective&#39;],
+                                                  num_leaves=greedy_parameters_lgb[&#39;num_leaves&#39;],
+                                                  max_depth=d), 
+                                    X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                                    scoring=make_scorer(mean_absolute_error)))
+    if greedy_score &amp;gt; score:
+        greedy_parameters_lgb[&#39;max_depth&#39;] = d
+        greedy_score = score
+print(greedy_parameter_lgb)  
+print(np.mean(cross_val_score(LGBMRegressor(**greedy_parameter_lgb), 
+                        X=x_train_tree, y=y_train_tree, verbose=0, cv=5, scoring=make_scorer(mean_absolute_error))))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;网格调参gridsearchcv&#34;&gt;网格调参GridSearchCV&lt;/h1&gt;
+&lt;p&gt;作用是在指定的范围内可以自动调参，只需将参数输入即可得到最优化的结果和参数。相对于人工调参更省时省力，相对于for循环方法更简洁灵活，不易出错。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; # ------------------------------------Grid Search 调参---------------------------------
+clf_lgb = GridSearchCV(LGBMRegressor(), cv=5,
+                       {&#39;objective&#39;: [&#39;regression&#39;, &#39;regression_l1&#39;, &#39;mape&#39;, &#39;huber&#39;, &#39;fair&#39;],
+                        &#39;num_leaves&#39;: [3, 5, 10, 15, 20, 40, 55], 
+                        &#39;max_depth&#39;: [3, 5, 10, 15, 20, 40, 55]})
+clf_lgb = clf.fit(x_train_tree, y_train_tree)
+print(clf_lgb.best_params_)
+print(np.mean(cross_val_score(LGBMRegressor(**clf_lgb.best_params_), 
+                        X=x_train_tree, y=y_train_tree, verbose=0, cv=5, scoring=make_scorer(mean_absolute_error))))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;贝叶斯调参&#34;&gt;贝叶斯调参&lt;/h1&gt;
+&lt;p&gt;贝叶斯优化&lt;s&gt;通过基于目标函数的过去评估结果建立替代函数（概率模型），来找到最小化目标函数的值&lt;/s&gt;。贝叶斯方法与随机或网格搜索的不同之处在于，它~~在尝试下一组超参数时，会参考之前的评估结果，因此可以省去很多无用功。~~超参数的评估代价很大，因为它要求使用待评估的超参数训练一遍模型，而许多深度学习模型动则几个小时几天才能完成训练，并评估模型，因此耗费巨大。贝叶斯调参发使用不断更新的概率模型，通过推断过去的结果来“集中”有希望的超参数。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# -----------------------------------------贝叶斯调参--------------------------
+def bayes_cv_lgb(num_leaves, max_depth, subsample, min_child_samples):
+    val = cross_val_score(LGBMRegressor(objective=&#39;regression_l1&#39;,
+                                        num_leaves=int(num_leaves),  
+                                        # 优化只能优化连续超参数加上int()转为离散超参数。
+                                        max_depth=int(max_depth),
+                                        subsample = subsample,
+                                        min_child_samples = int(min_child_samples)),
+                          X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                          scoring=make_scorer(mean_absolute_error)).mean()
+    return 1 - val  # 只支持最大值，需要在前面加上负号，
+
+
+bo_lgb = BayesianOptimization(bayes_cv,
+                             {&#39;num_leaves&#39;: (2, 100), 
+                              &#39;max_depth&#39;: (2, 100),
+                              &#39;subsample&#39;: (0.1, 1),
+                              &#39;min_child_samples&#39; : (2, 100)})
+bo_lgb.maximize()
+print(bo_lgb.max)
+bo_parameters_lgb = bo_lgb.max[&#39;params&#39;]
+for i in [&#39;num_leaves&#39;, &#39;max_depth&#39;, &#39;min_child_samples&#39;]:
+    bo_parameters_lgb[i] = int(bo_parameters_lgb[i])
+print(np.mean(cross_val_score(LGBMRegressor(**bo_parameters), 
+                        X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                        scoring=make_scorer(mean_absolute_error)))    )
+&lt;/code&gt;&lt;/pre&gt;
+">模型调参</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/te-zheng-gou-zao-xuan-ze/"" data-c="

@@ -8,7 +8,7 @@
 <meta name="keywords" content="tomding博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
-<title>Tomding&#39;s Blog</title>
+<title>模型调参 | Tomding&#39;s Blog</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1606969207426">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,6 +38,8 @@
 
 
 
+  <meta name="description" content="模型调参" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -170,10 +172,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  gemini">
+      class="section-layout gemini ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body gemini" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -230,118 +248,467 @@
   </div>
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li><a href="#%E8%B4%AA%E5%BF%83%E8%B0%83%E5%8F%82-%E5%9D%90%E6%A0%87%E4%B8%8B%E9%99%8D">贪心调参 （坐标下降）</a>
+<ul>
+<li><a href="#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF">贪心算法的基本思路</a></li>
+<li><a href="#%E4%BE%8B%E5%AD%90">例子</a></li>
+<li><a href="#%E8%B4%AA%E5%BF%83%E7%AD%96%E7%95%A5%E9%80%82%E7%94%A8%E7%9A%84%E5%89%8D%E6%8F%90%E6%98%AF">贪心策略适用的前提是：</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BD%91%E6%A0%BC%E8%B0%83%E5%8F%82gridsearchcv">网格调参GridSearchCV</a></li>
+<li><a href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E8%B0%83%E5%8F%82">贝叶斯调参</a></li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'gemini';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box tag-line box-shadow-wrapper">
-          <section class="section tags-section posts-expand bg-color">
-            <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          题
-          <small class="language" data-lan="tag">标签</small>
-        </h2>
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
       </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://dingtom.github.io/post/mian-shi-3ji-suan-ji-ji-chu/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              11-26
-              <small>面试3（计算机基础）</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://dingtom.github.io/post/mo-xing-diao-can/">
+      模型调参
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2020-12-01 11:40:40">2020-12-01</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>6<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>1255<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-48e19a2cced9c78e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<h1 id="贪心调参-坐标下降">贪心调参 （坐标下降）</h1>
+<p>所谓贪心算法是指，在对问题求解时，总是做出在<s>当前看来是最好的选择。也就是说，不从整体最优上加以考虑，它所做出的仅仅是在某种意义上的**局部最优解</s>。</p>
+<p><s>选择的贪心策略必须具备无后效性（即某个状态以后的过程不会影响以前的状态，只与当前状态有关。）</s></p>
+<h2 id="贪心算法的基本思路">贪心算法的基本思路</h2>
+<blockquote>
+<p>1.建立数学模型来描述问题<br>
+2.把求解的问题分成若干个子问题<br>
+3.对每个子问题求解，得到子问题的局部最优解<br>
+4.把子问题的解局部最优解合成原来问题的一个解</p>
+</blockquote>
+<h2 id="例子">例子</h2>
+<p>有一个背包，最多能承载150斤的重量，现在有7个物品，重量分别为[35, 30, 60, 50, 40, 10, 25]，它们的价值分别为[10, 40, 30, 50, 35, 40, 30]</p>
+<p>分别求出子问题的最优解再堆叠出全局最优解</p>
+<blockquote>
+<p>按照制订的规则（价值）进行计算，顺序是：4 2 6 5 。<br>
+最终的总重量是：130。<br>
+最终的总价值是：165。<br>
+按照制订的规则（重量）进行计算，顺序是：6 7 2 1 5 。<br>
+最终的总重量是：140。<br>
+最终的总价值是：155。<br>
+按照制订的规则（单位密度）进行计算，顺序是：6 2 7 4 1。<br>
+最终的总重量是：150。<br>
+最终的总价值是：170。</p>
+</blockquote>
+<p>三、该算法存在的问题<br>
+不能保证求得的最后解是最佳的<br>
+不能用来求最大值或最小值的问题<br>
+只能求满足某些约束条件的可行解的范围<br>
+四、贪心算法适用的问题</p>
+<h2 id="贪心策略适用的前提是">贪心策略适用的前提是：</h2>
+<blockquote>
+<p>1、原问题复杂度过高；<br>
+2、求全局最优解的数学模型难以建立；<br>
+3、求全局最优解的计算量过大；<br>
+4、没有太大必要一定要求出全局最优解，“比较优”就可以。</p>
+</blockquote>
+<p>坐标下降法是一类优化算法，其最大的优势在于不用计算待优化的目标函数的梯度。不循环使用各个参数进行调整，而是贪心地选取了对整体模型性能影响最大的参数。参数对整体模型性能的影响力是动态变化的，故每一轮坐标选取的过程中，这种方法在对每个坐标的下降方向进行一次直线搜索（line search）</p>
+<pre><code>#  -------------------------------贪心调参 （坐标下降）-----------------------------------
+objective = ['regression', 'regression_l1', 'mape', 'huber', 'fair']
+num_leaves = [3, 5, 10, 15, 20, 40, 55]
+max_depth = [3, 5, 10, 15, 20, 40, 55]
+greedy_parameters_lgb = dict()
+greedy_score = 100
+for o in objective:
+    score = np.mean(cross_val_score(LGBMRegressor(objective=o), 
+                                    X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                                    scoring=make_scorer(mean_absolute_error)))
+    if greedy_score &gt; score:
+        greedy_parameters_lgb['objective'] = o
+        greedy_score = score
+greedy_score = 100
+for l in num_leaves:
+    score = np.mean(cross_val_score(LGBMRegressor(objective=greedy_parameters_lgb['objective'],
+                                                  num_leaves=l), 
+                                    X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                                    scoring=make_scorer(mean_absolute_error)))
+    if greedy_score &gt; score:
+        greedy_parameter_lgb['num_leaves'] = l
+        greedy_score = score
+greedy_score = 100
+for d in max_depth:
+    score = np.mean(cross_val_score(LGBMRegressor(objective=greedy_parameters_lgb['objective'],
+                                                  num_leaves=greedy_parameters_lgb['num_leaves'],
+                                                  max_depth=d), 
+                                    X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                                    scoring=make_scorer(mean_absolute_error)))
+    if greedy_score &gt; score:
+        greedy_parameters_lgb['max_depth'] = d
+        greedy_score = score
+print(greedy_parameter_lgb)  
+print(np.mean(cross_val_score(LGBMRegressor(**greedy_parameter_lgb), 
+                        X=x_train_tree, y=y_train_tree, verbose=0, cv=5, scoring=make_scorer(mean_absolute_error))))
+</code></pre>
+<h1 id="网格调参gridsearchcv">网格调参GridSearchCV</h1>
+<p>作用是在指定的范围内可以自动调参，只需将参数输入即可得到最优化的结果和参数。相对于人工调参更省时省力，相对于for循环方法更简洁灵活，不易出错。</p>
+<pre><code> # ------------------------------------Grid Search 调参---------------------------------
+clf_lgb = GridSearchCV(LGBMRegressor(), cv=5,
+                       {'objective': ['regression', 'regression_l1', 'mape', 'huber', 'fair'],
+                        'num_leaves': [3, 5, 10, 15, 20, 40, 55], 
+                        'max_depth': [3, 5, 10, 15, 20, 40, 55]})
+clf_lgb = clf.fit(x_train_tree, y_train_tree)
+print(clf_lgb.best_params_)
+print(np.mean(cross_val_score(LGBMRegressor(**clf_lgb.best_params_), 
+                        X=x_train_tree, y=y_train_tree, verbose=0, cv=5, scoring=make_scorer(mean_absolute_error))))
+</code></pre>
+<h1 id="贝叶斯调参">贝叶斯调参</h1>
+<p>贝叶斯优化<s>通过基于目标函数的过去评估结果建立替代函数（概率模型），来找到最小化目标函数的值</s>。贝叶斯方法与随机或网格搜索的不同之处在于，它~~在尝试下一组超参数时，会参考之前的评估结果，因此可以省去很多无用功。~~超参数的评估代价很大，因为它要求使用待评估的超参数训练一遍模型，而许多深度学习模型动则几个小时几天才能完成训练，并评估模型，因此耗费巨大。贝叶斯调参发使用不断更新的概率模型，通过推断过去的结果来“集中”有希望的超参数。</p>
+<pre><code># -----------------------------------------贝叶斯调参--------------------------
+def bayes_cv_lgb(num_leaves, max_depth, subsample, min_child_samples):
+    val = cross_val_score(LGBMRegressor(objective='regression_l1',
+                                        num_leaves=int(num_leaves),  
+                                        # 优化只能优化连续超参数加上int()转为离散超参数。
+                                        max_depth=int(max_depth),
+                                        subsample = subsample,
+                                        min_child_samples = int(min_child_samples)),
+                          X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                          scoring=make_scorer(mean_absolute_error)).mean()
+    return 1 - val  # 只支持最大值，需要在前面加上负号，
+
+
+bo_lgb = BayesianOptimization(bayes_cv,
+                             {'num_leaves': (2, 100), 
+                              'max_depth': (2, 100),
+                              'subsample': (0.1, 1),
+                              'min_child_samples' : (2, 100)})
+bo_lgb.maximize()
+print(bo_lgb.max)
+bo_parameters_lgb = bo_lgb.max['params']
+for i in ['num_leaves', 'max_depth', 'min_child_samples']:
+    bo_parameters_lgb[i] = int(bo_parameters_lgb[i])
+print(np.mean(cross_val_score(LGBMRegressor(**bo_parameters), 
+                        X=x_train_tree, y=y_train_tree, verbose=0, cv=5, 
+                        scoring=make_scorer(mean_absolute_error)))    )
+</code></pre>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      Tomding
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://dingtom.github.io/post/mo-xing-diao-can/" title="模型调参">https://dingtom.github.io/post/mo-xing-diao-can/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="特征构造、选择" href="https://dingtom.github.io/post/te-zheng-gou-zao-xuan-ze/">特征构造、选择</a>
+        <a class="nav-mobile-next" title="特征构造、选择" href="https://dingtom.github.io/post/te-zheng-gou-zao-xuan-ze/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
 </div>
-          </section>
+            
+            
+  
+
+          </div>
         </div>
       </div>
     </div>
@@ -570,6 +937,253 @@
   }
 
 </script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px;border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        window.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        window.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        window.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        window.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      window.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
   </div>
 </body>
 
@@ -4305,6 +4919,5 @@ echo $?&lt;/p&gt;
   // Using config rendering effect at 'element'.
   const cn = new CanvasNest(document.querySelector('.snow-container'), config);
   </script>
-
 
 </html>
