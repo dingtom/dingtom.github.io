@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>缺失值处理 | Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1607068499542">
+<link rel="shortcut icon" href="/favicon.ico?v=1607087939329">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -1999,12 +1999,12 @@ Python是一门垃圾收集语言，这意味着当一个变量不再被使用�
 &lt;h4 id=&#34;杀掉容器kill&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-kill-command.html&#34;&gt;杀掉容器：kill&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;快速停止容器&lt;/p&gt;
 &lt;h4 id=&#34;删除容器rm&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-rm-command.html&#34;&gt;删除容器：rm&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;docker rm -f &amp;lt;container id&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker rm -f container_id&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;暂停恢复容器中进程pauseunpause&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-pause-unpause-command.html&#34;&gt;暂停/恢复容器中进程：pause/unpause&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;如果只是希望容器暂停工作一段时间，比如对容器的文件系统大打个快照，或者 docker host 需要使用 CPU，这是可以执行 docker pause 将其暂停。处于暂停状态的容器不会占用 CPU，直到通过 docker unpause 恢复运行。&lt;/p&gt;
 &lt;h4 id=&#34;创建容器create&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-create-command.html&#34;&gt;创建容器：create&lt;/a&gt;&lt;/h4&gt;
 &lt;h4 id=&#34;进入容器exec&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-exec-command.html&#34;&gt;进入容器：exec&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;docker exec -it &amp;lt;container id&amp;gt; bash&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker exec -it container_id bash&lt;/code&gt;&lt;/p&gt;
 &lt;h3 id=&#34;容器操作&#34;&gt;容器操作&lt;/h3&gt;
 &lt;h4 id=&#34;查看正在运行的容器ps&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-ps-command.html&#34;&gt;查看正在运行的容器：ps&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;docker ps&lt;/code&gt;&lt;/p&gt;
@@ -2018,7 +2018,7 @@ Python是一门垃圾收集语言，这意味着当一个变量不再被使用�
 &lt;h4 id=&#34;port&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-port-command.html&#34;&gt;port&lt;/a&gt;&lt;/h4&gt;
 &lt;h3 id=&#34;容器rootfs命令&#34;&gt;容器rootfs命令&lt;/h3&gt;
 &lt;h4 id=&#34;从容器创建一个新的镜像commit&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-commit-command.html&#34;&gt;从容器创建一个新的镜像：commit&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;docker commit &amp;lt;container id&amp;gt; &amp;lt;mirror name&amp;gt;&lt;/code&gt;我们修改过后的容器保存成镜像，重新运行，它可以保持这个变化&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker commit container_id mirror_name&lt;/code&gt;我们修改过后的容器保存成镜像，重新运行，它可以保持这个变化&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;-a :提交的镜像作者；&lt;br&gt;
 -c :使用Dockerfile指令来创建镜像；&lt;br&gt;
@@ -2038,15 +2038,15 @@ Python是一门垃圾收集语言，这意味着当一个变量不再被使用�
 &lt;h4 id=&#34;查看镜像列表images&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-images-command.html&#34;&gt;查看镜像列表：images&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;docker images&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;删除镜像rmi&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-rmi-command.html&#34;&gt;删除镜像：rmi&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;docker rmi &amp;lt;mirror name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker rmi mirror_name&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;tag&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-tag-command.html&#34;&gt;tag&lt;/a&gt;&lt;/h4&gt;
 &lt;h4 id=&#34;使用dockerfile构建镜像build&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-build-command.html&#34;&gt;使用Dockerfile构建镜像：build&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;docker build -t &amp;lt;mirror name&amp;gt; &amp;lt;存放Dockerfile的文件夹&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker build -t mirror_name 存放Dockerfile的文件夹&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;history&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-history-command.html&#34;&gt;history&lt;/a&gt;&lt;/h4&gt;
 &lt;h4 id=&#34;镜像保存为tarsave&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-save-command.html&#34;&gt;镜像保存为tar：save&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;docker save &amp;lt;mirror name&amp;gt; &amp;gt; &amp;lt;tar name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker save mirror_name &amp;gt; .tar&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;从tar加载镜像load&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-load-command.html&#34;&gt;从tar加载镜像：load&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;docker load &amp;lt; &amp;lt;tar name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker load &amp;lt; .tar&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;import&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-import-command.html&#34;&gt;import&lt;/a&gt;&lt;/h4&gt;
 &lt;h3 id=&#34;infoversion&#34;&gt;info|version&lt;/h3&gt;
 &lt;h4 id=&#34;info&#34;&gt;&lt;a href=&#34;https://www.runoob.com/docker/docker-info-command.html&#34;&gt;info&lt;/a&gt;&lt;/h4&gt;
