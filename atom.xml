@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dingtom.github.io</id>
     <title>Tomding&apos;s Blog</title>
-    <updated>2020-12-03T04:20:14.639Z</updated>
+    <updated>2020-12-04T07:37:07.940Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dingtom.github.io"/>
     <link rel="self" href="https://dingtom.github.io/atom.xml"/>
@@ -887,14 +887,17 @@ Python是一门垃圾收集语言，这意味着当一个变量不再被使用�
 --name name：指定容器名称<br>
 -v &lt;外部 dir&gt;:&lt; 内部 dir&gt;：目录映射<br>
 <mirror name>:<version>：指定映像版本<br>
--it：容器的 Shell 映射到当前的 Shell，然后你在本机窗口输入的命令，就会传入容器。<br>
---link：将另一个容器映射到本容器，进行通信</p>
+-it：在容器启动后直接进入<br>
+--link：将另一个容器映射到本容器，进行通信<br>
+--restart=always：因某种错误而停止运行时，能够自动重启</p>
 </blockquote>
 <h4 id="启动停止重启容器startstoprestart"><a href="https://www.runoob.com/docker/docker-start-stop-restart-command.html">启动/停止/重启容器：start/stop/restart</a></h4>
 <h4 id="杀掉容器kill"><a href="https://www.runoob.com/docker/docker-kill-command.html">杀掉容器：kill</a></h4>
+<p>快速停止容器</p>
 <h4 id="删除容器rm"><a href="https://www.runoob.com/docker/docker-rm-command.html">删除容器：rm</a></h4>
 <p><code>docker rm -f &lt;container id&gt;</code></p>
 <h4 id="暂停恢复容器中进程pauseunpause"><a href="https://www.runoob.com/docker/docker-pause-unpause-command.html">暂停/恢复容器中进程：pause/unpause</a></h4>
+<p>如果只是希望容器暂停工作一段时间，比如对容器的文件系统大打个快照，或者 docker host 需要使用 CPU，这是可以执行 docker pause 将其暂停。处于暂停状态的容器不会占用 CPU，直到通过 docker unpause 恢复运行。</p>
 <h4 id="创建容器create"><a href="https://www.runoob.com/docker/docker-create-command.html">创建容器：create</a></h4>
 <h4 id="进入容器exec"><a href="https://www.runoob.com/docker/docker-exec-command.html">进入容器：exec</a></h4>
 <p><code>docker exec -it &lt;container id&gt; bash</code></p>
@@ -926,6 +929,7 @@ Python是一门垃圾收集语言，这意味着当一个变量不再被使用�
 <p><code>docker pull nginx（等效于nginx:latest）</code></p>
 <h4 id="push"><a href="https://www.runoob.com/docker/docker-push-command.html">push</a></h4>
 <h4 id="search"><a href="https://www.runoob.com/docker/docker-search-command.html">search</a></h4>
+<p>命令可以搜索 Docker Hub 中的镜像。</p>
 <h3 id="本地镜像管理">本地镜像管理</h3>
 <h4 id="查看镜像列表images"><a href="https://www.runoob.com/docker/docker-images-command.html">查看镜像列表：images</a></h4>
 <p><code>docker images</code></p>
@@ -959,14 +963,17 @@ Python是一门垃圾收集语言，这意味着当一个变量不再被使用�
 --name name：指定容器名称<br>
 -v &lt;外部 dir&gt;:&lt; 内部 dir&gt;：目录映射<br>
 <mirror name>:<version>：指定映像版本<br>
--it：容器的 Shell 映射到当前的 Shell，然后你在本机窗口输入的命令，就会传入容器。<br>
---link：将另一个容器映射到本容器，进行通信</p>
+-it：在容器启动后直接进入<br>
+--link：将另一个容器映射到本容器，进行通信<br>
+--restart=always：因某种错误而停止运行时，能够自动重启</p>
 </blockquote>
 <h4 id="启动停止重启容器startstoprestart"><a href="https://www.runoob.com/docker/docker-start-stop-restart-command.html">启动/停止/重启容器：start/stop/restart</a></h4>
 <h4 id="杀掉容器kill"><a href="https://www.runoob.com/docker/docker-kill-command.html">杀掉容器：kill</a></h4>
+<p>快速停止容器</p>
 <h4 id="删除容器rm"><a href="https://www.runoob.com/docker/docker-rm-command.html">删除容器：rm</a></h4>
 <p><code>docker rm -f &lt;container id&gt;</code></p>
 <h4 id="暂停恢复容器中进程pauseunpause"><a href="https://www.runoob.com/docker/docker-pause-unpause-command.html">暂停/恢复容器中进程：pause/unpause</a></h4>
+<p>如果只是希望容器暂停工作一段时间，比如对容器的文件系统大打个快照，或者 docker host 需要使用 CPU，这是可以执行 docker pause 将其暂停。处于暂停状态的容器不会占用 CPU，直到通过 docker unpause 恢复运行。</p>
 <h4 id="创建容器create"><a href="https://www.runoob.com/docker/docker-create-command.html">创建容器：create</a></h4>
 <h4 id="进入容器exec"><a href="https://www.runoob.com/docker/docker-exec-command.html">进入容器：exec</a></h4>
 <p><code>docker exec -it &lt;container id&gt; bash</code></p>
@@ -998,6 +1005,7 @@ Python是一门垃圾收集语言，这意味着当一个变量不再被使用�
 <p><code>docker pull nginx（等效于nginx:latest）</code></p>
 <h4 id="push"><a href="https://www.runoob.com/docker/docker-push-command.html">push</a></h4>
 <h4 id="search"><a href="https://www.runoob.com/docker/docker-search-command.html">search</a></h4>
+<p>命令可以搜索 Docker Hub 中的镜像。</p>
 <h3 id="本地镜像管理">本地镜像管理</h3>
 <h4 id="查看镜像列表images"><a href="https://www.runoob.com/docker/docker-images-command.html">查看镜像列表：images</a></h4>
 <p><code>docker images</code></p>
