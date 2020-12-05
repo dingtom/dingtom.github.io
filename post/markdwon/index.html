@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>markdwon | Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1607087939329">
+<link rel="shortcut icon" href="/favicon.ico?v=1607135297768">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -2340,7 +2340,8 @@ export YARN_NODEMANAGER_USER=root
     &amp;lt;/property&amp;gt;
 &amp;lt;/configuration&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;修改 hdfs-site.xml，修改为&lt;br&gt;
+&lt;p&gt;&lt;code&gt;chmod 777 /home/hadoop3/hadoop/tmp&lt;/code&gt;&lt;br&gt;
+修改 hdfs-site.xml，修改为&lt;br&gt;
 ​&lt;code&gt;vim hdfs-site.xml&lt;/code&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;configuration&amp;gt;
     &amp;lt;property&amp;gt;
@@ -2569,19 +2570,24 @@ h05
 &lt;code&gt;cd /usr/local/hadoop/bin&lt;/code&gt;&lt;br&gt;
 &lt;code&gt;./hadoop namenode -format&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;注意事项&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;
-Hadoop的临时存储目录tmp（即core-site.xml配置文件中的hadoop.tmp.dir属性，默认值是/tmp/hadoop-${user.name}），
-如果没有配置hadoop.tmp.dir属性，那么hadoop格式化时将会在/tmp目录下创建一个目录，例如在cloud用户下安装配置hadoop，那么Hadoop的临时存储目录就位于/tmp/hadoop-cloud目录下Hadoop的namenode元数据目录（即hdfs-site.xml配置文件中的dfs.namenode.name.dir属性，默认值是${hadoop.tmp.dir}/dfs/name），
-同样如果没有配置该属性，那么hadoop在格式化时将自行创建。必须注意的是在格式化前必须清楚所有子节点（即DataNode节点）dfs/name下的内容，否则在启动hadoop时子节点的守护进程会启动失败。这是由于，每一次format主节点namenode，dfs/name/current目录下的VERSION文件会产生新的clusterID、namespaceID。
-但是如果子节点的dfs/name/current仍存在，hadoop格式化时就不会重建该目录，因此形成子节点的clusterID、namespaceID与主节点（即namenode节点）的clusterID、namespaceID不一致。最终导致hadoop启动失败。
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;​sudo docker run -it --network hadoop -h &amp;quot;h01&amp;quot; --name &amp;quot;h01&amp;quot; -p 9870:9870 -p 8088:8088 hadoop_spark /bin/bash
-sudo docker run -it --network hadoop -h &amp;quot;h02&amp;quot; --name &amp;quot;h02&amp;quot; hadoop_spark /bin/bash
-​sudo docker run -it --network hadoop -h &amp;quot;h03&amp;quot; --name &amp;quot;h03&amp;quot; hadoop_spark /bin/bash
-​sudo docker run -it --network hadoop -h &amp;quot;h04&amp;quot; --name &amp;quot;h04&amp;quot; hadoop_spark /bin/bash
-​sudo docker run -it --network hadoop -h &amp;quot;h05&amp;quot; --name &amp;quot;h05&amp;quot; hadoop_spark /bin/bash
-&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Hadoop的临时存储目录tmp（即core-site.xml配置文件中的hadoop.tmp.dir属性，默认值是/tmp/hadoop-{user.name}），&lt;br&gt;
+如果没有配置hadoop.tmp.dir属性，那么hadoop格式化时将会在/tmp目录下创建一个目录，例如在cloud用户下安装配置hadoop，那么Hadoop的临时存储目录就位于/tmp/hadoop-cloud目录下Hadoop的namenode元数据目录（即hdfs-site.xml配置文件中的dfs.namenode.name.dir属性，默认{hadoop.tmp.dir}/dfs/name），&lt;br&gt;
+同样如果没有配置该属性，那么hadoop在格式化时将自行创建。必须注意的是在格式化前必须清楚所有子节点（即DataNode节点）dfs/name下的内容，否则在启动hadoop时子节点的守护进程会启动失败。这是由于，每一次format主节点namenode，dfs/name/current目录下的VERSION文件会产生新的clusterID、namespaceID。&lt;br&gt;
+但是如果子节点的dfs/name/current仍存在，hadoop格式化时就不会重建该目录，因此形成子节点的clusterID、namespaceID与主节点（即namenode节点）的clusterID、namespaceID不一致。最终导致hadoop启动失败。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;进入：&lt;br&gt;
+&lt;code&gt;​sudo docker run -it --network hadoop -h &amp;quot;h01&amp;quot; --name &amp;quot;h01&amp;quot; -p 9870:9870 -p 8088:8088 master /bin/bash&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;sudo docker run -it --network hadoop -h &amp;quot;h02&amp;quot; --name &amp;quot;h02&amp;quot; slave1 /bin/bash&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;​sudo docker run -it --network hadoop -h &amp;quot;h03&amp;quot; --name &amp;quot;h03&amp;quot; slave2 /bin/bash&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;​sudo docker run -it --network hadoop -h &amp;quot;h04&amp;quot; --name &amp;quot;h04&amp;quot; slave3 /bin/bash&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;​sudo docker run -it --network hadoop -h &amp;quot;h05&amp;quot; --name &amp;quot;h05&amp;quot; slave14 /bin/bash&lt;/code&gt;&lt;br&gt;
+退出：&lt;br&gt;
+&lt;code&gt;sudo docker commit -m &amp;quot;master&amp;quot; -a &amp;quot;tomding&amp;quot; h01 master&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;sudo docker commit -m &amp;quot;slave1&amp;quot; -a &amp;quot;tomding&amp;quot; h02 slave1&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;sudo docker commit -m &amp;quot;slave2&amp;quot; -a &amp;quot;tomding&amp;quot; h03 slave2&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;sudo docker commit -m &amp;quot;slave3&amp;quot; -a &amp;quot;tomding&amp;quot; h04 slave3&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;sudo docker commit -m &amp;quot;slave4&amp;quot; -a &amp;quot;tomding&amp;quot; h05 slave4&lt;/code&gt;&lt;/p&gt;
 ">Docker安装Hadoop</a>
       </div>
       
