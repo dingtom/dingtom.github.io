@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
 <title>Tomding&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1617034765893">
+<link rel="shortcut icon" href="/favicon.ico?v=1618621830377">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -193,19 +193,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">21</span>
+        <span class="site-item-stat-count">22</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">9</span>
+        <span class="site-item-stat-count">10</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">9</span>
+        <span class="site-item-stat-count">10</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -215,7 +215,7 @@
       <div class="sidebar-item">
         <span class="site-item-rss">
             <i class="fa fa-rss"></i>
-            <a href="https://dingtom.github.io/atom.xml" target="_blank">RSS</a>
+            <a href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
         </span>
       </div>
     
@@ -313,7 +313,11 @@
       
       
       
-      <a href="https://dingtom.github.io/post/mysql/">
+      
+      
+      
+      
+      <a href="http://localhost:4000/post/mysql/">
         <div class="motion-warpper">
           <div class="tag-post-node">
             <h1>
@@ -593,7 +597,108 @@
     <div class="result" id="result">
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/mian-shi-1za-tan/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/ji-cheng-suan-fa/"" data-c="
+          &lt;p&gt;集成学习包括Bagging方法和Boosting方法，下面详细分析这两种方法。&lt;/p&gt;
+&lt;p&gt;下面是决策树与这些算法框架进行结合所得到的新的算法：&lt;br&gt;
+1） Bagging + 决策树 = 随机森林&lt;br&gt;
+2）AdaBoost + 决策树 = 提升树&lt;br&gt;
+3）Gradient Boosting + 决策树 = GBDT&lt;/p&gt;
+&lt;h1 id=&#34;bagging即套袋法&#34;&gt;Bagging即套袋法&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Bagging法假设训练样本集服从均匀分布，即1/N。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;算法过程如下：&lt;br&gt;
+（1） 从训练样本集中&lt;strong&gt;随机可放回抽样（Bootstrapping )N次&lt;/strong&gt;，得到与训练集相同大小的训练集，重复抽样K次，&lt;strong&gt;得到K个训练集 。&lt;/strong&gt;&lt;br&gt;
+（2） 每个训练集得到一个最优模型，&lt;strong&gt;K个训练集得到K个最优模型。&lt;/strong&gt;&lt;br&gt;
+（3） 分类问题：对K个模型采用&lt;strong&gt;投票的方式得到分类结果&lt;/strong&gt;；回归问题：对K个模型的值&lt;strong&gt;求平均得到分&lt;/strong&gt;&lt;br&gt;
+类结果。&lt;br&gt;
+Bagging算法图如下：&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-baad59bd97ee443b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;boosting算法中&#34;&gt;Boosting算法中&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;每一个样本数据是有权重的，每一个学习器是有先后顺序的。在PAC（概率近似正确）的学习框架下，一定可以将弱分类器组装成一个强分类器。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;关于Boosting的两个核心问题&lt;br&gt;
+（1）每一轮如何改变训练数据的权值和概率分布？&lt;br&gt;
+通过&lt;strong&gt;提高那些在前一轮被弱学习器分错样例的权值，减小前一轮正确样例的权值，使学习器重点学习&lt;br&gt;
+分错的样本，提高学习器的性能。&lt;/strong&gt;&lt;br&gt;
+（2）通过什么方式来组合弱学习器？&lt;br&gt;
+通过&lt;strong&gt;加法模型将弱学习器进行线性组合，学习器准确率大，则相应的学习器权值大&lt;/strong&gt;；反之，则学习器&lt;br&gt;
+的权值小。即给学习器好的模型一个较大的确信度，提高学习器的性能。&lt;/p&gt;
+&lt;p&gt;Boosting算法如下图：&lt;br&gt;
+&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-defb121352f9b300.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;其中，学习器性能越好，对应的权值也越大。样本权值1初始化为1/N，即初始样本集服从均匀分&lt;br&gt;
+布，后面随着前一个学习器的结果更新样本权值。&lt;/p&gt;
+&lt;h1 id=&#34;集成学习之结合策略&#34;&gt;集成学习之结合策略&lt;/h1&gt;
+&lt;p&gt;集成学习得到多个学习器后，结合策略得到最终的结果。通常用到最多的是平均法，投票法和学习法。&lt;br&gt;
+#####平均法：简单平均、加权平均&lt;br&gt;
+适用范围：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;规模大的集成，学习的权重较多&lt;/strong&gt;，&lt;strong&gt;加权平均法易导致过拟合&lt;/strong&gt;&lt;/p&gt;
+&lt;p class=&#39;katex-block&#39;&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;H&lt;/mi&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;munderover&gt;&lt;mo&gt;∑&lt;/mo&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;/munderover&gt;&lt;msub&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;msub&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;H(x)=\sum_{i=1}^{T} w_{i} h_{i}(x)
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.08125em;&#34;&gt;H&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:3.106005em;vertical-align:-1.277669em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mop op-limits&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:1.8283360000000002em;&#34;&gt;&lt;span style=&#34;top:-1.872331em;margin-left:0em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3.05em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;mrel mtight&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-3.050005em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3.05em;&#34;&gt;&lt;/span&gt;&lt;span&gt;&lt;span class=&#34;mop op-symbol large-op&#34;&gt;∑&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;top:-4.3000050000000005em;margin-left:0em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:3.05em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34; style=&#34;margin-right:0.13889em;&#34;&gt;T&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:1.277669em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.16666666666666666em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02691em;&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.31166399999999994em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.31166399999999994em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mathdefault mtight&#34;&gt;i&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;个体学习器性能相差较大时宜使用加权平均法，相近用简单平均法&lt;/strong&gt;。$$&lt;br&gt;
+H(x)=\frac{1}{T} \sum_{i=1}^{T} h_{i}(x)&lt;/p&gt;
+&lt;p class=&#39;katex-block katex-error&#39; title=&#39;ParseError: KaTeX parse error: Expected &amp;#039;EOF&amp;#039;, got &amp;#039;#&amp;#039; at position 2: 
+#̲####投票法：
+
+绝对多数投…&#39;&gt;
+#####投票法：
+
+绝对多数投票法：某标记**超过半数**，也就是我们常说的要票过半数，否则就当会拒绝预测；
+&lt;/p&gt;
+&lt;p&gt;H(x)=\left{\begin{array}{l}{c_{j}, \quad \text { if } \sum_{i=1}^{T} h_{i}^{j}(x)&amp;gt;0.5 \sum_{k=1}^{T} \sum_{i=1}^{T} h_{i}^{k}(x)} \ {\text {reject,} \quad \text { otherwise. }}\end{array}\right.&lt;/p&gt;
+&lt;p class=&#39;katex-block&#39;&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;相&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;对&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;多&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;数&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;投&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;票&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;法&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;：&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;预&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;测&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;为&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;得&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;票&lt;/mi&gt;&lt;mo&gt;∗&lt;/mo&gt;&lt;mo&gt;∗&lt;/mo&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;最&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;多&lt;/mi&gt;&lt;mo&gt;∗&lt;/mo&gt;&lt;mo&gt;∗&lt;/mo&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;的&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;标&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;记&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;，&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;若&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;同&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;时&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;有&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;多&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;个&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;标&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;记&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;的&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;票&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;最&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;高&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;，&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;则&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;从&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;中&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;随&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;机&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;选&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;取&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;一&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;个&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;，&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;也&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;就&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;是&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;所&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;谓&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;的&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;“&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;少&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;数&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;服&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;从&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;多&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;数&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;”&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;。&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;相对多数投票法：预测为得票**最多**的标记，若同时有多个标记的票最高，则从中随机选取一个，也就是所谓的“少数服从多数”。
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.46528em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;相&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;对&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;多&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;数&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;投&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;票&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;法&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;预&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;测&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;为&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;得&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;票&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;∗&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.46528em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;∗&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;最&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;多&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;∗&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.69444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;∗&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;的&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;标&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;记&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;若&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;同&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;时&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;有&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;多&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;个&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;标&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;记&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;的&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;票&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;最&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;高&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;则&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;从&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;中&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;随&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;机&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;选&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;取&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;一&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;个&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;也&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;就&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;是&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;所&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;谓&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;的&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;“&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;少&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;数&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;服&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;从&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;多&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;数&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;”&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;。&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;H(x)=c_{a r g} \max &lt;em&gt;{j} \sum&lt;/em&gt;{i=1}^{T} h_{i}^{j}(x)&lt;/p&gt;
+&lt;p class=&#39;katex-block&#39;&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;加&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;权&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;投&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;票&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;法&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;：&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;提&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;供&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;了&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;预&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;测&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;结&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;果&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;，&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;与&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;加&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;权&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;平&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;均&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;法&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;类&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;似&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;。&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;加权投票法：提供了预测结果，与加权平均法类似。
+&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;加&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;权&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;投&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;票&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;法&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;提&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;供&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;了&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;预&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;测&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;结&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;果&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;与&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;加&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;权&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;平&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;均&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;法&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;类&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;似&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;。&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;H(x)=c_{\arg \max &lt;em&gt;{j}} \sum&lt;/em&gt;{i=1}^{T} w_{i} h_{i}^{j}(x)&lt;/p&gt;
+&lt;p class=&#39;katex-block katex-error&#39; title=&#39;ParseError: KaTeX parse error: Expected &amp;#039;EOF&amp;#039;, got &amp;#039;#&amp;#039; at position 1: #̲####学习法：
+对于学习法，…&#39;&gt;#####学习法：
+对于学习法，代表方法是stacking，当使用stacking的结合策略时， 我们不是对弱学习器的结果做简单的逻辑处理，而是再加上一层学习器，也就是说，我们**将训练集弱学习器的学习结果作为输入，**将训练集的输出作为输出，重新训练一个学习器来得到最终结果。
+ 在这种情况下，我们将弱学习器称为初级学习器，将用于结合的学习器称为次级学习器。对于测试集，我们首先用初级学习器预测一次，得到次级学习器的输入样本，再用次级学习器预测一次，得到最终的预测结果。
+![image.png](https://upload-images.jianshu.io/upload_images/18339009-d6148fe9159aa37d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+# Bagging和Boosting两者之间的区别
+
+1）训练样本集
+Bagging：训练集是有放回抽样，从原始集中选出的K组训练集是相互独立的。
+Boosting：每一次迭代的训练集不变。
+2）训练样本权重
+Bagging：每个训练样本的权重相等，即1/N。
+Boosting：根据学习器的错误率不断调整样例的权值，错误率越大，权值越大。
+3）预测函数的权重：
+Bagging：K组学习器的权重相等，即1/K。
+Boosting：学习器性能好的分配较大的权重，学习器性能差的分配较小的权重。
+4）并行计算
+Bagging：K组学习器模型可以并行生成。
+Boosting：K组学习器只能顺序生成，因为后一个模型的样本权值需要前一个学习器模型的结果。
+
+# Bagging和Boosting的方差和偏差问题讨论
+
+**1. Bagging减小模型的方差**
+bagging对样本进行有放回的重采样，学习结果是各个学习模型的平均值。由于重采样的样本集具有相似性以及使用相同的学习器模型，因此，各学习模型的结果相近，即模型有近似相等的偏差和方差。
+假设Xi为 i 组训练样本集，各组训练样本集是相互独立的，不同的训练样本集代表不同的模型，由概率论可知：
+
+![](https://upload-images.jianshu.io/upload_images/18339009-5471835509a14eb1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+大家发现了没有，**均值没变，但是方差却减小到只有原来方差的$\frac{1}{n^2}$。因此，Bagging法是显著的减小了学习器的方差。**
+
+**2. Boosting是减小模型的偏差**
+Boosting是从学习模型的优化角度去更新样本权值和分配学习器权值，因此，学习模型随着迭代次数的增加，模型偏差越来越小。Boosting是通过迭代的方式去更新模型，因此各个子模型的之间是强相关的，强相关的意思是各模型的相似度很多，且训练集一直是不变的。因此模型之和并不能降低方差。
+
+# 总结
+Bagging和Boosting方法都是把若干个学习器整合为一个学习器的方法，Bagging方法可以降低模型的方差，Boosting方法可以降低模型的偏差，在实际工作中，因情况需要选择集成方法。
+
+
+
+
+
+
+
+
+&lt;/p&gt;
+">集成算法</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/mian-shi-1za-tan/"" data-c="
           &lt;h1 id=&#34;基础知识&#34;&gt;基础知识&lt;/h1&gt;
 &lt;p&gt;对于一些企业的技术初面，面试官可能不会和你讨论项目的技术细节，而是已经准备好了一系列的面试题，此时面试就变成面试官读题，自己答题的环节。这类基础知识问答包括计算机网络、操作系统、计算机组成原理、语言特性、数据库原理等方面的内容。例如：&lt;br&gt;
 （网络）输入域名后的流程是什么？七/四层模型是怎样的？TCP 的拥塞控制方法是什么？&lt;br&gt;
@@ -738,7 +843,7 @@
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/mo-xing-diao-can/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/mo-xing-diao-can/"" data-c="
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-48e19a2cced9c78e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;h1 id=&#34;贪心调参-坐标下降&#34;&gt;贪心调参 （坐标下降）&lt;/h1&gt;
 &lt;p&gt;所谓贪心算法是指，在对问题求解时，总是做出在&lt;s&gt;当前看来是最好的选择。也就是说，不从整体最优上加以考虑，它所做出的仅仅是在某种意义上的**局部最优解&lt;/s&gt;。&lt;/p&gt;
@@ -858,7 +963,7 @@ print(np.mean(cross_val_score(LGBMRegressor(**bo_parameters),
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/te-zheng-gou-zao-xuan-ze/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/te-zheng-gou-zao-xuan-ze/"" data-c="
           &lt;h1 id=&#34;特征构造&#34;&gt;特征构造&lt;/h1&gt;
 &lt;p&gt;统计量特征：计数、求和、比例、标准差等&lt;br&gt;
 时间特征：相对时间、绝对时间，节假日，双休日等&lt;br&gt;
@@ -936,7 +1041,7 @@ LR 属于广义线性模型，表达能力有限，&lt;s&gt;经过离散化后�
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/yi-chang-zhi-jian-ce/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/yi-chang-zhi-jian-ce/"" data-c="
           &lt;h1 id=&#34;简单统计&#34;&gt;简单统计&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;df.describe()
 &lt;/code&gt;&lt;/pre&gt;
@@ -994,7 +1099,7 @@ plt.show()
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/yi-chang-zhi-chu-li/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/yi-chang-zhi-chu-li/"" data-c="
           &lt;h1 id=&#34;异常值检测特征分为类别特征和数字特征&#34;&gt;异常值检测特征分为类别特征和数字特征&lt;/h1&gt;
 &lt;h2 id=&#34;数字特征&#34;&gt;数字特征&lt;/h2&gt;
 &lt;p&gt;相关性分析、查看特征的偏度和峰度、数字特征相互之间的关系可视化、多变量互相回归关系可视化、数字特征的频数可视化&lt;/p&gt;
@@ -1041,7 +1146,7 @@ BOX-COX的变换公式：&lt;br&gt;
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/que-shi-zhi-chu-li/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/que-shi-zhi-chu-li/"" data-c="
           &lt;h1 id=&#34;删除&#34;&gt;删除&lt;/h1&gt;
 &lt;p&gt;&lt;s&gt;样本数据量十分大且缺失值不多&lt;/s&gt;的情况下非常有效，但如果样本量本身不大且缺失也不少，那么不建议使用。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#删除数据表中含有空值的行
@@ -1137,7 +1242,7 @@ df[&#39;price&#39;].fillna(df[&#39;price&#39;].median())
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/feature_enginneering/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/feature_enginneering/"" data-c="
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-bea64e5029c97e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-58b1f785ea1bdd02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;常见的特征工程包括：&lt;/p&gt;
@@ -1177,14 +1282,14 @@ Best-KS 分桶（类似利用基尼指数进行二分类）；&lt;br&gt;
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/modeling/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/modeling/"" data-c="
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-b2ff901cddb21e78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-a5371a595aa309c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 ">Modeling</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/eda/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/eda/"" data-c="
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-9ba330f1c6a54599.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;h1 id=&#34;载入各种数据科学以及可视化库&#34;&gt;载入各种数据科学以及可视化库:&lt;/h1&gt;
 &lt;p&gt;数据科学库 pandas、numpy、scipy；&lt;br&gt;
@@ -1221,7 +1326,7 @@ unique分布&lt;/p&gt;
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/python/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/python/"" data-c="
           &lt;ul&gt;
 &lt;li&gt;== 比较值，is比较ID(内存地址）&lt;/li&gt;
 &lt;li&gt;and\or逻辑比较，&amp;amp;|按位与\或&lt;/li&gt;
@@ -1515,7 +1620,7 @@ Python是一门垃圾收集语言，这意味着当一个变量不再被使用�
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/docker/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/docker/"" data-c="
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://upload-images.jianshu.io/upload_images/18339009-a16ddde40bfc6f50.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;ubuntu安装 Docker 的时候需在管理员的账号下操作。&lt;br&gt;
 &lt;code&gt;wget -qO- https://get.docker.com/ | sh&lt;/code&gt;&lt;br&gt;
@@ -1596,7 +1701,7 @@ Python是一门垃圾收集语言，这意味着当一个变量不再被使用�
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/docker-an-zhuang-hadoop/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/docker-an-zhuang-hadoop/"" data-c="
           &lt;p&gt;Docker、Java、Scala、Hadoop、 Hbase、Spark。&lt;br&gt;
 集群共有5台机器，主机名分别为 h01、h02、h03、h04、h05。其中 h01 为 master，其他的为 slave。&lt;br&gt;
 JDK 1.8、Scala 2.11.6、Hadoop 3.2.1、Hbase 2.1.3、Spark 2.4.0&lt;/p&gt;
@@ -2002,7 +2107,7 @@ h05
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/ji-zhong-qu-shi-fen-xi-chi-san-cheng-du-fen-xi/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/ji-zhong-qu-shi-fen-xi-chi-san-cheng-du-fen-xi/"" data-c="
           &lt;p&gt;&lt;a href=&#34;https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb&#34;&gt;https://github.com/dingtom/python/blob/master/%E7%BB%9F%E8%AE%A1.ipynb&lt;/a&gt;&lt;br&gt;
 `&lt;/p&gt;
 &lt;h2 id=&#34;特征统计&#34;&gt;特征统计&lt;/h2&gt;
@@ -2183,7 +2288,7 @@ plt.legend()
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/ab-ce-shi/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/ab-ce-shi/"" data-c="
           &lt;p&gt;将Web或App界面或流程的两个或多个版本，&lt;s&gt;在同一时间维度&lt;/s&gt;，分别让两个或多个属性或组成成分&lt;s&gt;相同（相似）&lt;s&gt;的访客群组访同，收集各群组的&lt;/s&gt;用户体验数据和业务数据&lt;/s&gt;，最后分析评估出&lt;s&gt;最好版本正式采用&lt;/s&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;主要应用场景&#34;&gt;主要应用场景：&lt;/h2&gt;
 &lt;p&gt;&lt;s&gt;界面设计、算法优化&lt;/s&gt;。&lt;/p&gt;
@@ -2240,7 +2345,7 @@ AB测试要分析&lt;s&gt;参与测试用户的整体分布情况&lt;/s&gt;，�
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/mian-shi-3ji-suan-ji-ji-chu/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/mian-shi-3ji-suan-ji-ji-chu/"" data-c="
           &lt;h1 id=&#34;按照二叉树的定义4个节点的二叉树有多少种&#34;&gt;按照二叉树的定义，4个节点的二叉树有多少种？&lt;/h1&gt;
 &lt;p&gt;0个节点的二叉树有1种,即f(0)=1;&lt;br&gt;
 1个节点的二叉树有1种,即f(1)=1;&lt;br&gt;
@@ -2484,7 +2589,7 @@ deepcopy深拷贝：值相等，地址不相等&lt;/p&gt;
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/markdwon/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/markdwon/"" data-c="
           &lt;h1 id=&#34;生成目录&#34;&gt;生成目录&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;[TOC]
 &lt;/code&gt;&lt;/pre&gt;
@@ -2692,7 +2797,7 @@ cond2(no)-&amp;gt;in1
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/mysql/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/mysql/"" data-c="
           &lt;h1 id=&#34;安装&#34;&gt;安装&lt;/h1&gt;
 &lt;h2 id=&#34;win&#34;&gt;win&lt;/h2&gt;
 &lt;blockquote&gt;
@@ -3220,7 +3325,7 @@ SELECT @NAME;
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/an-zhuang-nvidia-xian-qia-qu-dong/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/an-zhuang-nvidia-xian-qia-qu-dong/"" data-c="
           &lt;p&gt;查看显卡型号&lt;br&gt;
 &lt;code&gt;lsb_release -a&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;更新PCI ID数据库&lt;br&gt;
@@ -3277,7 +3382,7 @@ To remove NVIDIA Drivers:&lt;br&gt;
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/ubuntu-an-zhuang-samba-fen-xiang-wen-jian-jia/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/ubuntu-an-zhuang-samba-fen-xiang-wen-jian-jia/"" data-c="
           &lt;p&gt;安装samba服务器。&lt;br&gt;
 &lt;code&gt;sudo apt-get install samba samba-common&lt;/code&gt;&lt;br&gt;
 创建一个用于分享的samba目录。&lt;br&gt;
@@ -3311,7 +3416,7 @@ security = share
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/shell/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/shell/"" data-c="
           &lt;p&gt;&lt;code&gt;#!/bin/bash&lt;/code&gt; &lt;br&gt;
 ######! 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种 Shell。 &lt;code&gt;chmod +x ./test.sh&lt;/code&gt; #使脚本具有执行权限 &lt;code&gt;./test.sh&lt;/code&gt; #执行脚本 注意，一定要写成 ./test.sh，而不是 &lt;a href=&#34;http://test.sh/&#34;&gt;test.sh&lt;/a&gt;，运行其它二进制的程序也一样，直接写 &lt;a href=&#34;http://test.sh/&#34;&gt;test.sh&lt;/a&gt;，linux 系统会去 PATH 里寻找有没有叫 &lt;a href=&#34;http://test.sh/&#34;&gt;test.sh&lt;/a&gt; 的，而只有 /bin, /sbin, /usr/bin，/usr/sbin 等在 PATH 里，你的当前目录通常不在 PATH 里，所以写成 &lt;a href=&#34;http://test.sh/&#34;&gt;test.sh&lt;/a&gt; 是会找不到命令的，要用 ./test.sh 告诉系统说，就在当前目录找。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;/bin/sh test.sh&lt;/code&gt; # 这种方式运行的脚本，不需要在第一行指定解释器信息，写了也没用。&lt;/p&gt;
@@ -3637,7 +3742,7 @@ EOF
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://dingtom.github.io/post/linux-ming-ling/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="http://localhost:4000/post/linux-ming-ling/"" data-c="
           &lt;p&gt;Ctrl+d	键盘输入结束或退出终端&lt;br&gt;
 Ctrl+s	暂停当前程序，暂停后按下任意键恢复运行&lt;br&gt;
 Ctrl+z	将当前程序放到后台运行，恢复到前台为命令fg&lt;br&gt;
