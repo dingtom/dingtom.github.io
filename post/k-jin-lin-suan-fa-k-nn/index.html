@@ -8,7 +8,7 @@
 <meta name="keywords" content="tomding博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#212529">
-<title>1.EDA | Tomding&#39;s Blog</title>
+<title>K-近邻算法（K-NN） | Tomding&#39;s Blog</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1618753640421">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,8 +38,8 @@
 
 
 
-  <meta name="description" content="1.EDA" />
-  <meta name="keywords" content="" />
+  <meta name="description" content="K-近邻算法（K-NN）" />
+  <meta name="keywords" content="ML" />
 </head>
 
 <body>
@@ -188,14 +188,18 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E8%BD%BD%E5%85%A5%E5%90%84%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E4%BB%A5%E5%8F%8A%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93">载入各种数据科学以及可视化库:</a></li>
-<li><a href="#%E8%BD%BD%E5%85%A5%E6%95%B0%E6%8D%AE">载入数据：</a></li>
-<li><a href="#%E6%95%B0%E6%8D%AE%E6%80%BB%E8%A7%88">数据总览:</a></li>
-<li><a href="#%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E7%BC%BA%E5%A4%B1%E5%92%8C%E5%BC%82%E5%B8%B8">判断数据缺失和异常</a></li>
-<li><a href="#%E4%BA%86%E8%A7%A3%E9%A2%84%E6%B5%8B%E5%80%BC%E7%9A%84%E5%88%86%E5%B8%83">了解预测值的分布</a></li>
-<li><a href="#%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81%E5%88%86%E6%9E%90">数字特征分析</a></li>
-<li><a href="#%E7%B1%BB%E5%88%AB%E7%89%B9%E5%BE%81%E7%AE%B1%E5%BD%A2%E5%9B%BE%E5%8F%AF%E8%A7%86%E5%8C%96">类别特征箱形图可视化</a></li>
-<li><a href="#%E7%94%A8pandas_profiling%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%91%8A">用pandas_profiling生成数据报告</a></li>
+<li><a href="#k-nearest-neighbor">K-Nearest Neighbor</a>
+<ul>
+<li><a href="#%E5%8E%9F%E7%90%86">原理</a></li>
+<li><a href="#%E8%B7%9D%E7%A6%BB%E7%9A%84%E5%BA%A6%E9%87%8F%E6%96%B9%E5%BC%8F">距离的度量方式</a></li>
+<li><a href="#k-%E5%80%BC%E7%9A%84%E5%A4%A7%E5%B0%8F%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9">k 值的大小如何选择</a></li>
+<li><a href="#%E5%88%86%E7%B1%BB%E5%86%B3%E7%AD%96%E8%A7%84%E5%88%99">分类决策规则</a></li>
+</ul>
+</li>
+<li><a href="#kd%E6%A0%91">KD树</a></li>
+<li><a href="#%E6%8A%80%E5%B7%A7">技巧</a></li>
+<li><a href="#sklearn">sklearn</a></li>
+<li><a href="#numpy">numpy</a></li>
 </ul>
 
   </div>
@@ -461,8 +465,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://dingtom.github.io/post/eda/">
-      1.EDA
+    <a class="post-title-link" href="https://dingtom.github.io/post/k-jin-lin-suan-fa-k-nn/">
+      K-近邻算法（K-NN）
     </a>
   </h1>
   <div class="post-meta">
@@ -470,55 +474,134 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-11-30 16:20:15">2020-11-30</span>
+      <span class="publish-time" data-t="2021-04-18 21:46:39">2021-04-18</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://dingtom.github.io/tag/Szw2uU745/">
+        <span>ML</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2<span class="language" data-lan="minute">分钟</span></span>
+      <span>6<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>290<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1515<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/18339009-9ba330f1c6a54599.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
-<h1 id="载入各种数据科学以及可视化库">载入各种数据科学以及可视化库:</h1>
-<p>数据科学库 pandas、numpy、scipy；<br>
-可视化库 matplotlib、seabon；<br>
-其他；</p>
-<h1 id="载入数据">载入数据：</h1>
-<p>载入训练集和测试集；<br>
-简略观察数据(head()+shape)；</p>
-<h1 id="数据总览">数据总览:</h1>
-<p>通过describe()来熟悉数据的相关统计量<br>
-通过info()来熟悉数据类型</p>
-<h1 id="判断数据缺失和异常">判断数据缺失和异常</h1>
-<p>查看每列的存在nan情况<br>
-异常值检测</p>
-<h1 id="了解预测值的分布">了解预测值的分布</h1>
-<p>总体分布概况（无界约翰逊分布等）<br>
-查看skewness and kurtosis<br>
-查看预测值的具体频数<br>
-特征分为类别特征和数字特征，并对类别特征查看unique分布</p>
-<h1 id="数字特征分析">数字特征分析</h1>
-<p>相关性分析<br>
-查看几个特征得 偏度和峰值<br>
-每个数字特征得分布可视化<br>
-数字特征相互之间的关系可视化<br>
-多变量互相回归关系可视化<br>
-类型特征分析<br>
-unique分布</p>
-<h1 id="类别特征箱形图可视化">类别特征箱形图可视化</h1>
-<p>类别特征的小提琴图可视化<br>
-类别特征的柱形图可视化类别<br>
-特征的每个类别频数可视化(count_plot)</p>
-<h1 id="用pandas_profiling生成数据报告">用pandas_profiling生成数据报告</h1>
+              <h1 id="k-nearest-neighbor">K-Nearest Neighbor</h1>
+<p><img src="https://upload-images.jianshu.io/upload_images/18339009-7ea1897bd96957ce?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"><br>
+作为一种<strong>没有显式训练和学习</strong>过程的<strong>分类和回归</strong>算法，k 近邻在众多有<strong>监督机器学习</strong>算法中算是一种比较独特的方法。说它独特，是因为 k 近邻<strong>不像其他模型有损失函数、有优化算法、有训练过程</strong>。</p>
+<h2 id="原理">原理</h2>
+<p>给定一个训练数据集，对于新的输入实例，<strong>根据这个实例最近的 k 个实例所属的类别来决定其属于哪一类</strong>。所以相对于其它机器学习模型和算法，k 近邻总体上而言是一种非常简单的方法。</p>
+<h2 id="距离的度量方式">距离的度量方式</h2>
+<p>找到与该实例最近邻的实例，这里就涉及到如何找到，即在特征向量空间中，我们要采取<strong>何种方式来对距离进行度量</strong>。</p>
+<p>距离的度量用在 k 近邻中我们也可以称之为<strong>相似性度量</strong>，即特征空间中两个实例点相似程度的反映。在机器学习中，常用的距离度量方式包括欧式距离、曼哈顿距离、余弦距离以及切比雪夫距离等。**在 k 近邻算法中常用的距离度量方式是欧式距离，也即 L2 距离，**L2 距离计算公式如下：<br>
+<img src="https://upload-images.jianshu.io/upload_images/18339009-5b5f88f15c0de905.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></p>
+<h2 id="k-值的大小如何选择">k 值的大小如何选择</h2>
+<p>一般而言，k 值的大小对分类结果有着重大的影响。<strong>当选择的 k 值较小的情况下，就相当于用较小的邻域中的训练实例进行预测，只有当与输入实例较近的训练实例才会对预测结果起作用。但与此同时预测结果会对实例点非常敏感，分类器抗噪能力较差，因而容易产生过拟合</strong>，所以一般而言，k 值的选择不宜过小。但如果选择较大的 k 值，就相当于在用较大邻域中的训练实例进行预测，但相应的分类误差也会增大，模型整体变得简单，会产生一定程度的欠拟合。所以一般而言，我们需要<strong>采用交叉验证的方式来选择合适的 k 值</strong>。</p>
+<blockquote>
+<p>交叉验证的思路就是，把样本集中的大部分样本作为训练集，剩余的小部分样本用于预测，来验证分类模型的准确性。所以在 KNN 算法中，我们一般会把 K 值选取在较小的范围内，同时在验证集上准确率最高的那一个最终确定作为 K 值。</p>
+</blockquote>
+<h2 id="分类决策规则">分类决策规则</h2>
+<p>k 个实例的多数属于哪个类，明显是多数表决的归类规则。当然还可能使用其他规则，所以第三个关键就是<strong>分类决策规则。</strong><br>
+     <br>
+回归：k个实例该属性值的平均值</p>
+<h1 id="kd树">KD树</h1>
+<p>它是一个二叉树的数据结构，方便存储 K 维空间的数据</p>
+<p>KNN 的计算过程是大量计算样本点之间的距离。为了减少计算距离次数，提升 KNN 的搜索效率，人们提出了 KD 树（K-Dimensional 的缩写）。KD 树是对数据点在 K 维空间中划分的一种数据结构。在 KD 树的构造中，每个节点都是 k 维数值点的二叉树。既然是二叉树，就可以采用二叉树的增删改查操作，这样就大大提升了搜索效率。</p>
+<h1 id="技巧">技巧</h1>
+<ul>
+<li>所有的特征应该被放缩到相同的量级</li>
+<li>为了免平票的出现，K应该选择奇数</li>
+<li>投票的结果会被到近邻样本的距离归一化，这样更近的样本的投票价值更大</li>
+<li>尝试各种不同的距离度量方法</li>
+<li>k值小，低偏差，高方差<br>
+K值大，高偏差，低方差</li>
+</ul>
+<h1 id="sklearn"><a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html?highlight=neighbors%20kneighborsclassifier#sklearn.neighbors.KNeighborsClassifier">sklearn</a></h1>
+<p>如果是做分类，你需要引用：from sklearn.neihbors import KNeighborsClassifier<br>
+如果是回归， 需要引用：from sklearn.neighbors import KNeighborsRegressor</p>
+<p><code>sklearn.neighbors.KNeighborsClassifier(n_neighbors=5, weights='uniform', algorithm='auto', leaf_size=30, p=2, metric='minkowski', metric_params=None, n_jobs=None, **kwargs)</code></p>
+<ul>
+<li>weights： 预测中使用权重函数。</li>
+</ul>
+<blockquote>
+<p>uniform，代表所有邻居的权重相同；distance，代表权重是距离的倒数，即与距离成反比；</p>
+</blockquote>
+<ul>
+<li>algorithm：计算最近邻居的算法</li>
+</ul>
+<blockquote>
+<p>auto，根据数据的情况自动选择适合的算法，默认情况选择 auto；<br>
+kd_tree，也叫作 KD 树，是多维空间的数据结构，方便对关键数据进行检索，不过 KD 树适用于维度少的情况，一般维数不超过 20，如果维数大于 20 之后，效率反而会下降；<br>
+ball_tree，也叫作球树，它和 KD 树一样都是多维空间的数据结果，不同于 KD 树，球树更适用于维度大的情况；<br>
+brute，也叫作暴力搜索，它和 KD 树不同的地方是在于采用的是线性扫描，而不是通过构造树结构进行快速检索。当训练集大的时候，效率很低。</p>
+</blockquote>
+<ul>
+<li>leaf_size：构造 KD 树或球树时的叶子数，默认是 30，调整 leaf_size 会影响到树的构造和搜索速度。</li>
+<li>p：Minkowski度量的Power参数</li>
+<li>metric：树使用的距离度量</li>
+<li>n_jobsint：为邻居搜索运行的并行作业数。</li>
+</ul>
+<pre><code>from sklearn.neighbors import KNeighborsClassifier 
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from math import sqrt
+from collections import Counter
+
+iris = load_iris()
+X = iris.data
+y = iris.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+
+kNN_classifier = KNeighborsClassifier(n_neighbors=3)
+kNN_classifier.fit(X_train,y_train)
+predict_y = kNN_classifier.predict(X_test)
+
+print(predict_y,y_test)
+</code></pre>
+<h1 id="numpy">numpy</h1>
+<pre><code>from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from math import sqrt
+from collections import Counter
+
+iris = load_iris()
+X = iris.data
+y = iris.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+
+for x_t, y_t in zip(X_test, y_test):
+    # 算出和X_train中每个点的距离
+    distances = [sqrt(np.sum((x - x_t)**2)) for x in X_train] 
+    # 对到每个点的距离从小到大排序，返回排序前的索引
+    near_index = np.argsort(distances)
+    # 选取前三个最靠近的点
+    K = 3 
+    # 根据索引得到值
+    topK = [y_train[i] for i in near_index[:K]]
+    # 投票
+    votes = Counter(topK)
+    predict_y = votes.most_common(1)[0][0]
+    print(predict_y,y_t)
+</code></pre>
+<!-- more -->
 
             </div>
             
@@ -531,7 +614,7 @@ unique分布</p>
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://dingtom.github.io/post/eda/" title="1.EDA">https://dingtom.github.io/post/eda/</a>
+      <a href="https://dingtom.github.io/post/k-jin-lin-suan-fa-k-nn/" title="K-近邻算法（K-NN）">https://dingtom.github.io/post/k-jin-lin-suan-fa-k-nn/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -540,19 +623,17 @@ unique分布</p>
   </ul>
   <div class="tags">
     
+      <a href="https://dingtom.github.io/tag/Szw2uU745/"># ML</a>
+    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Modeling" href="https://dingtom.github.io/post/modeling/">Modeling</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Modeling" href="https://dingtom.github.io/post/modeling/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Python" href="https://dingtom.github.io/post/python/">Python</a>
-        <a class="nav-mobile-next" title="Python" href="https://dingtom.github.io/post/python/">下一篇</a>
+        <a class="nav-pc-next" title="相似度计算——欧氏距离,曼哈顿距离,闵可夫斯基距离,汉明距离,夹角余弦" href="https://dingtom.github.io/post/xiang-si-du-ji-suan-ou-shi-ju-chi-man-ha-dun-ju-chi-min-ke-fu-si-ji-ju-chi-han-ming-ju-chi-jia-jiao-yu-xian/">相似度计算——欧氏距离,曼哈顿距离,闵可夫斯基距离,汉明距离,夹角余弦</a>
+        <a class="nav-mobile-next" title="相似度计算——欧氏距离,曼哈顿距离,闵可夫斯基距离,汉明距离,夹角余弦" href="https://dingtom.github.io/post/xiang-si-du-ji-suan-ou-shi-ju-chi-man-ha-dun-ju-chi-min-ke-fu-si-ji-ju-chi-han-ming-ju-chi-jia-jiao-yu-xian/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
